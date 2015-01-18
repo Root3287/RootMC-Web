@@ -13,14 +13,6 @@ $mySql = array(
 		"PASSWORD"=>"password",
 		"DATABASE"=>"database"
 );
-//If you have exturnal users in a database turn extrunal to true and this will use that site users
-$ExturnalUser = array(
-	"EXTURNAL"=>false,
-	"SQLHOST"=>"localhost",
-	"SQLUSER"=>"root",
-	"SQLPASS"=>"password",
-	"database"=>""
-);
 //The configuration for your server
 $config = array(
 	"SERVERNAME"=>"SERVICE NAME",
@@ -30,7 +22,7 @@ $config = array(
 );
 //IF you want to work on the website
 $downtime = array(
-		"DOWN"=>"false",
+		"ENABLE"=>false,
 		"REASON"=>"SOME REASON HERE"
 );
 
@@ -39,9 +31,9 @@ function getMysql(){
 	if($conn->connect_error){
 		die("Error: ". $conn->connect_error);
 	}
+	return $conn;
 }
-
-function isDown(){ 
-	return $downtime['DOWN'];
+function addUser($FNAME, $LNAME, $EMAIL, $MCUSER ,$PASS){
+	
 }
 ?>
