@@ -1,4 +1,6 @@
 <?php
+	require 'php/config.php';
+	
 	$FNAME = $_POST['FirstName'];
 	$LNAME = $_POST['LastName'];
 	$EMAIL = $_POST['EMAIL'];
@@ -11,6 +13,7 @@
 	{
 		echo "YOU MUST FILL ALL FORMS!";
 	}else{
-		
+		$QUERY = "INSERT INTO users (FirstName, LastName, Email, MCUSER, UUID, Pass) "
+		getMysql()->query($query);
 	}
 ?>
