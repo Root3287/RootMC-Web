@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<title><?php echo $config['SERVERNAME']." &bull; Register"?></title>
-		<link rel="stylesheet" href="/asset/css/bootstrap.css"/>
+		<?php include 'asset/includes/css.php';?>
 	</head>
 	<body>
 		<!-- TODO: NAV -->
@@ -16,6 +16,9 @@
 					</div>
 					<div class="form-group">
 						<input type="text" name="LastName" id="LastName" placeholder="LastName"/>
+					</div>
+					<div class="form-group">
+						<input type="text" name="UName" id="UName" placeholder="User Name"/>
 					</div>
 					<div class="form-group">
 						<input type="text" name="EMAIL" id="EMAIL" placeholder="Email">
@@ -37,5 +40,6 @@
 				</form>
 			</div>
 		</div>
+		<?php include 'asset/includes/scripts.php';?>
 	</body>
 </html>
