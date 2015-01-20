@@ -4,7 +4,7 @@ require 'php/config.php';
 <html>
 	<head>
 		<title>
-			RootMC &bull; Home
+			<?php echo $config['SERVERNAME']."&bull; Home"; ?>
 		</title>
 		<?php include 'asset/includes/css.php'; ?>
 	</head>
