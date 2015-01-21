@@ -66,4 +66,5 @@ function getUser($name){
 	$QUERY = "SELECT * FROM ".$mySql['PREFIX']."_".$mySqlTables['USERS']." WHERE UNAME='".$name."' OR MCUSER='".$name."'";
 	getMysql()->query($QUERY);
 }
+$edit=false;
 ?>
