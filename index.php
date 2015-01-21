@@ -1,11 +1,12 @@
 <?php
+$page ="HOME";
 $path ="";
 require 'php/config.php';
 ?>
 <html>
 	<head>
 		<title>
-			<?php echo $config['SERVERNAME']."&bull; Home"; ?>
+			<?php echo $config['SERVERNAME']." &bull; ". $page; ?>
 		</title>
 		<?php include $path.'asset/includes/css.php'; ?>
 	</head>
