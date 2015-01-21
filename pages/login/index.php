@@ -1,10 +1,14 @@
 <?php 
-require 'php/config.php';
+$path ="../../";
+require $path.'php/config.php';
+if(file_exists("setup.php")){
+	header("Location: ".$path."pages/downtime");
+}
 ?>
 <html>
 	<head>
 		<title><?php echo $config['SERVERNAME']." &bull; LOGIN";?></title>
-		<?php include 'asset/includes/css.php';?>
+		<?php include $path.'asset/includes/css.php';?>
 	</head>
 	<body>
 		<div class="container">
@@ -22,6 +26,6 @@ require 'php/config.php';
 				</form>
 			</div>
 		</div>
-		<?php include 'asset/includes/scripts.php';?>
+		<?php include $path.'asset/includes/scripts.php';?>
 	</body>
 </html>

@@ -1,5 +1,7 @@
 <?php
-if (file_exists("setup.php")) {
+$path ="../";
+require 'MinecraftUUID.php';
+if (file_exists($path."setup.php")) {
 	// whatever you'll do, eg die();
 	die("PLEASE DELETE SETUP.PHP WHEN YOUR DONE USEING THE FILE!");
 }
@@ -10,8 +12,7 @@ $mySql = array(
 		"PORT"=>"3306",
 		"USER"=>"root",
 		"PASSWORD"=>"password",
-		"DATABASE"=>"database",
-		"PREFIX"=>"site_"
+		"DATABASE"=>"data",
 );
 // Have all the table here
 $mySqlTables=array(
@@ -58,11 +59,12 @@ function makeCookies($name,$value,$time){
 function addUser($FNAME, $LNAME, $UNAME ,$EMAIL, $MCUSER ,$PASS){
 	$profile = ProfileUtils::getProfile($MCUSER);
 	$result = $profile->getProfileAsArray();
-	$HASH = password_hash($PASS, sha256);
+	$HASH = password_hash($PASS, 'sha256');
 	$QUERY="INSERT INTO ".$mySql['PREFIX']."_".$mySqlTables['USERS']." (FIRST_NAME, LAST_NAME, UNAME ,EMAIL, MCUSER, UUID. PASSWORD) VALUES ('".$FNAME."','".$LNAME."','".$UNAME."','".$EMAIL."','".$MCUSER."','".$result['UUID']."','".$HASH."')";
 	getMysql()->query($QUERY);
 }
 function getUser($name){
+	// SELECT * FROM site_USERS WHERE UNAME=$name OR MCUSERS="$NAME"
 	$QUERY = "SELECT * FROM ".$mySql['PREFIX']."_".$mySqlTables['USERS']." WHERE UNAME='".$name."' OR MCUSER='".$name."'";
 	getMysql()->query($QUERY);
 }

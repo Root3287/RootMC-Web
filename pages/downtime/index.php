@@ -1,8 +1,8 @@
 <?php
-$path = "../";
-require 'php/config.php';
-if(!isDown()){
-	header("Location: ".$config['HomeLink']);
+$path = "../../";
+require $path.'php/config.php';
+if($downtime['ENABLE']){
+	header("Location: ".$path);
 }
 ?>
 <html>
@@ -10,13 +10,13 @@ if(!isDown()){
 		<title>
 			<?php echo $config['SERVERNAME'].' &bull; DOWN';?>
 		</title>
-		<?php include 'asset/includes/css.php';?>
+		<?php include $path.'asset/includes/css.php';?>
 	</head>
 	<body>
 		<div class="container">
 			<h1>The Site is down because of:</h1>
-			<h1><?php echo $downtime['reason']; ?></h1>
+			<h1><?php echo $downtime['REASON']; ?></h1>
 		</div>
-		<?php include 'asset/includes/scripts.php';?>
+		<?php include $path.'asset/includes/scripts.php';?>
 	</body>
 </html>

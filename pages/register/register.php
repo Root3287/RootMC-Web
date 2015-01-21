@@ -1,11 +1,12 @@
 <?php
-	require 'php/config.php';
+	$path ="../../";
+	require $path.'php/config.php';
 	
 	$FNAME = $_POST['FirstName'];
 	$LNAME = $_POST['LastName'];
-	$UNAME = $_POST['Uname'];
+	$UNAME = $_POST['UName'];
 	$EMAIL = $_POST['EMAIL'];
-	$CEMAIL = $_POST['CEMAIL'];
+	$CEMAIL = $_POST['CEmail'];
 	$MCUSER = $_POST['MCUSER'];
 	$PASS = $_POST['Password'];
 	$CPASS = $_POST['CPass'];

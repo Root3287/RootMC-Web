@@ -1,10 +1,11 @@
 <?php 
-	require 'php/config.php';
+	$path = "../../";
+	require $path.'php/config.php';
 ?>
 <html>
 	<head>
 		<title><?php echo $config['SERVERNAME']." &bull; Register"?></title>
-		<?php include 'asset/includes/css.php';?>
+		<?php include $path.'asset/includes/css.php';?>
 	</head>
 	<body>
 		<!-- TODO: NAV -->
@@ -37,9 +38,10 @@
 							<input type="text" name="CPass" id="CPass" placeholder="CONFIRM PASSWORD"/>
 						</div>
 					</div>
+					<input type="submit" value="Submit"/>
 				</form>
 			</div>
 		</div>
-		<?php include 'asset/includes/scripts.php';?>
+		<?php include $path.'asset/includes/scripts.php';?>
 	</body>
 </html>
