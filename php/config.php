@@ -1,5 +1,4 @@
 <?php
-$path ="../";
 require 'MinecraftUUID.php';
 if (file_exists($path."setup.php")) {
 	// whatever you'll do, eg die();
