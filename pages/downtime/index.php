@@ -1,5 +1,6 @@
 <?php
 $path = "../../";
+$page = "DOWN"
 require $path.'php/config.php';
 if($downtime['ENABLE']){
 	header("Location: ".$path);
@@ -8,7 +9,7 @@ if($downtime['ENABLE']){
 <html>
 	<head>
 		<title>
-			<?php echo $config['SERVERNAME'].' &bull; DOWN';?>
+			<?php echo $config['SERVERNAME']." &bull; ". $page;?>
 		</title>
 		<?php include $path.'asset/includes/css.php';?>
 	</head>
