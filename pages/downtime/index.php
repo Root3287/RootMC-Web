@@ -1,6 +1,6 @@
 <?php
 $path = "../../";
-$page = "DOWN"
+$page = "DOWN";
 require $path.'php/config.php';
 if($downtime['ENABLE']){
 	header("Location: ".$path);

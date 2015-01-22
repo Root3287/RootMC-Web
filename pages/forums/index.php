@@ -8,5 +8,8 @@ require($path."php/config.php");
     <title><?php echo $config['SERVERNAME']." &bull; ". $page?></title>
   </head>
   <body>
+  	<?php
+  		
+  	?>
   </body>
 </html>

@@ -18,18 +18,16 @@ require 'php/config.php';
 			<div class="container">
 				<div class="body">
 					<div class="jumbotron">
-						<div class="container">
-							<h1>Welcome to <?php echo $config['SERVERNAME'];?></h1>
-							<h4><?php echo $config['SERVERIP'];?></h4>
-						</div>
+						<h1>Welcome to <?php echo $config['SERVERNAME'];?></h1>
+						<h4><?php echo $config['SERVERIP'];?></h4>
 					</div>
 					<div class="news">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								test
+								NEWS
 							</div>
 							<div class="panel-body">
-							test 2
+								TODO:This is where the news goes to 
 							</div>
 						</div>
 					</div>

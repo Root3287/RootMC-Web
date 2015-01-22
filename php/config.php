@@ -37,6 +37,11 @@ function getMysql(){
 	}
 	return $conn;
 }
+function sql_query($query){
+	if($query !=''){
+		getMysql()->query($query);
+	}
+}
 function cookieTime($type,$time){
 	if($type==="years"){
 		return $time*31556926;
@@ -67,5 +72,29 @@ function getUser($name){
 	$QUERY = "SELECT * FROM ".$mySql['PREFIX']."_".$mySqlTables['USERS']." WHERE UNAME='".$name."' OR MCUSER='".$name."'";
 	getMysql()->query($QUERY);
 }
+function getCatagorie(){
+	
+}
+function getForumTopic(){
+	$query = "SELECT * FROM topics";
+	$result = getMysql()->query($query);
+	$row = $result->fetch_array();
+}
+//MYSQL QUERY:
+// SELECT * FROM table WHERE id = id 
+function sql_query_limit($query, $total, $offset = 0){
+
+// if $total is set to 0 we do not want to limit the number of rows
+if ($total == 0)
+{
+	// MySQL 4.1+ no longer supports -1 in limit queries
+	$total = '18446744073709551615';
+}
+
+$query .= "\n LIMIT " . ((!empty($offset)) ? $offset . ', ' . $total : $total);
+
+return sql_query($query);
+}
+
 $edit=false;
 ?>
