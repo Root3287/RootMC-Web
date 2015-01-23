@@ -100,8 +100,17 @@ return sql_query($query);
 * $user => mysql user
 * $rank => mysql rank
 */
-function getRank($user,$rank)
-getUser($user);
-]
+function getRank($user,$rank){
+$user_Rank = sql_query("SELECT Ranks FROM users WHERE user='".$user."'");
+$rank = sql_query("SELECT * FROM ranks");
+$row = mysql_fetch_assoc($rank);
+switch($user_Rank){
+	while($row){
+		case $row['DisplayName']:
+		return true;
+		break;
+	}
+}
+}
 $edit=false;
 ?>
