@@ -69,7 +69,7 @@ function addUser($FNAME, $LNAME, $UNAME ,$EMAIL, $MCUSER ,$PASS){
 }
 function getUser($name){
 	// SELECT * FROM site_USERS WHERE UNAME=$name OR MCUSERS="$NAME"
-	$QUERY = "SELECT * FROM ".$mySql['PREFIX']."_".$mySqlTables['USERS']." WHERE UNAME='".$name."' OR MCUSER='".$name."'";
+	$QUERY = "SELECT * FROM user WHERE UNAME='".$name."' OR MCUSER='".$name."'";
 	getMysql()->query($QUERY);
 }
 function getCatagorie(){
@@ -95,6 +95,13 @@ $query .= "\n LIMIT " . ((!empty($offset)) ? $offset . ', ' . $total : $total);
 
 return sql_query($query);
 }
-
+/*
+* PRAMS
+* $user => mysql user
+* $rank => mysql rank
+*/
+function getRank($user,$rank)
+getUser($user);
+]
 $edit=false;
 ?>
