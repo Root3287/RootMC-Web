@@ -31,8 +31,9 @@
 			 */
 			if(($FNAME !="") && ($LNAME !="") && ($UNAME !="") && ($EMAIL !="") && ($CEMAIL !="") && ($MCUSER !="") && ($PASS !="") && ($CPASS !=""))
 			{
-				addUser($FNAME, $LNAME, $UNAME,$EMAIL, $MCUSER, $PASS);
-				
+				if($PASS==$CPASS){
+					addUser($FNAME, $LNAME, $UNAME,$EMAIL, $MCUSER, $PASS);
+				}
 			}else if(($FNAME == "")){
 				echo "<div class='alert alert-danger'>You must enter a <strong>first</strong> name!</div>";
 			}else if($LNAME == ""){
