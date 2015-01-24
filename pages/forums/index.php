@@ -19,15 +19,33 @@ require($path."php/config.php");
   		if( (isset($_GET['page'])) || (isset($_GET['page']))&&(isset($_GET['c'])) || (isset($_GET['page']))&&(isset($_GET['c']))&&(isset($_GET['f'])) || (isset($_GET['page']))&&(isset($_GET['c']))&&(isset($_GET['f']))&&(isset($_GET['t'])) ){
   		  switch($_GET['page']){
   		    case "cat":
-  		      //List all the catagoies
+  		      if($_GET['c'] !=null){
+  		      	//getC
+  		      	echo"
+  				<div class='main'>
+  					<div class='nav'>";
+  						include $path.'asset/includes/nav.php';
+  				echo "
+  					</div>
+  		    		<div class='body'>
+  		    			<div class='container'>";
+  							getAllCatToHTML();
+  				echo "
+  		    			</div>
+  		      		</div>
+  				</div>
+  				";
+  		      }else{
+  		      	
+  		      }
   		      break;
                   case "forums":
   		      //LIST ALL FORUMS
   		      break;
                   case "topic":
-  		      //TOPIC PAGE HERE
+  		      
   		      break;
-  		    case default
+  		    default:
   		      //GOTO: CAT
   		      break;
   		  }
