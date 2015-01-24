@@ -18,14 +18,14 @@ require($path."php/config.php");
   	  */
   		if( (isset($_GET['page'])) || (isset($_GET['page']))&&(isset($_GET['c'])) || (isset($_GET['page']))&&(isset($_GET['c']))&&(isset($_GET['f'])) || (isset($_GET['page']))&&(isset($_GET['c']))&&(isset($_GET['f']))&&(isset($_GET['t'])) ){
   		  switch($_GET['page']){
-  		    case topic:
-  		      //TOPIC PAGE HERE
+  		    case "cat":
+  		      //List all the catagoies
   		      break;
-  		    case forums:
+                  case "forums":
   		      //LIST ALL FORUMS
   		      break;
-  		    case cat:
-  		      //List all the catagoies
+                  case "topic":
+  		      //TOPIC PAGE HERE
   		      break;
   		    case default
   		      //GOTO: CAT
