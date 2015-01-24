@@ -21,22 +21,22 @@ require($path."php/config.php");
   		    case "cat":
   		      if($_GET['c'] !=null){
   		      	//getC
-  		      	echo"
+  		      ?>
   				<div class='main'>
-  					<div class='nav'>";
-  						include $path.'asset/includes/nav.php';
-  				echo "
+  					<div class='nav'>
+  						<?php include $path.'asset/includes/nav.php';?>
   					</div>
   		    		<div class='body'>
   		    			<div class='container'>";
-  							getAllCatToHTML();
-  				echo "
+  							<?php getAllCatToHTML(); ?>
   		    			</div>
   		      		</div>
   				</div>
-  				";
+  			<?php 
   		      }else{
-  		      	
+  		      	if(catNotNull($_GET['c'])){
+  		      	//other webpage
+  		      	}
   		      }
   		      break;
                   case "forums":
