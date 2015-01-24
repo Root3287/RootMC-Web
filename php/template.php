@@ -1,5 +1,5 @@
 <?php
-$path="../";
+$path="../../"; //for each directory that it's in add another ../
 require 'php/config.php';
 ?>
 <html>
