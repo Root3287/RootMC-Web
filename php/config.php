@@ -33,6 +33,6 @@ $downtime = array(
 		"ENABLE"=>false,
 		"REASON"=>"SOME REASON HERE"
 );
-include $path.'php/functions.php';
+include 'php/functions.php';
 $edit=false;
 ?>

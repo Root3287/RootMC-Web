@@ -1,6 +1,6 @@
 <?php
 $page ="HOME";
-$path ="";
+$path ="/";
 require 'php/config.php';
 ?>
 <html>
