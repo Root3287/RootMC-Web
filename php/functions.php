@@ -106,23 +106,39 @@ function getUser($name){
 	$QUERY = "SELECT * FROM user WHERE UNAME='".$name."' OR MCUSER='".$name."'";
 	getMysql()->query($QUERY);
 }
-//COOKIES
-function cookieTime($type,$time){
-	if($type==="years"){
-		return $time*31556926;
-	}else if($type ==="monthes"){
-		return $time*2629743.83;
-	}elseif($type==="weeks"){
-		return $time*604800;
-	}else if($type==="days"){
-		return $time*86400;
-	}else if($type==="hours"){
-		return $time*3600;
-	}else if($type==="minute"){
-		return $time*60;
-	}
+function catNotNull($id){
+	$q = "SElECT * FROM cat WHERE id='".$id."'";
+	$r = getMysql()->query($q);
+	$row = mysqli_fetch_row($r);
+	return ($row[0] == 1) ? true: false;
 }
-function makeCookies($name,$value,$time){
-	setcookie($name,$value,time()+$time);
+
+//COOKIES
+//setCookie($name $value $expire)
+//setCookie(name, value, cookieTime(years , $time);
+function cookieTime($type,$time){
+	switch($type){
+		case "years":
+			return $time*31556926;
+			break;
+		case "monthes":
+			return $time*2629743.83;
+			break;
+		case "weeks":
+			return $time*604800;
+			break;
+		case "days":
+			return $time*86400;
+			break;
+		case "hours":
+			return $time*3600;
+			break;
+		case "minutes":
+			return $time*60;
+			break;
+		case "seconds":
+			return $time;
+			break;
+	}
 }
 ?>
