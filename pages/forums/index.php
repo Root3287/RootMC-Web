@@ -35,8 +35,18 @@ require($path."php/config.php");
   			<?php 
   		      }else{
   		      	if(catNotNull($_GET['c'])){
-  		      	//other webpage
-  		      	}
+  		      	?>
+  		      		<div class='main'>
+  					      <div class='nav'>
+  					      	<?php include $path.'asset/includes/nav.php';?>
+  				      	</div>
+  		    		    <div class='body'>
+  		    			    <div class='container'>";
+  						    	    <?php getCatToHTML(); ?>
+  		    		    	</div>
+  		      		</div>
+  				</div>
+  		      	<?php }
   		      }
   		      break;
                   case "forums":
