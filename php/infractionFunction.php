@@ -11,4 +11,39 @@ function getInfraction(){
 		return;
 	}
 }
+function infractionQuery($query){
+	getInfraction()->query($query);
+}
+
+///////////////////////////////////
+//	SQL BAN INFOMATION	//
+//////////////////////////////////
+function infractionGetBan($mcname){
+	//IF NAME NOT NULL
+	//CHANGE NAME TO UUID 
+	//RETURN BAN
+}
+function infractionGetAllBanToHTML_Table(){
+	$bans = infractionQuery("SELECT * FROM bans");
+	$row = mysql_fetch_assoc($ban);
+	while($row){
+		//HTML TABEL
+	}
+}
+////////////////////////////////////
+//	SQL KICK INFORMATION	  //
+////////////////////////////////////
+
+function infractionGetKick($mcname){
+	//IF NAME NOT NULL
+	//CHANGE NAME TO UUID 
+	//RETURN BAN
+}
+function infractionGetAllKickToHTML_Table(){
+	$kick = infractionQuery("SELECT * FROM kick");
+	$row = mysql_fetch_assoc($kick);
+	while($row){
+		//HTML TABEL
+	}
+}
 ?>
