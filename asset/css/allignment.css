@@ -1,4 +1,10 @@
 @CHARSET "ISO-8859-1";
 div.news{
-	
+	width: 75%;
+	float: left;
+}
+div.login{
+	padding-left: 25px;
+	width: 25%;
+	float: left;
 }

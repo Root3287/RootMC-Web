@@ -1,8 +1,5 @@
 <?php
-$path = "../";
-require $path.'php/config.php';
-
-
+require 'MinecraftUUID.php';
 //SQL FUNCTIONS
 function getMysql(){
 	$conn = new mysqli($mySql['HOST'], $mySql['USER'], $mySql['PASSWORD'], $mySql['DATABASE'], $mySql['PORT']);

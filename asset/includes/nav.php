@@ -38,7 +38,7 @@
       <ul class="nav navbar-nav navbar-right">
         <?php
           if(isset($_COOKIE['USER'])){
-            echo '
+          ?>
             <li><a href="#">Link</a></li>
               <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -50,9 +50,9 @@
             <li><a href="#">Separated link</a></li>
           </ul>
         </li>
-            ';
-          }else{
-            echo '
+            
+          <?php }else{?>
+            
              <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -64,9 +64,7 @@
             <li><a href="#">Separated link</a></li>
           </ul>
         </li>
-            ';
-          }
-        ?>
+        <?php } ?>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

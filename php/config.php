@@ -1,9 +1,8 @@
 <?php
-require 'MinecraftUUID.php';
-if (file_exists($path."setup.php")) {
+if (file_exists($path."install/setup.php")){
 	// whatever you'll do, eg die();
 	die("PLEASE DELETE SETUP.PHP WHEN YOUR DONE USEING THE FILE!");
-}
+}else{
 
 //Enter Your MySql information here to use the forums or other stuff
 $mySql = array(
@@ -28,11 +27,23 @@ $config = array(
 	"DISPLAYIP"=>"SERVERHERE",	
 	"HomeLink"=>"http://{yourdomain-here}.{com, net, org, co, us}"
 );
+$infractions = array(
+	"enable"=>"true",
+	"database"=>array(
+		"Host"=>"localhost",
+		"User"=>"root",
+		"Pass"=>"password",
+		"Database"=>"data"
+	)
+);
 //IF you want to work on the website
 $downtime = array(
 		"ENABLE"=>false,
 		"REASON"=>"SOME REASON HERE"
 );
-include 'php/functions.php';
+include $path.'php/functions.php';
+include $path.'php/infractionFunction.php';
+
 $edit=false;
+}
 ?>
