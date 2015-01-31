@@ -1,7 +1,7 @@
 <?php
-if (file_exists($path."install/setup.php")){
+if (file_exists($path."install/index.php")){
 	// whatever you'll do, eg die();
-	die("PLEASE DELETE SETUP.PHP WHEN YOUR DONE USEING THE FILE!");
+	die("Please pages/install/index.php When you set up and finish useing the file!");
 }else{
 
 //Enter Your MySql information here to use the forums or other stuff
