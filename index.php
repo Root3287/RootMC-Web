@@ -37,10 +37,10 @@ require $path.'php/config.php';
 							<h2>Login</h2>
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									
+										<?php if(isset($_COOKIE['user'])){echo $_COOKIE['user'];}else?>REGISTER/LOGINS<?php } ?>
 								</div>
 								<div class="panel-body">
-										TODO:This is where the news goes to 
+										TODO:This is where the Login goes to 
 									</div>
 								</div>
 						</div>
