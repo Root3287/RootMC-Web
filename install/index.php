@@ -27,3 +27,28 @@
 	sql_query($admin_rank);
 	sql_query($admin);
 ?>
+<html>
+	<head>
+		<title>
+			New website &bull; Setup
+		</title>
+	</head>
+	<body>
+		<div class="main">
+			<div class="container">
+				<div class="jumbo">
+					<div class="jumbotron">
+						<h1>Welcome!</h1>
+						<h2>To the Setup. Just scroll down to get started!</h2>
+					</div>
+				</div>
+				<div class="main-Body">
+					<!-- MYSQL STUFF-->
+					<form>
+					</form>
+					<!--Config Stuff-->
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
