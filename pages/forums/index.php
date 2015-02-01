@@ -10,6 +10,12 @@ require($path."php/config.php");
   <body>
   	<?php
   	  /*
+  	  	Pages:
+  	  		Topic
+  	  		Cat
+  	  		Forums
+  	  		Recent
+  	  		
   	    IF index?page=something
   	    If index?page=something&c=Serverinfo
   	    IF index?page=something&c=Servernfo&f=news
