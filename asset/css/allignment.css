@@ -7,3 +7,12 @@ div.login{
 	width: 25%;
 	float: left;
 }
+div.server-info{
+	width: 25%;
+	float: left;
+}
+div.players{
+	width: 75%
+	padding-left: 25px;
+	float: left;
+}
