@@ -8,6 +8,7 @@ Right now builds are broken feel free to pull files and send them to me.
 Tester are welcome!
 
 REQUIREMENTS:
-mySqli,
-PHP,
-ALL MYSQL PERMS
+*mySqli
+*PHP
+*minecraft server
+
