@@ -1,5 +1,5 @@
 <?php
-if(!(isset($_GET['page'])){
+if(!(isset($_GET['page']))){
 $_GET['page']=="user";
 }else{
 	switch($_GET['page']){

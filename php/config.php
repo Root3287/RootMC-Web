@@ -5,28 +5,24 @@ if (file_exists($path."install/index.php")){
 }else{
 //TODO: MAKE SETUP CHANGE: $mysql,$mySqlTables, $config, $infraction, $downtime
 //Enter Your MySql information here to use the forums or other stuff
-$mySql = array(
+/*$mySql = array(
 		"HOST"=>"localhost",
 		"PORT"=>"3306",
 		"USER"=>"root",
 		"PASSWORD"=>"password",
 		"DATABASE"=>"data",
 );
-// Have all the table here
-$mySqlTables=array(
-		"USER"=>"user",
-		"Cat"=>"CAT",
-		"Forums"=>"Forums",
-		"Topics"=>"Topics",
-		"Rank"=>"Ranks"
-); 
+
 //The configuration for your server
 $config = array(
 	"SERVERNAME"=>"SERVICE NAME",
 	"SERVERIP"=>"localhost",
 	"DISPLAYIP"=>"SERVERHERE",	
 	"HomeLink"=>"http://{yourdomain-here}.{com, net, org, co, us}"
-);
+);*/
+
+
+	
 $infractions = array(
 	"enable"=>"true",
 	"database"=>array(

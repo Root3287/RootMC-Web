@@ -4,7 +4,7 @@
 ?>
 <html>
 	<head>
-		<title><?php echo $config['SERVERNAME'];>?>	&bull; PLAY </title>	
+		<title><?php echo $config['SERVERNAME'];?>	&bull; PLAY </title>	
 	</head>
 	<body>
 		<div class="main">
