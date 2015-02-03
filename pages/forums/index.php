@@ -6,66 +6,47 @@ require($path."php/config.php");
 <html>
   <head>
     <title><?php echo $config['SERVERNAME']." &bull; ". $page?></title>
+  	<?php include $path.'asset/includes/css.php'?>
   </head>
   <body>
-  	<?php
-  	  /*
-  	  	Pages:
-  	  		Topic
-  	  		Cat
-  	  		Forums
-  	  		Recent
-  	  		
-  	    IF index?page=something
-  	    If index?page=something&c=Serverinfo
-  	    IF index?page=something&c=Servernfo&f=news
-  	    If index?page=something&c=Serverinfo&f=news&t=This topic
-  	                ^ HOPEFULLY THIS WORKS ^
-  	  */
-  		if( (isset($_GET['page'])) || (isset($_GET['page']))&&(isset($_GET['c'])) || (isset($_GET['page']))&&(isset($_GET['c']))&&(isset($_GET['f'])) || (isset($_GET['page']))&&(isset($_GET['c']))&&(isset($_GET['f']))&&(isset($_GET['t'])) ){
-  		  switch($_GET['page']){
-  		    case "cat":
-  		      if($_GET['c'] !=null){
-  		      	//getC
-  		      ?>
-  				<div class='main'>
-  					<div class='nav'>
-  						<?php include $path.'asset/includes/nav.php';?>
-  					</div>
-  		    		<div class='body'>
-  		    			<div class='container'>";
-  							<?php getAllCatToHTML(); ?>
-  		    			</div>
-  		      		</div>
-  				</div>
-  			<?php 
-  		      }else{
-  		      	if(catNotNull($_GET['c'])){
-  		      	?>
-  		      		<div class='main'>
-  					      <div class='nav'>
-  					      	<?php include $path.'asset/includes/nav.php';?>
-  				      	</div>
-  		    		    <div class='body'>
-  		    			    <div class='container'>";
-  						    	    <?php getCatToHTML(); ?>
-  		    		    	</div>
-  		      		</div>
-  				</div>
-  		      	<?php }
-  		      }
-  		      break;
-                  case "forums":
-  		      //LIST ALL FORUMS
-  		      break;
-                  case "topic":
-  		      
-  		      break;
-  		    default:
-  		      //GOTO: CAT
-  		      break;
-  		  }
-  		}
-  	?>
+  	<?php include $path.'asset/includes/nav.php';?>
+  	<div class="container">
+  		<div class="breadcrumbs">
+  			<ol class="breadcrumb">
+  				<li><a href="#">CATEGOR</a></li>
+  				<li><a href="#">FORUM</a></li>
+  				<li class="active">TOPIC</li>
+  			</ol>
+  		</div>
+  		<div class="forum-content">
+ 			<!-- ADD A PANEL FOR THE FOURMS THAT CHANGES FOR THE CAT AND TOPICS -->
+  		</div>
+  		<div class="latus-topics">
+  			<!-- ADD THE LATEUS TOPIC PANEL WHEN SOMEONE POST SOMETHING THEN THEN THEY LOGIT IT THE LATEUS TOPIC -->
+  		</div>
+  		
+  		<div class="page">
+  			<nav>
+  				<ul class="pagination">
+    				<li>
+      					<a href="#" aria-label="Previous">
+        					<span aria-hidden="true">&laquo;</span>
+      					</a>
+    				</li>
+    				<li><a href="#">1</a></li>
+   					<li><a href="#">2</a></li>
+    				<li><a href="#">3</a></li>
+    				<li><a href="#">4</a></li>
+    				<li><a href="#">5</a></li>
+    				<li>
+      					<a href="#" aria-label="Next">
+        					<span aria-hidden="true">&raquo;</span>
+      					</a>
+    				</li>
+  				</ul>
+			</nav>
+  		</div>
+  	</div>
+  	<?php include $path.'asset/includes/scripts.php'?>
   </body>
 </html>
