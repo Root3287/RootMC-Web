@@ -16,7 +16,7 @@
 		$create_table_user = "CREATE TABLE users(id int NOT NULL AUTO_INCREMENT, FIRST_NAME text(30), LAST_NAME text(30), UNAME varchar(100), EMAIL varchar(100), MCUSER varchar(16), UUID varchar(100), PASSWORD varchar(255), Rank_id int(20),PRIMARY KEY(id))";
 		$create_table_cat = "CREATE TABLE cat(id int PRIMARY KEY AUTO_INCREMENT, CAT_TITLE varchar(255) NOT NULL, CAT_DESC varchar(255) NOT NULL)";
 		$create_table_forums = "CREATE TABLE forums(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, CAT_ID int(20), Forum_Name varchar(255), Forum_DESC varchar(255))";
-		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Forum_ID int(20), Topic_Name varchar(255), Topic_Content LONGTEXT, Type Enum('o','r'), Orignal_Post int(100), Author text(255))";
+		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Forum_ID int(20), Topic_Name varchar(255), Topic_Content LONGTEXT, Type Enum('o','r'), Orignal_Post int(100), Author text(255), Locked Enum('n','y'))";
 		// a= ADMINISTRATOR d= DONOR S=Special m=MEMBER
 		$create_table_ranks = "CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))";
 	
@@ -37,8 +37,10 @@
 		<title>
 			New website &bull; Setup
 		</title>
+		<?php include $path.'asset/includes/css.php'?>
 	</head>
 	<body>
+	<?php //include $path.'asset/includes/nav.php';?>
 	<?php
 		switch($step){
 			case "setup":
@@ -54,16 +56,37 @@
 				<div class="main-Body">
 					<!-- MYSQL STUFF-->
 					<form action="index.php?step=sql_setting" method="post">
-						<input type="text" name="mainHost" placeholder="mySql Host"/>
-						<input type="text" name="mainUser" placeholder="mySql User"/>
-						<input type="password" name="mainPass" placeholder="mySql Password"/>
-						<input type="text" name="mainPort" placeholder="mySql Port (Default: 3360)"/>
-						<input type="text" name="mainDatabase" placeholder="Database"/>
-						
-						<input type="text" name="ServerName" placeholder="Server Name"/>
-						<input type="text" name="ServerIP" placeholder="ServerIP"/>
-						<input type="text" name="DisplayIP" placeholder="DisplayIP"/>
-						<input type="submit" value="Submit"/>
+						<h2>mySql Setup</h2>
+						<div class="form-group">
+							<input class="form-control" type="text" name="mainHost" placeholder="mySql Host"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" name="mainUser" placeholder="mySql User"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="password" name="mainPass" placeholder="mySql Password"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" name="mainPort" placeholder="mySql Port (Default: 3360)"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" name="mainDatabase" placeholder="Database"/>
+						</div>
+						<br/>
+						<br/>
+						<h2>Website Configuation</h2>
+						<div class="form-group">
+							<input class="form-control" type="text" name="ServerName" placeholder="Server Name"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" name="ServerIP" placeholder="ServerIP"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" name="DisplayIP" placeholder="DisplayIP"/>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="submit" value="Submit"/>
+						</div>
 					</form>
 					<!--Config Stuff-->
 				</div>
@@ -72,6 +95,9 @@
 		<?php 
 		break;
 		case "sql_setting";
+			if(!$_POST['DisplayIP'] !="" && !$_POST['mainDatabase'] !="" && !$_POST['mainHost'] !="" && !$_POST['mainPass'] !="" && !$_POST['mainPort'] !="" && !$_POST['mainUser'] !="" && !$_POST['ServerIP'] !="" && !$_POST['ServerName'] !=""){
+				die("Please Fill in all the forms! <a href='index.php'>back</a>");
+			}
 			$test = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass']);
 			if($test->connect_error){
 				die("ERROR CONNECTING");
@@ -163,6 +189,7 @@
 		<?php
 		break;
 		}
+		include $path.'asset/includes/scripts.php' ;
 		?>
 	</body>
 </html>
