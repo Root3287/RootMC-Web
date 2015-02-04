@@ -14,18 +14,19 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+       <li<?php if($page==="home"){?> class="active" <?php }?>><a href="/">Home</a></li>
+       <li<?php if($page==="forums"){?> class="active" <?php }?>><a href="/pages/Forums">Forums</a></li>
+       <li<?php if($page==="play"){?> class="active" <?php }?>><a href="/pages/play">Online</a></li>
+       <li<?php if($page==="donate"){?> class="active" <?php }?>><a href="/pages/Donate">Donate</a></li>
+       <li<?php if($page==="vote"){?> class="active" <?php }?>><a href="/pages/vote">Vote</a></li>
+       <li<?php if($page==="infractions"){?> class="active" <?php }?>><a href="/pages/infractions">Infractions</a></li>
+        <li><a href="#">Players</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">Staff</a></li>
+            <li><a href="#">Donors</a></li>
+            <li><a href="#">Players</a></li>
           </ul>
         </li>
       </ul>

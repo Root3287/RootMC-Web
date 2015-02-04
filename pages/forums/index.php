@@ -1,7 +1,17 @@
+<!-- I CANT SPELL OK -->
 <?php
-$page ="Forums";
+$page ="forums";
 $path="../../";
 require($path."php/config.php");
+require_once $path.'asset/includes/pagination.php';
+
+$ppage = isset($_GET['p']) ? ((int) $_GET['p']):1;
+$pagination = new Pagination();
+$pagination->setCurrent($ppage);
+$pagination->setTotal(15);
+$markup = $pagination->parse();
+
+$cat = "SELECT * FORM cat";
 ?>
 <html>
   <head>
@@ -13,38 +23,28 @@ require($path."php/config.php");
   	<div class="container">
   		<div class="breadcrumbs">
   			<ol class="breadcrumb">
-  				<li><a href="#">CATEGOR</a></li>
+  				<li><a href="#">CATEGORG</a></li>
   				<li><a href="#">FORUM</a></li>
   				<li class="active">TOPIC</li>
   			</ol>
   		</div>
-  		<div class="forum-content">
- 			<!-- ADD A PANEL FOR THE FOURMS THAT CHANGES FOR THE CAT AND TOPICS -->
+  		<div class="forum-topics">
+ 			<!-- FORUMS -->
   		</div>
-  		<div class="latus-topics">
-  			<!-- ADD THE LATEUS TOPIC PANEL WHEN SOMEONE POST SOMETHING THEN THEN THEY LOGIT IT THE LATEUS TOPIC -->
+  		<div class="cats">
+			<!-- ADD A WELL FOR THE CAT -->
+			<div class="well">
+				<h4>Categories</h4>
+				<div class="container">
+					<h5>
+						<b>Cat</b>
+						Forums
+					</h5>
+				</div>
+			</div>
   		</div>
-  		
   		<div class="page">
-  			<nav>
-  				<ul class="pagination">
-    				<li>
-      					<a href="#" aria-label="Previous">
-        					<span aria-hidden="true">&laquo;</span>
-      					</a>
-    				</li>
-    				<li><a href="#">1</a></li>
-   					<li><a href="#">2</a></li>
-    				<li><a href="#">3</a></li>
-    				<li><a href="#">4</a></li>
-    				<li><a href="#">5</a></li>
-    				<li>
-      					<a href="#" aria-label="Next">
-        					<span aria-hidden="true">&raquo;</span>
-      					</a>
-    				</li>
-  				</ul>
-			</nav>
+  			<?php echo $markup;?>
   		</div>
   	</div>
   	<?php include $path.'asset/includes/scripts.php'?>

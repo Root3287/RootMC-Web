@@ -1,12 +1,12 @@
 <?php
-$page ="HOME";
+$page ="home";
 $path ="";
 require $path.'php/config.php';
 ?>
 <html>
 	<head>
 		<title>
-			<?php echo $config['SERVERNAME']." &bull; ". $page; ?>
+			<?php echo $config['SERVERNAME']." &bull; ". strtoupper($page); ?>
 		</title>
 		<?php include $path.'asset/includes/css.php'; ?>
 	</head>

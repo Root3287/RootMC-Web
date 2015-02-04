@@ -35,6 +35,12 @@ function getForumTopic(){
 	$result = getMysql()->query($query);
 	$row = $result->fetch_assoc();
 }
+function getCat(){
+	$query = "SELECT * FROM cat";
+	$result = getMysql()->query($query);
+	
+}
+
 function getCatToHTML($id){
 	$query = "SELECT * FROM Cat WHERE id='".$id."'";
 	$result = getMysql()->query($query);
@@ -75,42 +81,22 @@ function getCatToHTML($id){
 	}
 }
 function getAllCatToHTML(){
-	$query = "SELECT * FROM Cat";
+	$query = "SELECT * FROM cat";
 	$result = getMysql()->query($query);
 	$row = $result->fetch_assoc();
 	
-	$fquery = "SELECT * FROM Forums WHERE CAT_id='".$row['id']."'";
+	$fquery = "SELECT * FROM Forums WHERE CAT_ID='".$row['id']."'";
 	$result = getMysql()->query($fquery);
 	$frow = $result->fetch_assoc();
 	while($row){
-		echo"
-			<div class='panel panel-default'>
-				<div class='panel-heading'>".
-				$row['CAT_NAME']."
-				</div>
-				<table class='table'>
-					<thread>
-						<tr>
-							<th>Discussion</th>
-							<th>By:</th>
-						</tr>
-					</thread>
-					<tbody>";
-				while($frow){
-					echo '<tr>';
-					echo '<td>';
-					echo $frow['Title'];
-					echo '</td>';
-					echo '<td>';
-					echo $frow['USER'];
-					echo '</td>';
-					echo '</tr>';
-				}
-		echo"
-				</tbody>
-				</table>
-			</div>	
-			";
+		echo '<tr>';
+			echo '<td>';
+				echo $row[''];
+			echo '</td>';
+			echo '<td>';
+				echo $row[''];
+			echo '</td>';
+		echo '</tr>';
 	}
 }
 
