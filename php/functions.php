@@ -30,75 +30,7 @@ function getRank($user,$rank){
 		}
 	}
 }
-function getForumTopic(){
-	$query = "SELECT * FROM topics";
-	$result = getMysql()->query($query);
-	$row = $result->fetch_assoc();
-}
-function getCat(){
-	$query = "SELECT * FROM cat";
-	$result = getMysql()->query($query);
-	
-}
 
-function getCatToHTML($id){
-	$query = "SELECT * FROM Cat WHERE id='".$id."'";
-	$result = getMysql()->query($query);
-	$row = $result->fetch_assoc();
-	
-	$fquery = "SELECT * FROM Forums WHERE CAT_id='".$row['id']."'";
-	$result = getMysql()->query($fquery);
-	$frow = $result->fetch_assoc();
-	while($row){
-		echo"
-			<div class='panel panel-default'>
-				<div class='panel-heading'>".
-				$row['CAT_NAME']."
-				</div>
-				<table class='table'>
-					<thread>
-						<tr>
-							<th>Discussion</th>
-							<th>By:</th>
-						</tr>
-					</thread>
-					<tbody>";
-				while($frow){
-					echo '<tr>';
-					echo '<td>';
-					echo $frow['Title'];
-					echo '</td>';
-					echo '<td>';
-					echo $frow['USER'];
-					echo '</td>';
-					echo '</tr>';
-				}
-		echo"
-				</tbody>
-				</table>
-			</div>	
-			";
-	}
-}
-function getAllCatToHTML(){
-	$query = "SELECT * FROM cat";
-	$result = getMysql()->query($query);
-	$row = $result->fetch_assoc();
-	
-	$fquery = "SELECT * FROM Forums WHERE CAT_ID='".$row['id']."'";
-	$result = getMysql()->query($fquery);
-	$frow = $result->fetch_assoc();
-	while($row){
-		echo '<tr>';
-			echo '<td>';
-				echo $row[''];
-			echo '</td>';
-			echo '<td>';
-				echo $row[''];
-			echo '</td>';
-		echo '</tr>';
-	}
-}
 
 //MYSQL QUERY:
 // SELECT * FROM table WHERE id = id
@@ -126,12 +58,6 @@ function getUser($name){
 	// SELECT * FROM site_USERS WHERE UNAME=$name OR MCUSERS="$NAME"
 	$QUERY = "SELECT * FROM user WHERE UNAME='".$name."' OR MCUSER='".$name."'";
 	getMysql()->query($QUERY);
-}
-function catNotNull($id){
-	$q = "SElECT * FROM cat WHERE id='".$id."'";
-	$r = getMysql()->query($q);
-	$row = mysqli_fetch_row($r);
-	return ($row[0] == 1) ? true: false;
 }
 
 //COOKIES
