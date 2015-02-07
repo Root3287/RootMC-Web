@@ -2,6 +2,10 @@
 $path = '../../';
 require $path.'php/config.php';
 $page = 'forums';
+
+if(!(isset($_GET['cid'])) && !(isset($_GET['fid'])) && !(isset($_GET['tid']))){
+header('Location: /');
+}
 ?>
 <html>
 	<head>
