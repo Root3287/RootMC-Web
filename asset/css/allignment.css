@@ -16,3 +16,15 @@ div.players{
 	padding-left: 25px;
 	float: left;
 }
+div.cats{
+	width: 25%;
+	padding-left: 25px;
+	float: left;
+}
+div.forum-topic{
+	width: 75%;
+	float: left;
+}
+div.page{
+	clear:both;
+}

@@ -17,6 +17,7 @@ $downtime = array(
 );
 include $path.'php/functions.php';
 include $path.'php/infractionFunction.php';
+include $path.'php/ForumsFunction.php';
 
 $edit=false;
 if(file_exists($path.'install/index.php')&&(!($page==="install"))){

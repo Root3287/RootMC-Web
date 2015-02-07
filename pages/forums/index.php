@@ -3,15 +3,27 @@
 $page ="forums";
 $path="../../";
 require($path."php/config.php");
-require_once $path.'asset/includes/pagination.php';
+require_once '../../asset/includes/pagination.php';
 
-$ppage = isset($_GET['p']) ? ((int) $_GET['p']):1;
+//Forums
+if(isset($_GET['cid'])){
+	$catByID = getCatById($_GET['id']);
+}else{
+	$cat = "";
+}
+
+if(isset($_GET['fid'])){
+	$forum = getForumById($_GET['fid']);
+}else{
+	$forum = "";
+}
+
+//pagination
+$ppage = isset($_GET['page']) ? ((int) $_GET['page']):1;
 $pagination = new Pagination();
 $pagination->setCurrent($ppage);
 $pagination->setTotal(15);
 $markup = $pagination->parse();
-
-$cat = "SELECT * FORM cat";
 ?>
 <html>
   <head>
@@ -23,13 +35,27 @@ $cat = "SELECT * FORM cat";
   	<div class="container">
   		<div class="breadcrumbs">
   			<ol class="breadcrumb">
-  				<li><a href="#">CATEGORG</a></li>
-  				<li><a href="#">FORUM</a></li>
-  				<li class="active">TOPIC</li>
+  				<?php if(isset($_GET['cid'])){?><li><a href="#"><?php echo $cat['CAT_TITLE']?></a></li><?php }?>
+  				<?php if((isset($_GET['fid'])) && (isset($_GET['cid']))){?><li><a href="#"><?php echo $forum['Forum_Name'];?></a></li><?php }?>
   			</ol>
   		</div>
-  		<div class="forum-topics">
+  		<div class="forum-topic">
  			<!-- FORUMS -->
+ 			<table class="table table-responsive">
+ 				<!--  <table class="table"> -->
+					<tr>
+						<th>Topic</th>
+						<th>Author</th>
+						<th>Views</th>
+						<th>Replies</th>
+					</tr>
+					<tr>
+						<td>Test</td>
+						<td>Root</td>
+						<td>3287</td>
+						<td>3287</td>
+				<!-- </table> -->
+ 			</table>
   		</div>
   		<div class="cats">
 			<!-- ADD A WELL FOR THE CAT -->
@@ -37,7 +63,7 @@ $cat = "SELECT * FORM cat";
 				<h4>Categories</h4>
 				<div class="container">
 					<h5>
-						<b>Cat</b>
+						<b>Cat</b><br/>
 						Forums
 					</h5>
 				</div>
