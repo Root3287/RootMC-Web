@@ -1,4 +1,5 @@
 <?php
+require 'config.php';
 require 'MinecraftUUID.php';
 //SQL FUNCTIONS
 function getMysql(){
@@ -59,7 +60,16 @@ function getUser($name){
 	$QUERY = "SELECT * FROM user WHERE UNAME='".$name."' OR MCUSER='".$name."'";
 	getMysql()->query($QUERY);
 }
-
+function getCatById($id){
+	$query = "SELECT * FORM cat WHERE id='$id'";
+	$result = sql_query($query);
+	while($row = mysqli_fetch_assoc($result)){
+		foreach ($row as $key => $value){
+			$row['$key'] = $value;
+		}
+	}
+	return $row;
+}
 //COOKIES
 //setCookie($name $value $expire)
 //setCookie(name, value, cookieTime(years , $time);

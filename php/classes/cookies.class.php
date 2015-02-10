@@ -1,9 +1,5 @@
 <?php
 	class Cookies{
-		function makeCookies($name, $value, $expire){
-			setCookies($name, $value, );
-		}
-		
 		function cookieYear($years){
 			return time()+$years*31556926;
 		}

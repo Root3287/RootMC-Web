@@ -1,12 +1,25 @@
 <?php
 	require $path.'php/config.php';
 	class db{
+		private static $_instance = null;
+		private $_query,$_results;
+		public function getInstance(){
+			if(!isset(self::$_instance)){
+				self::$_instance = new db();
+			}
+			return self::$_instance;
+		}
+		
 		public function getMySQL(){
 			 $conn = new mysqli($mySql['HOST'],$mySql['USER'],$mySql['PASS'],$mySql['DATABASE'],$mySql['PORT']);
 			 if($conn->connect_error){
 			 	die("Error: ". $conn->connect_error);
 			 }
 			 return $conn;
+		}
+		
+		public function results() {
+			return $this->_results;
 		}
 		
 		public function sql_query($query){
@@ -25,6 +38,22 @@
 			$query .= "\n LIMIT " . ((!empty($offset)) ? $offset . ', ' . $total : $total);
 
 			return db::sql_query($query);
+		}
+		
+		public function createTable($name ,$prams){
+			db::sql_query("CREATE ".$name."(".$prams.")");
+		}
+		public function orderAll($table, $order, $sort){
+			if(isset($sort)){
+				$sql="SELECT * FROM ".$table."ORDER BY ".$order." ".$sort;
+			}else{
+				$sql="SELECT * FROM ".$table."ORDER BY ".$order;
+			}
+		
+			if(!db::sql_query($sql)){
+				return $this;
+			}
+			return false;
 		}
 	}
 ?>

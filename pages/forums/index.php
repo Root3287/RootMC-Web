@@ -12,11 +12,11 @@ if(isset($_GET['cid'])){
 	$cat = "";
 }
 
-if(isset($_GET['fid'])){
-	$forum = getForumById($_GET['fid']);
-}else{
-	$forum = "";
-}
+//if(isset($_GET['fid'])){
+//	$forum = getForumById($_GET['fid']);
+//}else{
+//	$forum = "";
+//}
 
 //pagination
 $ppage = isset($_GET['page']) ? ((int) $_GET['page']):1;
@@ -36,7 +36,7 @@ $markup = $pagination->parse();
   		<div class="breadcrumbs">
   			<ol class="breadcrumb">
   				<?php if(isset($_GET['cid'])){?><li><a href="#"><?php echo $cat['CAT_TITLE']?></a></li><?php }?>
-  				<?php if((isset($_GET['fid'])) && (isset($_GET['cid']))){?><li><a href="#"><?php echo $forum['Forum_Name'];?></a></li><?php }?>
+  				<?php if((isset($_GET['fid'])) && (isset($_GET['cid']))){?><li><a href="#"><?php //echo $forum['Forum_Name'];?></a></li><?php }?>
   			</ol>
   		</div>
   		<div class="forum-topic">

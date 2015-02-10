@@ -32,6 +32,12 @@ header('Location: /');
 						</div>
 					</div>
 				</div>
+				<div class="cats">
+					<div class="well">
+						<div class="container">
+						</div>
+					</div>
+				</div>
 				<div class="reply">
 					<div class="panel panel-default">
 						<div class="panel-heading">

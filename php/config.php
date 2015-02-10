@@ -1,5 +1,5 @@
 <?php
-
+include $path.'php/init.php';
 
 $infractions = array(
 	"enable"=>"false",
@@ -15,12 +15,13 @@ $downtime = array(
 		"ENABLE"=>"false",
 		"REASON"=>"SOME REASON HERE"
 );
-include $path.'php/functions.php';
-include $path.'php/infractionFunction.php';
-include $path.'php/ForumsFunction.php';
 
 $edit=false;
 if(file_exists($path.'install/index.php')&&(!($page==="install"))){
 	die("SETUP STILL EXSITS DELETE OR USE IT");
 }
+
+//include $path.'php/functions.php';
+include $path.'php/infractionFunction.php';
+
 ?>

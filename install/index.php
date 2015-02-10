@@ -4,7 +4,7 @@
 	require $path.'php/config.php';
 	
 	if(!(isset($_GET['step']))){
-		$step = "setup";
+		$step = "";
 	}else{
 		$step = strtolower(htmlspecialchars($_GET['step']));
 	}
@@ -13,16 +13,19 @@
 	
 		//Create Table if not Exsit
 		//USER: FIRST_NAME, LAST_NAME, UNAME ,EMAIL, MCUSER, UUID. PASSWORD
-		$create_table_user = "CREATE TABLE users(id int NOT NULL AUTO_INCREMENT, FIRST_NAME text(30), LAST_NAME text(30), UNAME varchar(100), EMAIL varchar(100), MCUSER varchar(16), UUID varchar(100), PASSWORD varchar(255), Rank_id int(20),PRIMARY KEY(id))";
-		$create_table_cat = "CREATE TABLE cat(id int PRIMARY KEY AUTO_INCREMENT, CAT_TITLE varchar(255) NOT NULL, CAT_DESC varchar(255) NOT NULL)";
-		$create_table_forums = "CREATE TABLE forums(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, CAT_ID int(20), Forum_Name varchar(255), Forum_DESC varchar(255))";
-		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Forum_ID int(20), Topic_Name varchar(255), Topic_Content LONGTEXT, Type Enum('o','r'), Orignal_Post int(100), Author text(255), Locked Enum('n','y'))";
+		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, FName text(30), LName text(30), UName varchar(100), Email varchar(100), MCUser varchar(16), UUID varchar(100), Password varchar(255), RankId int(20),PRIMARY KEY(id))";
+		$create_table_cat = "CREATE TABLE cat(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Title varchar(255), CDesc varchar(255),lastUserPost int (11),lastPost ,lastPostDate datetime,Parent int(255) DEFAULT '0', COrder int(255), access int(11) DEFAULT '0', news int(11) DEFAULT '0', view_access int(11), DEFAULT '0', )";
+		$create_table_topic = "CREATE TABLE topics(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, CId int(20), Title varchar(255), Content LONGTEXT, Author int(255), LastUser int(255),Locked int(10), Views int(255) DEFAULT '0',Time datetime, ReplyDate datetime, Sticky int(11) DEFAULT '0')";
+		
+		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID(255))";
+		
+		
 		// a= ADMINISTRATOR d= DONOR S=Special m=MEMBER
 		$create_table_ranks = "CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))";
 	
 		$admin_rank = "INSERT INTO ranks(name, Display_Name, Rank) VALUES ('Admin','ADMIN','a')";
 		$admin_hashed_password = hash('sha256', "adminisrator");
-		$admin = "INSERT INTO users(FIRST_NAME, LAST_NAME, UNAME, EMAIL, MCUSER, UUID, PASSWORD, Rank_id) values ('Admin', 'Admin' ,'Administrator', 'admin@admin.com, 'admin', '-----', '".$admin_hashed_password."')";
+		$admin = "INSERT INTO users(FIRST_NAME, LAST_NAME, UNAME, EMAIL, MCUSER, UUID, PASSWORD, Rank_id) values ('Admin', 'Admin' ,'Administrator', 'admin@admin.com', 'admin', '-----', '".$admin_hashed_password."','1')";
 		//sql_query($create_database);
 		//sql_query($create_table_user);
 		//sql_query($create_table_cat);
@@ -47,6 +50,7 @@
 			?>
 			<div class="main">
 			<div class="container">
+			<div class='alert alert-danger' role='alert'>You <strong>must delete</strong> the install folder to have everything to work correctly!</div>
 				<div class="jumbo">
 					<div class="jumbotron">
 						<h1>Welcome!</h1>
@@ -58,31 +62,31 @@
 					<form action="index.php?step=sql_setting" method="post">
 						<h2>mySql Setup</h2>
 						<div class="form-group">
-							<input class="form-control" type="text" name="mainHost" placeholder="mySql Host"/>
+							<input class="form-control" type="text" name="mainHost" placeholder="mySql Host" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="mainUser" placeholder="mySql User"/>
+							<input class="form-control" type="text" name="mainUser" placeholder="mySql User" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="password" name="mainPass" placeholder="mySql Password"/>
+							<input class="form-control" type="password" name="mainPass" placeholder="mySql Password" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="mainPort" placeholder="mySql Port (Default: 3360)"/>
+							<input class="form-control" type="text" name="mainPort" placeholder="mySql Port (Default: 3360)" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="mainDatabase" placeholder="Database"/>
+							<input class="form-control" type="text" name="mainDatabase" placeholder="Database" autocomplete="off"/>
 						</div>
 						<br/>
 						<br/>
 						<h2>Website Configuation</h2>
 						<div class="form-group">
-							<input class="form-control" type="text" name="ServerName" placeholder="Server Name"/>
+							<input class="form-control" type="text" name="ServerName" placeholder="Server Name" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="ServerIP" placeholder="ServerIP"/>
+							<input class="form-control" type="text" name="ServerIP" placeholder="ServerIP" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="DisplayIP" placeholder="DisplayIP"/>
+							<input class="form-control" type="text" name="DisplayIP" placeholder="DisplayIP" autocomplete="off"/>
 						</div>
 						<div class="form-group">
 							<input class="form-control" type="submit" value="Submit"/>
@@ -114,14 +118,14 @@
 			$test2->query($create_table_topic);
 			$test2->query($create_table_user);
 			$test2->query($create_table_cat);
-			
+			$test2->query($create_table_reply);
 			//ADMINISTRATOR SETUP
 			$test2->query($admin_rank);
 			$test2->query($admin);
 			$test2->close();
 			
-			if(is_writable($path.'php/config.php')){
-				$config = file_get_contents($path.'php/config.php');
+			if(is_writable($path.'php/init.php')){
+				$config = file_get_contents($path.'php/init.php');
 				$config = substr($config, 6);
 				
 				$insert=
@@ -140,18 +144,19 @@
 				'		"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
 				'		"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
 				');';
-				$configfile = fopen($path.'php/config.php', 'w');
+				$configfile = fopen($path.'php/init.php', 'w');
 				fwrite($configfile, $insert.$config);
 				fclose($configfile);
-				die("YOUR FINISHED HEAD OVER <a href='../index.php'>here</a>");
+				die("<a href='index.php?step=finished'>CLICK ME!</a>");
 			}else{
 				die("you have to insert it manually!");
 			}
 		break;
-		case "finsihed":
+		case "finished":
 		?>
 			<div class="main">
 			<div class="container">
+				<div class='alert alert-danger' role='alert'>You <strong>must delete</strong> the install folder to have everything to work correctly!</div>
 				<div class="jumbo">
 					<div class="jumbotron">
 						<h1>Congrats!</h1>
@@ -164,7 +169,7 @@
 							ADMINISTRATOR ACCOUNT
 						</div>
 						<div class="panel-body">
-						Username: Administrator
+						Username: Administrator<br/>
 						Pass: administrator
 						</div>
 					</div>
@@ -177,6 +182,7 @@
 		?>
 			<div class="main">
 			<div class="container">
+			<div class='alert alert-danger' role='alert'>You <strong>must delete</strong> the install folder to have everything to work correctly!</div>
 				<div class="jumbo">
 					<div class="jumbotron">
 						<h1>Welcome!</h1>
