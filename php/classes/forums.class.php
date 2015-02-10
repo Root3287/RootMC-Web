@@ -33,13 +33,29 @@
 							}
 						}
 					}else{
-						if($cat->view_access == '0'){
-							$results[$n]["id"] = $cat->id;
-							$results[$n]["title"] = htmlspecialchars($cat->Title);
-							$results[$n]["desc"] = $cat->CDesc;
-							$results[$n]["last_post_date"] = $cat->lastPostDate;
-							$results[$n]["last_post_user"] = $cat->lastUserPost;
-							$results[$n]["last_post_topic"] = $cat->lastPosted;
+						if($groupid !=null){
+							if($groupid == '0'){
+								$results[$n]["id"] = $cat->id;
+								$results[$n]["title"] = htmlspecialchars($cat->Title);
+								$results[$n]["desc"] = $cat->CDesc;
+								$results[$n]["last_post_date"] = $cat->lastPostDate;
+								$results[$n]["last_post_user"] = $cat->lastUserPost;
+								$results[$n]["last_post_topic"] = $cat->lastPosted;
+							}else if($groupid == '1'){
+								$results[$n]["id"] = $cat->id;
+								$results[$n]["title"] = htmlspecialchars($cat->Title);
+								$results[$n]["desc"] = $cat->CDesc;
+								$results[$n]["last_post_date"] = $cat->lastPostDate;
+								$results[$n]["last_post_user"] = $cat->lastUserPost;
+								$results[$n]["last_post_topic"] = $cat->lastPosted;
+							}else if($groupid == '2'){
+								$results[$n]["id"] = $cat->id;
+								$results[$n]["title"] = htmlspecialchars($cat->Title);
+								$results[$n]["desc"] = $cat->CDesc;
+								$results[$n]["last_post_date"] = $cat->lastPostDate;
+								$results[$n]["last_post_user"] = $cat->lastUserPost;
+								$results[$n]["last_post_topic"] = $cat->lastPosted;
+							}	
 						}
 					}
 					$n++;
