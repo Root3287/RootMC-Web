@@ -18,19 +18,23 @@ require $path.'php/config.php';
 				background-repeat: no-repeat;
 				color: white;
 			}
-			body.home{
+			.bg-image{
+				position: fixed;
+				top: 0px;
+				left:0px;
+				z-index: -100;
 				/*margin-bottom: 0px;*/
 				background-image: url(asset/img/Home-BG.png);
-				background-repeat: repeat;
+				background-repeat: no-repeat;
 				/*background-position: 0% 25%;
 				background-size: cover;
 				background-repeat: repeat;
 				color: white;*/
-				color:white;
 			}
 		</style>
 	</head>
 	<body class="home">
+		<img src='asset/img/Home-BG.png' class='bg-image'/>
 		<div class="main">
 			<div class="nav">
 				<?php include $path.'asset/includes/nav.php';?>
