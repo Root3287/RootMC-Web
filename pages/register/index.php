@@ -5,7 +5,7 @@
 ?>
 <html>
 	<head>
-		<title><?php echo $config['SERVERNAME']." &bull; Register"?></title>
+		<title><?php echo $GLOBALS['config']['SERVERNAME']." &bull; Register"?></title>
 		<?php include $path.'asset/includes/css.php';?>
 	</head>
 	<body>

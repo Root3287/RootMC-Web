@@ -5,7 +5,7 @@ require $path.'php/config.php';
 ?>
 <html>
 	<head>
-		<title><?php echo $config['SERVERNAME'];?> &bull; UserCP</title>
+		<title><?php echo $GLOBALS['config']['SERVERNAME'];?> &bull; UserCP</title>
 	</head>
 	<body>
 		<div class="main">

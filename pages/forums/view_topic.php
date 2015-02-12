@@ -10,7 +10,7 @@ header('Location: /');
 <html>
 	<head>
 		<title>
-			<?php echo $config['SERVERNAME'].' &bull; '. strtoupper($page);?>
+			<?php echo $GLOBALS['config']['SERVERNAME'].' &bull; '. strtoupper($page);?>
 		</title>
 	</head>
 	<body>

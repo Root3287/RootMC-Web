@@ -6,11 +6,11 @@ require $path.'php/config.php';
 <html>
 	<head>
 		<title>
-			<?php echo $config['SERVERNAME']." &bull; ". strtoupper($page); ?>
+			<?php echo $GLOBALS['config']['SERVERNAME']." &bull; ". strtoupper($page); ?>
 		</title>
 		<?php include $path.'asset/includes/css.php'; ?>
 		<style>
-			.jumbotron {
+			.jumbotron-new {
 				margin-bottom: 0px;
 				background-image: url(asset/img/Home-BG.png);
 				background-position: 0% 25%;
@@ -18,31 +18,19 @@ require $path.'php/config.php';
 				background-repeat: no-repeat;
 				color: white;
 			}
-			.bg-image{
-				position: fixed;
-				top: 0px;
-				left:0px;
-				z-index: -100;
-				/*margin-bottom: 0px;*/
-				background-image: url(asset/img/Home-BG.png);
-				background-repeat: no-repeat;
-				/*background-position: 0% 25%;
-				background-size: cover;
-				background-repeat: repeat;
-				color: white;*/
-			}
+			
 		</style>
 	</head>
 	<body class="home">
-		<img src='asset/img/Home-BG.png' class='bg-image'/>
+		<img src='asset/img/Home-BG.png' class='bg-image' width="2122" height="1412 "/>
 		<div class="main">
 			<div class="nav">
 				<?php include $path.'asset/includes/nav.php';?>
 			</div>
 			<div class="container">
 					<div class="jumbotron">
-					<h1>Welcome to <?php echo $config['SERVERNAME'];?></h1>
-					<h4><?php echo $config['SERVERIP'];?></h4>
+					<h1>Welcome to <?php echo $GLOBALS['config']['SERVERNAME'];?></h1>
+					<h4><?php echo $GLOBALS['config']['SERVERIP'];?></h4>
 				</div>
 				<div class="home_container">
 						<div class="news">

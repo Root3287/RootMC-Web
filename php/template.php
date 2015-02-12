@@ -5,7 +5,7 @@ require 'php/config.php';
 <html>
 	<head>
 		<title>
-			<?php echo $config['SERVERNAME']." &bull; (NAME OF PAGE)"?>
+			<?php echo $GLOBALS['config']['SERVERNAME']." &bull; (NAME OF PAGE)"?>
 		</title>
 		<?php include 'asset/includes/css.php';?>
 	</head>

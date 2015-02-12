@@ -11,7 +11,7 @@
 		}
 		
 		public function getMySQL(){
-			 $conn = new mysqli($mySql['HOST'],$mySql['USER'],$mySql['PASS'],$mySql['DATABASE'],$mySql['PORT']);
+			 $conn = new mysqli($GLOBALS['SQL']['HOST'],$GLOBALS['SQL']['USER'],$GLOBALS['SQL']['PASS'],$GLOBALS['SQL']['DATABASE'],$GLOBALS['SQL']['PORT']);
 			 if($conn->connect_error){
 			 	die("Error: ". $conn->connect_error);
 			 }

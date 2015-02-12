@@ -2,14 +2,14 @@
 $path = "../../";
 $page = "DOWN";
 require $path.'php/config.php';
-if($downtime['ENABLE']){
+if($downtime['ENABLE']=="true"){
 	header("Location: ".$path);
 }
 ?>
 <html>
 	<head>
 		<title>
-			<?php echo $config['SERVERNAME']." &bull; ". $page;?>
+			<?php echo $GLOBALS['config']['SERVERNAME']." &bull; ". $page;?>
 		</title>
 		<?php include $path.'asset/includes/css.php';?>
 	</head>

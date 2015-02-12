@@ -27,7 +27,7 @@ $markup = $pagination->parse();
 ?>
 <html>
   <head>
-    <title><?php echo $config['SERVERNAME']." &bull; ". $page?></title>
+    <title><?php echo $GLOBALS['config']['SERVERNAME']." &bull; ". $page?></title>
   	<?php include $path.'asset/includes/css.php'?>
   </head>
   <body>

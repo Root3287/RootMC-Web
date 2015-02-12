@@ -1,0 +1,36 @@
+This is the TODO list that I want to complete for the new website and then once. I'm finished I'm done with the coding (For now). This will also implement the RootMC-Plugin to the website(Hopefully).
+
+1. Finished Forums
+	- Parent CAT
+	- Child CAT
+	- View Topic
+	- New Topic
+	- Edit Topic
+	- Delete Topic
+	- Administrator
+	- Connect to the RootMC-Plugin or Email
+		- Friendly Reminders
+		- Watch topic Alert
+		- Friends
+2. UserCP
+	- Change Password
+	- Change Username
+	- See UUID
+	- Change Fourms Username
+	- Infrations
+	- Stats
+	- RootMC-Plugin(Friends) 
+2B. ModCP
+	- Warn User
+	- Ban User
+	- Mute User
+	- Comment User 
+2C. AdminCP
+	- ADMINISTRATOR ACCESS
+		- Full ADMINISTRATOR ACCESS TO PlAYERS
+3.Friends
+	- New Friends
+	- Edit Friend
+	- Delete Friends
+4. RootMC-Plugin
+	- On RootMC-Plugin GIT

@@ -14,10 +14,10 @@
 		//Create Table if not Exsit
 		//USER: FIRST_NAME, LAST_NAME, UNAME ,EMAIL, MCUSER, UUID. PASSWORD
 		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, FName text(30), LName text(30), UName varchar(100), Email varchar(100), MCUser varchar(16), UUID varchar(100), Password varchar(255), RankId int(20),PRIMARY KEY(id))";
-		$create_table_cat = "CREATE TABLE cat(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Title varchar(255), CDesc varchar(255),lastUserPost int (11),lastPost ,lastPostDate datetime,Parent int(255) DEFAULT '0', COrder int(255), access int(11) DEFAULT '0', news int(11) DEFAULT '0', view_access int(11), DEFAULT '0', )";
+		$create_table_cat = "CREATE TABLE cat(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Title varchar(255), CDesc varchar(255),lastUserPost int(11) ,lastPostDate datetime,Parent int(255) DEFAULT '0', COrder int(255), access int(11) DEFAULT '0', news int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
 		$create_table_topic = "CREATE TABLE topics(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, CId int(20), Title varchar(255), Content LONGTEXT, Author int(255), LastUser int(255),Locked int(10), Views int(255) DEFAULT '0',Time datetime, ReplyDate datetime, Sticky int(11) DEFAULT '0')";
 		
-		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID(255))";
+		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))";
 		
 		
 		// a= ADMINISTRATOR d= DONOR S=Special m=MEMBER
@@ -113,12 +113,13 @@
 			$test2 = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase']) or die("Cannot connect to the second mysqli");
 			
 			
-			$test2->query($create_table_forums);
+			//$test2->query($create_table_forums);
 			$test2->query($create_table_ranks);
 			$test2->query($create_table_topic);
 			$test2->query($create_table_user);
 			$test2->query($create_table_cat);
-			$test2->query($create_table_reply);
+			$test2->query($create_table_friends);
+			//$test2->query($create_table_reply);
 			//ADMINISTRATOR SETUP
 			$test2->query($admin_rank);
 			$test2->query($admin);
@@ -126,11 +127,11 @@
 			
 			if(is_writable($path.'php/init.php')){
 				$config = file_get_contents($path.'php/init.php');
-				$config = substr($config, 6);
+				$config = substr($GLOBALS['config'], 6);
 				
 				$insert=
 				'<?php'.PHP_EOL.
-				'$mySql = array('.PHP_EOL.
+				'$GLOBALS[\'SQL\'] = array('.PHP_EOL.
 				'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
 				'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
 				'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
@@ -139,10 +140,10 @@
 				');'.PHP_EOL.
 				''.PHP_EOL.
 				'//The configuration for your server'.PHP_EOL.
-				'$config = array('.PHP_EOL.
-				'		"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
-				'		"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
-				'		"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
+				'$GLOBALS[\'config\'] = array('.PHP_EOL.
+				'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
+				'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
+				'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
 				');';
 				$configfile = fopen($path.'php/init.php', 'w');
 				fwrite($configfile, $insert.$config);
