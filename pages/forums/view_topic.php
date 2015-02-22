@@ -3,8 +3,8 @@ $path = '../../';
 require $path.'php/config.php';
 $page = 'forums';
 
-if(!(isset($_GET['cid'])) && !(isset($_GET['fid'])) && !(isset($_GET['tid']))){
-header('Location: /');
+if(!isset($_GET['cid']) && !isset($_GET['tid'])){
+	header("Location: $path.pages/404.html");
 }
 ?>
 <html>
@@ -14,6 +14,7 @@ header('Location: /');
 		</title>
 	</head>
 	<body>
+		<img src='asset/img/Home-BG.png' class='bg-image' width="2122" height="1412 "/>
 		<div class="main">
 			<?php include $path.'asset/includes/nav.php';?>
 			<div class="container">

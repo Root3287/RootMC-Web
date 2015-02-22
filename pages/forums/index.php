@@ -3,27 +3,12 @@
 $page ="forums";
 $path="../../";
 require($path."php/config.php");
-require_once '../../asset/includes/pagination.php';
-
-//Forums
-if(isset($_GET['cid'])){
-	$catByID = getCatById($_GET['id']);
-}else{
-	$cat = "";
-}
-
-//if(isset($_GET['fid'])){
-//	$forum = getForumById($_GET['fid']);
-//}else{
-//	$forum = "";
-//}
-
-//pagination
-$ppage = isset($_GET['page']) ? ((int) $_GET['page']):1;
-$pagination = new Pagination();
-$pagination->setCurrent($ppage);
-$pagination->setTotal(15);
-$markup = $pagination->parse();
+//require_once '../../asset/includes/pagination.php';
+require $path.'php/classes/forums.class.php';
+require $path.'php/classes/user.class.php';
+$forums = new forum();
+$user = new user();
+$db = new db();
 ?>
 <html>
   <head>
@@ -32,30 +17,30 @@ $markup = $pagination->parse();
   </head>
   <body>
   	<?php include $path.'asset/includes/nav.php';?>
-  	<div class="container">
-  		<div class="breadcrumbs">
-  			<ol class="breadcrumb">
-  				<?php if(isset($_GET['cid'])){?><li><a href="#"><?php echo $cat['CAT_TITLE']?></a></li><?php }?>
-  				<?php if((isset($_GET['fid'])) && (isset($_GET['cid']))){?><li><a href="#"><?php //echo $forum['Forum_Name'];?></a></li><?php }?>
-  			</ol>
-  		</div>
+  	<div>
   		<div class="forum-topic">
  			<!-- FORUMS -->
+ 			<?php if(!isset($_GET['cid'])){?>
+ 				<div class="jumbotron">
+ 					<h1>Welcome to the Forums!</h1>
+ 					<h2>Just click on any categorie on the side to access the forums</h2>
+ 				</div>
+ 			<?php }else{?>
  			<table class="table table-responsive">
  				<!--  <table class="table"> -->
 					<tr>
 						<th>Topic</th>
 						<th>Author</th>
-						<th>Views</th>
 						<th>Replies</th>
 					</tr>
 					<tr>
 						<td>Test</td>
 						<td>Root</td>
 						<td>3287</td>
-						<td>3287</td>
+					</tr>
 				<!-- </table> -->
  			</table>
+ 			<?php }?>
   		</div>
   		<div class="cats">
 			<!-- ADD A WELL FOR THE CAT -->
@@ -63,6 +48,20 @@ $markup = $pagination->parse();
 				<h4>Categories</h4>
 				<div class="container">
 					<h5>
+						<?php 
+							$pcatq = $db->asc_Where('categories', 'Parent = 0', 'Cat_Order');
+							while($pcat = mysqli_fetch_assoc($pcatq)){
+								$ptitle = $pcat['Title'];
+								$pid = $pcat['id'];
+								echo $ptitle.'<br/>';
+								$ccatq = $db->asc_Where('categories', 'Parent = '.$pid, 'Cat_Order');
+								while($ccat = mysqli_fetch_assoc($ccatq)){
+									$cid = $ccat['id'];
+									$ctitle = $ccat['Title'];
+									echo "<a href='index.php?cid=".$cid."'>".$ctitle."</a>";
+								}
+							}
+						?>
 						<b>Cat</b><br/>
 						Forums
 					</h5>
@@ -70,9 +69,12 @@ $markup = $pagination->parse();
 			</div>
   		</div>
   		<div class="page">
-  			<?php echo $markup;?>
+  			
   		</div>
   	</div>
   	<?php include $path.'asset/includes/scripts.php'?>
   </body>
 </html>
+<?php 
+
+?>

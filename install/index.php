@@ -14,13 +14,14 @@
 		//Create Table if not Exsit
 		//USER: FIRST_NAME, LAST_NAME, UNAME ,EMAIL, MCUSER, UUID. PASSWORD
 		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, FName text(30), LName text(30), UName varchar(100), Email varchar(100), MCUser varchar(16), UUID varchar(100), Password varchar(255), RankId int(20),PRIMARY KEY(id))";
-		$create_table_cat = "CREATE TABLE cat(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Title varchar(255), CDesc varchar(255),lastUserPost int(11) ,lastPostDate datetime,Parent int(255) DEFAULT '0', COrder int(255), access int(11) DEFAULT '0', news int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
-		$create_table_topic = "CREATE TABLE topics(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, CId int(20), Title varchar(255), Content LONGTEXT, Author int(255), LastUser int(255),Locked int(10), Views int(255) DEFAULT '0',Time datetime, ReplyDate datetime, Sticky int(11) DEFAULT '0')";
+		$create_table_cat = "CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255),Cat_Last_User_Post int(11) ,Cat_Last_Post_Date datetime,Parent int(11) DEFAULT '0', Cat_Order int(11), news int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
+		$create_table_topic = "CREATE TABLE topics(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, CId int(20), Title varchar(255), Author int(11), LastUser int(11), Views int(255) DEFAULT '0',Time datetime, ReplyDate datetime)";
+		$create_table_post = "CREATE TABLE post(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Tid int(20), Author int(11), Content LONGTEXT, data datetime)";
 		
 		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))";
 		
 		
-		// a= ADMINISTRATOR d= DONOR S=Special m=MEMBER
+		// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
 		$create_table_ranks = "CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))";
 	
 		$admin_rank = "INSERT INTO ranks(name, Display_Name, Rank) VALUES ('Admin','ADMIN','a')";
@@ -88,6 +89,14 @@
 						<div class="form-group">
 							<input class="form-control" type="text" name="DisplayIP" placeholder="DisplayIP" autocomplete="off"/>
 						</div>
+
+						<h2>Administrator's Account</h2>
+						<div class="form-group">
+							<input class="form-control" type="text" name="AdminUser"/>
+						</div>
+						<div class="form-group">
+							<input class="form-contorl" type="password" name="adminPassword"/>
+						</div>
 						<div class="form-group">
 							<input class="form-control" type="submit" value="Submit"/>
 						</div>
@@ -99,7 +108,7 @@
 		<?php 
 		break;
 		case "sql_setting";
-			if(!$_POST['DisplayIP'] !="" && !$_POST['mainDatabase'] !="" && !$_POST['mainHost'] !="" && !$_POST['mainPass'] !="" && !$_POST['mainPort'] !="" && !$_POST['mainUser'] !="" && !$_POST['ServerIP'] !="" && !$_POST['ServerName'] !=""){
+			if(!$_POST['DisplayIP'] !="" && !$_POST['mainDatabase'] !="" && !$_POST['mainHost'] !="" && !$_POST['mainPass'] !="" && !$_POST['mainPort'] !="" && !$_POST['mainUser'] !="" && !$_POST['ServerIP'] !="" && !$_POST['ServerName'] !="" && !$_POST['AdminUSER'] && !$_POST['AdminPass']){
 				die("Please Fill in all the forms! <a href='index.php'>back</a>");
 			}
 			$test = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass']);
@@ -123,6 +132,7 @@
 			//ADMINISTRATOR SETUP
 			$test2->query($admin_rank);
 			$test2->query($admin);
+			$test2->query($create_table_post);
 			$test2->close();
 			
 			if(is_writable($path.'php/init.php')){
@@ -137,6 +147,7 @@
 				'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
 				'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
 				'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
+				'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
 				');'.PHP_EOL.
 				''.PHP_EOL.
 				'//The configuration for your server'.PHP_EOL.
