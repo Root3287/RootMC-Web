@@ -6,7 +6,7 @@ require $path.'php/config.php';
 <html>
 	<head>
 		<title>
-			<?php echo $GLOBALS['config']['SERVERNAME']." &bull; ". strtoupper($page); ?>
+			<?php echo $CONFIG['SERVERNAME']." &bull; ". strtoupper($page); ?>
 		</title>
 		<?php include $path.'asset/includes/css.php'; ?>
 		<style>
@@ -29,8 +29,8 @@ require $path.'php/config.php';
 			</div>
 			<div class="container">
 					<div class="jumbotron">
-					<h1>Welcome to <?php echo $GLOBALS['config']['SERVERNAME'];?></h1>
-					<h4><?php echo $GLOBALS['config']['SERVERIP'];?></h4>
+					<h1>Welcome to <?php echo $CONFIG['SERVERNAME'];?></h1>
+					<h4><?php echo $CONFIG['SERVERIP'];?></h4>
 				</div>
 				<div class="home_container">
 						<div class="news">

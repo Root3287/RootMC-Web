@@ -13,8 +13,8 @@
 	
 		//Create Table if not Exsit
 		//USER: FIRST_NAME, LAST_NAME, UNAME ,EMAIL, MCUSER, UUID. PASSWORD
-		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, FName text(30), LName text(30), UName varchar(100), Email varchar(100), MCUser varchar(16), UUID varchar(100), Password varchar(255), RankId int(20),PRIMARY KEY(id))";
-		$create_table_cat = "CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255),Cat_Last_User_Post int(11) ,Cat_Last_Post_Date datetime,Parent int(11) DEFAULT '0', Cat_Order int(11), news int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
+		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100), MCUser varchar(20), UUID varchar(100), Password varchar(255), RankId int(20), PRIMARY KEY(id))";
+		$create_table_cat = "CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255), Parent int(11) DEFAULT '0', Parent_ID int(22) DEFAULT '0', Cat_Order int(11), Front_Page int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
 		$create_table_topic = "CREATE TABLE topics(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, CId int(20), Title varchar(255), Author int(11), LastUser int(11), Views int(255) DEFAULT '0',Time datetime, ReplyDate datetime)";
 		$create_table_post = "CREATE TABLE post(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Tid int(20), Author int(11), Content LONGTEXT, data datetime)";
 		
@@ -27,14 +27,6 @@
 		$admin_rank = "INSERT INTO ranks(name, Display_Name, Rank) VALUES ('Admin','ADMIN','a')";
 		$admin_hashed_password = hash('sha256', "adminisrator");
 		$admin = "INSERT INTO users(FIRST_NAME, LAST_NAME, UNAME, EMAIL, MCUSER, UUID, PASSWORD, Rank_id) values ('Admin', 'Admin' ,'Administrator', 'admin@admin.com', 'admin', '-----', '".$admin_hashed_password."','1')";
-		//sql_query($create_database);
-		//sql_query($create_table_user);
-		//sql_query($create_table_cat);
-		//sql_query($create_table_forums);
-		//sql_query($create_table_topic);
-		//sql_query($create_table_ranks);	
-		//sql_query($admin_rank);
-		//sql_query($admin);
 ?>
 <html>
 	<head>
@@ -63,47 +55,49 @@
 					<form action="index.php?step=sql_setting" method="post">
 						<h2>mySql Setup</h2>
 						<div class="form-group">
-							<input class="form-control" type="text" name="mainHost" placeholder="mySql Host" autocomplete="off"/>
+							<input class="form-control" id="Host" type="text" name="mainHost" placeholder="mySql Host" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="mainUser" placeholder="mySql User" autocomplete="off"/>
+							<input class="form-control" id="User" type="text" name="mainUser" placeholder="mySql User" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="password" name="mainPass" placeholder="mySql Password" autocomplete="off"/>
+							<input class="form-control" id="Pass" type="password" name="mainPass" placeholder="mySql Password" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="mainPort" placeholder="mySql Port (Default: 3360)" autocomplete="off"/>
+							<input class="form-control" id="Port" type="text" name="mainPort" placeholder="mySql Port (Default: 3360)" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="mainDatabase" placeholder="Database" autocomplete="off"/>
+							<input class="form-control" id="Database" type="text" name="mainDatabase" placeholder="Database" autocomplete="off"/>
 						</div>
 						<br/>
 						<br/>
 						<h2>Website Configuation</h2>
 						<div class="form-group">
-							<input class="form-control" type="text" name="ServerName" placeholder="Server Name" autocomplete="off"/>
+							<input class="form-control" id="ServerName" type="text" name="ServerName" placeholder="Server Name" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="ServerIP" placeholder="ServerIP" autocomplete="off"/>
+							<input class="form-control" id="ServerIP" type="text" name="ServerIP" placeholder="ServerIP" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="text" name="DisplayIP" placeholder="DisplayIP" autocomplete="off"/>
+							<input class="form-control" id="ServerDisplayIP" type="text" name="DisplayIP" placeholder="DisplayIP" autocomplete="off"/>
 						</div>
 
 						<h2>Administrator's Account</h2>
 						<div class="form-group">
-							<input class="form-control" type="text" name="AdminUser"/>
+							<input class="form-control" id="AU" type="text" name="AdminUser"/>
 						</div>
 						<div class="form-group">
-							<input class="form-contorl" type="password" name="adminPassword"/>
+							<input class="form-control" id="AP" type="password" name="adminPassword"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" type="submit" value="Submit"/>
+							<input class="form-control" id="Submit" type="submit" value="Submit"/>
 						</div>
 					</form>
 					<!--Config Stuff-->
 				</div>
 			</div>
+			<script>
+			</script>
 		</div>
 		<?php 
 		break;
@@ -136,9 +130,9 @@
 			$test2->close();
 			
 			if(is_writable($path.'php/init.php')){
-				$config = file_get_contents($path.'php/init.php');
-				$config = substr($GLOBALS['config'], 6);
-				
+				$Iconfig = file_get_contents($path.'php/init.php');
+				$Iconfig = substr($Iconfig, 6);
+				/*
 				$insert=
 				'<?php'.PHP_EOL.
 				'$GLOBALS[\'SQL\'] = array('.PHP_EOL.
@@ -155,9 +149,27 @@
 				'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
 				'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
 				'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
+				');';*/
+				
+				$insert=
+				'<?php'.PHP_EOL.
+				'$SQL = array('.PHP_EOL.
+				'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
+				'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
+				'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
+				'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
+				'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
+				'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
+				');'.PHP_EOL.
+				''.PHP_EOL.
+				'//The configuration for your server'.PHP_EOL.
+				'$CONFIG = array('.PHP_EOL.
+				'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
+				'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
+				'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
 				');';
 				$configfile = fopen($path.'php/init.php', 'w');
-				fwrite($configfile, $insert.$config);
+				fwrite($configfile, $insert.$Iconfig);
 				fclose($configfile);
 				die("<a href='index.php?step=finished'>CLICK ME!</a>");
 			}else{

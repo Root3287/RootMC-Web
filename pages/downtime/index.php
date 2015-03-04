@@ -9,7 +9,7 @@ if($downtime['ENABLE']=="true"){
 <html>
 	<head>
 		<title>
-			<?php echo $GLOBALS['config']['SERVERNAME']." &bull; ". $page;?>
+			<?php echo $CONFIG['SERVERNAME']." &bull; ". $page;?>
 		</title>
 		<?php include $path.'asset/includes/css.php';?>
 	</head>

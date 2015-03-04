@@ -10,7 +10,7 @@ if(!isset($_GET['cid']) && !isset($_GET['tid'])){
 <html>
 	<head>
 		<title>
-			<?php echo $GLOBALS['config']['SERVERNAME'].' &bull; '. strtoupper($page);?>
+			<?php echo $CONFIG['SERVERNAME'].' &bull; '. strtoupper($page);?>
 		</title>
 	</head>
 	<body>

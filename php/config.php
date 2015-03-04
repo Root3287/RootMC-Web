@@ -20,8 +20,12 @@ $edit=false;
 if(file_exists($path.'install/index.php')&&(!($page==="install"))){
 	die("SETUP STILL EXSITS DELETE OR USE IT");
 }
+if($page === 'install'){
+	return;
+}
+require_once $path.'/php/classes/db.class.php';
+$db = new db($SQL['HOST'], $SQL['USER'], $SQL['PASSWORD'], $SQL['PORT'], $SQL['DATABASE']);
 
 //include $path.'php/functions.php';
 include $path.'php/infractionFunction.php';
-
 ?>

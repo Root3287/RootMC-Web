@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/"><?php echo $GLOBALS['config']['SERVERNAME'];?></a>
+      <a class="navbar-brand" href="/"><?php echo $CONFIG['SERVERNAME'];?></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

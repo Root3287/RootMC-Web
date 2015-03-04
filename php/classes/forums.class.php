@@ -6,12 +6,11 @@
 			$this->db = new db();
 			$this->db = $this->db->getInstance();
 		}
-		public function getTopics($rank, $cat){
-			$data = $this->db->asc('topic', 'id');
-			$n=0;
-			foreach ($data as $topic){
-				$n++;
-			}
+		public function newTopic($catID, $title, $content, $author){
+			$this->db->query("INSERT INTO topics(CId, Title, Content, Author) VALUES ($catID , $title, $content, $author)");
+		}
+		public function newReply($tid, $title, $content, $author){
+			$this->db->query("INSERT INTO reply()")
 		}
 	}
 ?>
