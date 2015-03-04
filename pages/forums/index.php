@@ -13,16 +13,26 @@ require($path."php/config.php");
   <body>
   	<?php include $path.'asset/includes/nav.php';?>
 	<div>
-  	<div class="container">
-		<div class="forums-Welcome">
-			<div class="jumbotron">
-				<H1>NAMELESS FORUMS</H1>
+  		<div class="container">
+			<div class="forums-Welcome">
+				<div class="jumbotron">
+					<h2><?php echo $CONFIG['SERVERNAME']; ?> FORUMS</h2>
+				</div>
 			</div>
+			<div class="page">
+  				<table>
+  				</table>
+  			</div>
+  			<div class="cat">
+  				<div class="well">
+  					<a href="index.php"><b>Main</b></a>
+  					<?php
+  					$parent = $db->query("SELECT * FROM category WHERE Parent = 0");
+  					$child = $db->query("SELECT * FROM category WHERE Parent = 1");
+  					?>
+  				</div>
+  			</div>
 		</div>
-		<div class="page">
-  			
-  		</div>
-	</div>
   	</div>
   	<?php include $path.'asset/includes/scripts.php'?>
   </body>
