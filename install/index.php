@@ -15,8 +15,8 @@
 		//USER: FIRST_NAME, LAST_NAME, UNAME ,EMAIL, MCUSER, UUID. PASSWORD
 		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100), MCUser varchar(20), UUID varchar(100), Password varchar(255), RankId int(20), PRIMARY KEY(id))";
 		$create_table_cat = "CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255), Parent int(11) DEFAULT '0', Parent_ID int(22) DEFAULT '0', Cat_Order int(11), Front_Page int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
-		$create_table_topic = "CREATE TABLE topics(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, CId int(20), Title varchar(255), Author int(11), LastUser int(11), Views int(255) DEFAULT '0',Time datetime, ReplyDate datetime)";
-		$create_table_post = "CREATE TABLE post(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Tid int(20), Author int(11), Content LONGTEXT, data datetime)";
+		$create_table_reply = "CREATE TABLE reply(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, TId, Title varchar(255), Author int(11), Time datetime)";
+		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Tid int(20), Author int(11), Content LONGTEXT, data datetime)";
 		
 		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))";
 		
@@ -64,7 +64,7 @@
 							<input class="form-control" id="Pass" type="password" name="mainPass" placeholder="mySql Password" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" id="Port" type="text" name="mainPort" placeholder="mySql Port (Default: 3360)" autocomplete="off"/>
+							<input class="form-control" id="Port" type="text" name="mainPort" placeholder="mySql Port (Default: 3306)" autocomplete="off"/>
 						</div>
 						<div class="form-group">
 							<input class="form-control" id="Database" type="text" name="mainDatabase" placeholder="Database" autocomplete="off"/>

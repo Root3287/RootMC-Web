@@ -11,6 +11,7 @@ require($path."php/config.php");
   	<?php include $path.'asset/includes/css.php'?>
   </head>
   <body>
+  
   	<?php include $path.'asset/includes/nav.php';?>
 	<div>
   		<div class="container">

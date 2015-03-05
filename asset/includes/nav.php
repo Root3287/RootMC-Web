@@ -1,3 +1,4 @@
+<img src='asset/img/Home-BG.png' class='bg-image' width="2122" height="1412 "/>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -17,7 +18,7 @@
        <li<?php if($page==="home"){?> class="active" <?php }?>><a href="/">Home</a></li>
        <li<?php if($page==="forums"){?> class="active" <?php }?>><a href="/pages/Forums">Forums</a></li>
        <li<?php if($page==="play"){?> class="active" <?php }?>><a href="/pages/play">Online</a></li>
-       <li<?php if($page==="donate"){?> class="active" <?php }?>><a href="/pages/Donate">Donate</a></li>
+       <li<?php if($page==="donate"){?> class="active" <?php }?>><a href="/pages/donate">Donate</a></li>
        <li<?php if($page==="vote"){?> class="active" <?php }?>><a href="/pages/vote">Vote</a></li>
        <li<?php if($page==="infractions"){?> class="active" <?php }?>><a href="/pages/infractions">Infractions</a></li>
         <li><a href="#">Players</a></li>

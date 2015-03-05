@@ -22,7 +22,7 @@ require $path.'php/config.php';
 		</style>
 	</head>
 	<body class="home">
-		<img src='asset/img/Home-BG.png' class='bg-image' width="2122" height="1412 "/>
+		
 		<div class="main">
 			<div class="nav">
 				<?php include $path.'asset/includes/nav.php';?>

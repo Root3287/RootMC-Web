@@ -10,7 +10,7 @@
 			$this->db->query("INSERT INTO topics(CId, Title, Content, Author) VALUES ($catID , $title, $content, $author)");
 		}
 		public function newReply($tid, $title, $content, $author){
-			$this->db->query("INSERT INTO reply()")
+			//$this->db->query("INSERT INTO reply()")
 		}
 	}
 ?>

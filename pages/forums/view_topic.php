@@ -4,7 +4,7 @@ require $path.'php/config.php';
 $page = 'forums';
 
 if(!isset($_GET['cid']) && !isset($_GET['tid'])){
-	header("Location: $path.pages/404.html");
+	header("Location: index.php");
 }
 ?>
 <html>
@@ -14,7 +14,6 @@ if(!isset($_GET['cid']) && !isset($_GET['tid'])){
 		</title>
 	</head>
 	<body>
-		<img src='asset/img/Home-BG.png' class='bg-image' width="2122" height="1412 "/>
 		<div class="main">
 			<?php include $path.'asset/includes/nav.php';?>
 			<div class="container">
