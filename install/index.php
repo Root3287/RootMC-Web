@@ -8,15 +8,10 @@
 	}else{
 		$step = strtolower(htmlspecialchars($_GET['step']));
 	}
-		//Create Databsse if not Exsit
-		//$create_database = "CREATE DATABASE ";
-	
-		//Create Table if not Exsit
-		//USER: FIRST_NAME, LAST_NAME, UNAME ,EMAIL, MCUSER, UUID. PASSWORD
-		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100), MCUser varchar(20), UUID varchar(100), Password varchar(255), RankId int(20), PRIMARY KEY(id))";
+		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100), MCUser varchar(20), UUID varchar(100), Password varchar(255), Salt varchar(255), RankId int(20), PRIMARY KEY(id))";
 		$create_table_cat = "CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255), Parent int(11) DEFAULT '0', Parent_ID int(22) DEFAULT '0', Cat_Order int(11), Front_Page int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
-		$create_table_reply = "CREATE TABLE reply(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, TId, Title varchar(255), Author int(11), Time datetime)";
-		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Tid int(20), Author int(11), Content LONGTEXT, data datetime)";
+		$create_table_reply = "CREATE TABLE reply(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, TId int(20), Title varchar(255), Content LONGTEXT, Author int(11), Time datetime)";
+		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Title text(225), Author int(11), Content LONGTEXT, data datetime)";
 		
 		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))";
 		
@@ -25,8 +20,7 @@
 		$create_table_ranks = "CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))";
 	
 		$admin_rank = "INSERT INTO ranks(name, Display_Name, Rank) VALUES ('Admin','ADMIN','a')";
-		$admin_hashed_password = hash('sha256', "adminisrator");
-		$admin = "INSERT INTO users(FIRST_NAME, LAST_NAME, UNAME, EMAIL, MCUSER, UUID, PASSWORD, Rank_id) values ('Admin', 'Admin' ,'Administrator', 'admin@admin.com', 'admin', '-----', '".$admin_hashed_password."','1')";
+		
 ?>
 <html>
 	<head>
@@ -102,7 +96,7 @@
 		<?php 
 		break;
 		case "sql_setting";
-			if(!$_POST['DisplayIP'] !="" && !$_POST['mainDatabase'] !="" && !$_POST['mainHost'] !="" && !$_POST['mainPass'] !="" && !$_POST['mainPort'] !="" && !$_POST['mainUser'] !="" && !$_POST['ServerIP'] !="" && !$_POST['ServerName'] !="" && !$_POST['AdminUSER'] && !$_POST['AdminPass']){
+			if($_POST['DisplayIP'] ="" && $_POST['mainDatabase'] ="" && $_POST['mainHost'] ="" && $_POST['mainPass'] ="" && $_POST['mainPort'] ="" && $_POST['mainUser'] ="" && $_POST['ServerIP'] ="" && $_POST['ServerName'] ="" && $_POST['AU'] ="" && $_POST['AP'] =""){
 				die("Please Fill in all the forms! <a href='index.php'>back</a>");
 			}
 			$test = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass']);
@@ -114,6 +108,9 @@
 			$test->close();
 			
 			$test2 = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase']) or die("Cannot connect to the second mysqli");
+			
+			$admin_hashed_password = hash('sha256', $_POST['AP']);
+			$admin = "INSERT INTO users(FIRST_NAME, LAST_NAME, UNAME, EMAIL, MCUSER, UUID, PASSWORD, Rank_id) values ('Admin', 'Admin' ,'Administrator', 'admin@admin.com', 'admin', '-----', '".$admin_hashed_password."','1')";
 			
 			
 			//$test2->query($create_table_forums);

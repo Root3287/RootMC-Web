@@ -16,7 +16,7 @@
 			while($row = $q->fetch_assoc()){
 				if($row['Parent'] == 1){
 					if($row['Parent_ID'] < 0){
-						$result[$row['ID']] = $row
+						$result[$row['ID']] = $row;
 					}
 				}else{
 					if($row['Parent_Id'] > 0){
