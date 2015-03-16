@@ -29,7 +29,10 @@
 			return $this->_result;
 		}
 		public function query($query){
-			return $this->connect()->query($query);
+			 $this->connect()->query($query);
+		}
+		public function result(){
+			return $this->_result;
 		}
 	}
 ?>
