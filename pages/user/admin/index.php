@@ -5,6 +5,8 @@ require $path.'php/config.php';
 ?>
 <html>
 	<head>
+		<title><?php echo $CONFIG['SERVERNAME']?> &bull; AdminCP</title>
 	</head>
-	</head>
+	<body>
+	</body>
 </html>
