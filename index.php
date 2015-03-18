@@ -59,7 +59,7 @@ require $path.'php/config.php';
 						
 				</div>
 			</div>
-				<?php include $path.'asset/includes/copyright.php';?>
+				<?php include $path.'asset/includes/footer.php';?>
 			</div>
 			
 		<?php include $path.'asset/includes/scripts.php';?>
