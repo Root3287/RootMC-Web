@@ -10,7 +10,9 @@
 			parent::__construct($host, $user, $pass, $db, $port);
 		}
 		public function createTable($table, $tableVal){
-			return $this->_connect->query("CREATE TABLE $table($tableVal)");
+			 $data = $this->_connect->query("CREATE TABLE $table($tableVal)");
+			 
+			 $this->_result = $data->fetch_query();
 		}
 		public function asc($table, $row){
 			$this->_result = $this->_connect->query("SELECT * FROM $table ORDER BY $row ASC");

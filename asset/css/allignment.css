@@ -41,3 +41,6 @@ div.page{
 	background-repeat: repeat;
 	color: white;*/
 }
+.home{
+	background: url(/asset/img/Home-BG.png) no-repeat fixed 100%;
+}

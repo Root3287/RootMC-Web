@@ -9,17 +9,6 @@ require $path.'php/config.php';
 			<?php echo $CONFIG['SERVERNAME']." &bull; ". strtoupper($page); ?>
 		</title>
 		<?php include $path.'asset/includes/css.php'; ?>
-		<style>
-			.jumbotron-new {
-				margin-bottom: 0px;
-				background-image: url(asset/img/Home-BG.png);
-				background-position: 0% 25%;
-				background-size: cover;
-				background-repeat: no-repeat;
-				color: white;
-			}
-			
-		</style>
 	</head>
 	<body class="home">
 		
