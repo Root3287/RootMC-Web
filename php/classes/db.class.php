@@ -1,5 +1,6 @@
 <?php 
 	class db extends mysqli{
+		private static $_instance;
 		private $_host, $_user, $_pass, $_port, $_db, $_connect, $_result;
 		public function __construct($host, $user, $pass, $port, $db){
 			$this->_db = $db;
@@ -8,6 +9,12 @@
 			$this->_pass = $pass;
 			$this->_port = $port;
 			parent::__construct($host, $user, $pass, $db, $port);
+		}
+		public function getInstance($host, $user, $pass, $db, $port){
+			if(!isset(self::$_instance)){
+				self::$_instance = new db($host, $user, $pass, $port, $db);
+			}
+			return self::$_instance;
 		}
 		public function createTable($table, $tableVal){
 			 $data = $this->_connect->query("CREATE TABLE $table($tableVal)");

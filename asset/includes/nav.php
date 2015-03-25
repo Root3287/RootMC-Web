@@ -1,4 +1,4 @@
-<img src='asset/img/Home-BG.png' class='bg-image' width="2122" height="1412 "/>
+<img src='/asset/img/Home-BG.png' class='bg-image' width="2122" height="1412 "/>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
