@@ -1,3 +1,3 @@
 <?php 
-header("Location: /user/index.php");
+Redirect::to("/");
 ?>
