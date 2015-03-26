@@ -1,4 +1,35 @@
-The MIT License (MIT)
+<?php
+$page ="home";
+$path ="";
+require $path.'php/config.php';
+?>
+<html>
+	<head>
+		<title>
+			<?php echo $CONFIG['SERVERNAME']." &bull; ". strtoupper($page); ?>
+		</title>
+		<?php include $path.'asset/includes/css.php'; ?>
+	</head>
+	<body class="home">
+		
+		<div class="main">
+			<div class="nav">
+				<?php include $path.'asset/includes/nav.php';?>
+			</div>
+			<div class="container">
+					<div class="jumbotron">
+					<h1>Welcome to <?php echo $CONFIG['SERVERNAME'];?></h1>
+					<h4><?php echo $CONFIG['SERVERIP'];?></h4>
+				</div>
+				<div class="home_container">
+						<div class="news">
+							<h2>News</h2>
+							<div class="panel panel-bg">
+								<div class="panel-heading">
+									NEWS
+								</div>
+								<div class="panel-body">
+										The MIT License (MIT)
 
 Copyright (c) 2015 Timothy Gibbons
 
@@ -19,3 +50,29 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+ 
+									</div>
+								</div>
+							</div>
+							
+						<div class="login">
+							<h2>Login</h2>
+							<div class="panel panel-bg">
+								<div class="panel-heading">
+										<?php if(isset($_COOKIE['user'])){echo $_COOKIE['user'];}else{?>REGISTER/LOGINS<?php } ?>
+								</div>
+								<div class="panel-body">
+										TODO:This is where the Login goes to 
+									</div>
+								</div>
+						</div>
+						
+				</div>
+			</div>
+				<?php include $path.'asset/includes/footer.php';?>
+			</div>
+			
+		<?php include $path.'asset/includes/scripts.php';?>
+	</body>
+</html>
+
