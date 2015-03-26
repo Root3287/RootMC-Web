@@ -1,3 +1,3 @@
 <?php 
-Redirect::to("/");
+Header("Location: /")
 ?>
