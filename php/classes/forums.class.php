@@ -11,20 +11,33 @@
 		public function newReply($tid, $title, $content, $author){
 			//$this->db->query("INSERT INTO reply()")
 		}
-		public function getCat(){
+		public function getCat($group_id){
 			$q = $this->db->query("SELECT * FROM category");
 			$result = "";
-			while($row = $q->fetch_assoc()){
-				if($row['Parent'] == 1){
-					if($row['Parent_ID'] < 0){
-						$result[$row['ID']] = $row;
+			while($row = $q->fetch()){
+				if($group_id == 1){ //if user is administrator
+					if($row['Parent'] == 1){
+						if($row['Parent_ID'] < 0){
+							$result[$row['ID']] = $row;
+						}
+					}else{
+						if($row['Parent_Id'] > 0){
+							$result[$row['ID']] = $row;
+						}
 					}
-				}else{
-					if($row['Parent_Id'] > 0){
-						$result[$row['ID']] = $row;
+				}else if($group_id == 2){ //if user is mod
+					if($row['Parent'] == 1){
+						if($row['Parent_ID'] < 0){
+							$result[$row['ID']] = $row;
+						}
+					}else{
+						if($row['Parent_Id'] > 0){
+							$result[$row['ID']] = $row;
+						}
 					}
 				}
 			}
+			return $result;
 		}
 	}
 ?>
