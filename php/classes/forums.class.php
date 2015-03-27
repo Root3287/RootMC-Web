@@ -2,6 +2,7 @@
 	class forums{
 		public $db;
 		public function __construct(){
+			require 'db.class.php';
 			$this->db = $this->db->getInstance();
 		}
 		public function newTopic($catID, $title, $content, $author){

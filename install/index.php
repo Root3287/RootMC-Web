@@ -15,6 +15,7 @@
 		
 		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))";
 		
+		$create_table_pm = "CREATE TABLE pm(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserId int(11), UserId2 int(11), Message LONGTEXT)";
 		
 		// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
 		$create_table_ranks = "CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))";
@@ -123,7 +124,7 @@
 			//ADMINISTRATOR SETUP
 			$test2->query($admin_rank);
 			$test2->query($admin);
-			$test2->query($create_table_post);
+			$test2->query($create_table_pm);
 			$test2->close();
 			
 			if(is_writable($path.'php/init.php')){
