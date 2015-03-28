@@ -1,31 +1,34 @@
 <?php
 	class Cookies{
-		function cookieYear($years){
-			return time()+$years*31556926;
+		public function cookieYear($name, $value, $years){
+			setcookie($name, $value,time()+$years*31556926); 
 		}
 		
-		function cookieMonth($month){
-			return time()+$month*2629743.83;
+		public function cookieMonth($name, $value, $month){
+			setcookie($name, $value, time()+$month*2629743.83);
 		}		
 		
-		function cookieWeek($week){
-			return time()+$week*604800;
+		public function cookieWeek($name, $value, $week){
+			setcooke($name, $value,time()+$week*604800);
 		}
 		
-		function cookieDay($day){
-			return time()+$day*86400;
+		public function cookieDay($name, $value, $day){
+			setcookie($name,$value,time()+$day*86400);
 		}
 		
-		function cookieHour($hour){
-			return time()+$hour*3600;
+		public function cookieHour($name,$value,$hour){
+			setcookie($name, $value, time()+$hour*3600);
 		}
 		
-		function cookieMinute($minute){
-			return time()+$minute*60;
+		public function cookieMinute($name, $value, $minute){
+			setcookie($name, $value, time()+$minute*60);
 		}
 		
-		function cookieSeconds($seconds){
-			return time()+$seconds;
+		public function cookieSeconds($name, $value, $seconds){
+			setcookie($name,$value,time()+$seconds);
+		}
+		public function expire($name){
+			setcookie($name, "" , 0000000000);
 		}
 	}	
 ?>

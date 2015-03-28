@@ -1,5 +1,6 @@
 <?php 
 	class db{
+		
 		private static $_instance;
 		private $_host, $_user, $_pass, $_port, $_db, $_connect, $_result, $_query;
 		public function __construct($host, $user, $pass, $port, $db){
@@ -11,6 +12,7 @@
 		}
 		
 		public function getInstance($host, $user, $pass, $db, $port){
+			require '../config.php';
 			if(!isset(self::$_instance)){
 				self::$_instance = new db($host, $user, $pass, $port, $db);
 			}

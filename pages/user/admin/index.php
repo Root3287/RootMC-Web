@@ -54,6 +54,7 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 								</div>
 							</div>
 							<?php 
+								break;
 								case"1":
 							?>
 							<div class="panel panel-bg">
@@ -173,7 +174,7 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 								break;
 							?>
 							<?php 
-								case"8":
+								case"9":
 							?>
 							<div class="panel panel-bg">
 								<div class="panel-heading">
@@ -186,6 +187,25 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 							<?php 
 								break;
 							?>
+							<?php 
+								case"10":
+							?>
+							<div class="panel panel-bg">
+								<div class="panel-heading">
+									Password Hash
+								</div>
+								<div class="panel-body">
+								From data hello
+								<?php
+									$data = "hello"; 
+
+									foreach (hash_algos() as $v) { 
+									        $r = hash($v, $data, false); 
+									        printf("%-12s %3d %s\n", $v, strlen($r), $r); 
+									}
+								?> 
+								</div>
+							</div>
 							<?php
 								break; 
 								}
@@ -208,6 +228,7 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 											<?php if($pagenum =="7"){?><li>Links</li><?php }else{?><li><a href="?p=7">Links</a></li><?php }?>
 											<?php if($pagenum =="8" && $installExists == "true"){?><li>DELETE INSTALL</li><?php }else{?><li><a href="?p=8">DELETE INSTALL</a></li><?php }?>
 											<?php if($pagenum =="9"){?><li>Panels</li><?php }else{?><li><a href="?p=9">Panels</a></li><?php }?>
+											<?php if($pagenum =="10"){?><li>Password hashes</li><?php }else{?><li><a href="?p=10">Password hashes</a></li><?php }?>
 										</ul> 
 									</div>
 								</div>

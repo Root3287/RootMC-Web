@@ -1,8 +1,11 @@
 <?php 
 	class forums{
 		public $db;
+		private $_user;
 		public function __construct(){
 			require 'db.class.php';
+			require 'user.class.php';
+			$this->_user = new user();
 			$this->db = $this->db->getInstance();
 		}
 		public function newTopic($catID, $title, $content, $author){
@@ -13,27 +16,14 @@
 		}
 		public function getCat($group_id){
 			$q = $this->db->query("SELECT * FROM category");
+			$q2 = $this->db->query("SELECT * FROM Ranks");
 			$result = "";
-			while($row = $q->fetch()){
-				if($group_id == 1){ //if user is administrator
-					if($row['Parent'] == 1){
-						if($row['Parent_ID'] < 0){
-							$result[$row['ID']] = $row;
-						}
-					}else{
-						if($row['Parent_Id'] > 0){
-							$result[$row['ID']] = $row;
-						}
-					}
-				}else if($group_id == 2){ //if user is mod
-					if($row['Parent'] == 1){
-						if($row['Parent_ID'] < 0){
-							$result[$row['ID']] = $row;
-						}
-					}else{
-						if($row['Parent_Id'] > 0){
-							$result[$row['ID']] = $row;
-						}
+			while($row = $q->fetchAll()){
+				while($row2 = $q2->fetchAll()){
+					if($row['Parent']){
+						if($this->_user)
+					}elseif(!$row['Parent']){
+						
 					}
 				}
 			}

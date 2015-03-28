@@ -12,6 +12,7 @@
 		$create_table_cat = "CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255), Parent int(11) DEFAULT '0', Parent_ID int(22) DEFAULT '0', Cat_Order int(11), Front_Page int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
 		$create_table_reply = "CREATE TABLE reply(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, TId int(20), Title varchar(255), Content LONGTEXT, Author int(11), Time datetime)";
 		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Title text(225), Author int(11), Content LONGTEXT, data datetime)";
+		$create_table_links = "CREATE TABLE links(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, name varchar(255), Link_Path varchar(255))";
 		
 		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))";
 		
@@ -79,10 +80,10 @@
 
 						<h2>Administrator's Account</h2>
 						<div class="form-group">
-							<input class="form-control" id="AU" type="text" name="AdminUser"/>
+							<input class="form-control" id="AU" type="hidden" name="AdminUser" value="Administrator"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" id="AP" type="password" name="adminPassword"/>
+							<input class="form-control" id="AP" type="hidden" name="adminPassword" value="administrator"/>
 						</div>
 						<div class="form-group">
 							<input class="form-control" id="Submit" type="submit" value="Submit"/>
@@ -98,7 +99,7 @@
 		break;
 		case "sql_setting";
 			if($_POST['DisplayIP'] ="" && $_POST['mainDatabase'] ="" && $_POST['mainHost'] ="" && $_POST['mainPass'] ="" && $_POST['mainPort'] ="" && $_POST['mainUser'] ="" && $_POST['ServerIP'] ="" && $_POST['ServerName'] ="" && $_POST['AU'] ="" && $_POST['AP'] =""){
-				die("Please Fill in all the forms! <a href='index.php'>back</a>");
+				die("Please Fill in all the forms! <a href='index.php?step=setup'>back</a>");
 			}
 			$test = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass']);
 			if($test->connect_error){
@@ -111,7 +112,7 @@
 			$test2 = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase']) or die("Cannot connect to the second mysqli");
 			
 			$admin_hashed_password = hash('sha256', $_POST['AP']);
-			$admin = "INSERT INTO users(FIRST_NAME, LAST_NAME, UNAME, EMAIL, MCUSER, UUID, PASSWORD, Rank_id) values ('Admin', 'Admin' ,'Administrator', 'admin@admin.com', 'admin', '-----', '".$admin_hashed_password."','1')";
+			$admin = "INSERT INTO users(FIRST_NAME, LAST_NAME, UNAME, EMAIL, MCUSER, UUID, PASSWORD, Rank_id) values ('Admin', 'Admin' ,'Admin', 'admin@admin.com', 'admin', '-----', '".$admin_hashed_password."','1')";
 			
 			
 			//$test2->query($create_table_forums);
@@ -120,58 +121,43 @@
 			$test2->query($create_table_user);
 			$test2->query($create_table_cat);
 			$test2->query($create_table_friends);
-			//$test2->query($create_table_reply);
+			$test2->query($create_table_links);
 			//ADMINISTRATOR SETUP
 			$test2->query($admin_rank);
 			$test2->query($admin);
 			$test2->query($create_table_pm);
 			$test2->close();
 			
+			$insert=
+			'<?php'.PHP_EOL.
+			'$SQL = array('.PHP_EOL.
+			'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
+			'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
+			'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
+			'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
+			'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
+			'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
+			');'.PHP_EOL.
+			''.PHP_EOL.
+			'//The configuration for your server'.PHP_EOL.
+			'$CONFIG = array('.PHP_EOL.
+			'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
+			'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
+			'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
+			');'.PHP_EOL.
+			'?>';
+			
 			if(is_writable($path.'php/init.php')){
 				$Iconfig = file_get_contents($path.'php/init.php');
 				$Iconfig = substr($Iconfig, 6);
-				/*
-				$insert=
-				'<?php'.PHP_EOL.
-				'$GLOBALS[\'SQL\'] = array('.PHP_EOL.
-				'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
-				'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
-				'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
-				'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
-				'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
-				'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
-				');'.PHP_EOL.
-				''.PHP_EOL.
-				'//The configuration for your server'.PHP_EOL.
-				'$GLOBALS[\'config\'] = array('.PHP_EOL.
-				'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
-				'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
-				'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
-				');';*/
 				
-				$insert=
-				'<?php'.PHP_EOL.
-				'$SQL = array('.PHP_EOL.
-				'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
-				'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
-				'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
-				'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
-				'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
-				'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
-				');'.PHP_EOL.
-				''.PHP_EOL.
-				'//The configuration for your server'.PHP_EOL.
-				'$CONFIG = array('.PHP_EOL.
-				'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
-				'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
-				'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
-				');';
 				$configfile = fopen($path.'php/init.php', 'w');
 				fwrite($configfile, $insert.$Iconfig);
 				fclose($configfile);
 				die("<a href='index.php?step=finished'>CLICK ME!</a>");
 			}else{
-				die("you have to insert it manually!");
+				echo $insert;
+				die("you have to insert it manually into home/php/includes.php! <a href='?step=finished'>CLICK ME!</a>");
 			}
 		break;
 		case "finished":
@@ -191,7 +177,7 @@
 							ADMINISTRATOR ACCOUNT
 						</div>
 						<div class="panel-body">
-						Username: Administrator<br/>
+						Username: Admin<br/>
 						Pass: administrator
 						</div>
 					</div>
