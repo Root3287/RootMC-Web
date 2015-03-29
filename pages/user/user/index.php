@@ -1,7 +1,7 @@
 <?php
 $page ="UserCP";
 $path ="../../";
-require $path.'php/config.php';
+require $path.'php/init.php';
 ?>
 <html>
 	<head>

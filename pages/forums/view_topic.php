@@ -1,6 +1,6 @@
 <?php
 $path = '../../';
-require $path.'php/config.php';
+require $path.'php/init.php';
 $page = 'forums';
 
 if(!isset($_GET['cid']) && !isset($_GET['tid'])){

@@ -160,21 +160,21 @@
 			');'.PHP_EOL.
 			'?>';
 			
-			if(is_writable($path.'php/init.php')){
-				$Iconfig = file_get_contents($path.'php/init.php');
+			if(is_writable($path.'php/config.php')){
+				$Iconfig = file_get_contents($path.'php/config.php');
 				$Iconfig = substr($Iconfig, 6);
 				
-				$configfile = fopen($path.'php/init.php', 'w');
+				$configfile = fopen($path.'php/config.php', 'w');
 				fwrite($configfile, $insert.$Iconfig);
 				fclose($configfile);
 				die("<a href='index.php?step=finished'>CLICK ME!</a>");
 			}else{
-				$Iconfig = file_get_contents('inc/init.php');
+				$Iconfig = file_get_contents('inc/config.php');
 				$Iconfig = substr($config, 5);
 				$Iconfig = nl2br(htmlspecialchars($insert . $config));
 				
 				echo $Iconfig;
-				die("you have to insert it manually into home/php/includes.php! <a href='?step=finished'>CLICK ME!</a>");
+				die("<br/>you have to insert it manually into home/php/config.php! <a href='?step=finished'>CLICK ME!</a>");
 			}
 		break;
 		case "finished":

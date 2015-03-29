@@ -1,6 +1,6 @@
 <?php 
 $path ="../../";
-require $path.'php/config.php';
+require $path.'php/init.php';
 if(file_exists("setup.php")){
 	header("Location: ".$path."pages/downtime");
 }

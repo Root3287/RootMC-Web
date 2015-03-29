@@ -1,6 +1,6 @@
 <?php
 	$path ="../../";
-	require $path.'php/config.php';
+	require $path.'php/init.php';
 	
 	$FNAME = $_POST['FirstName'];
 	$LNAME = $_POST['LastName'];

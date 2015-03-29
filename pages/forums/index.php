@@ -1,7 +1,7 @@
 <?php
 $page ="forums";
 $path ="../../";
-require $path.'php/config.php';
+require $path.'php/init.php';
 require $path.'php/classes/forums.class.php';
 $forums = new forums();
 $cats = $forums->getCat($user->getGroupID());

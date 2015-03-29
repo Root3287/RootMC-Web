@@ -1,7 +1,7 @@
 <?php
 $path = "../../";
 $page = "DOWN";
-require $path.'php/config.php';
+require $path.'php/init.php';
 if($downtime['ENABLE']=="true"){
 	header("Location: ".$path);
 }
