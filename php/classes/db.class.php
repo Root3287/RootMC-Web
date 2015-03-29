@@ -42,7 +42,7 @@
 			$this->_result = $this->_query->fetchAll();
 			return $this;		}
 		public function query($query){
-			 $this->_query = $this->query($query);
+			 $this->_query = $this->_connect->query($query);
 			 $this->_result = $this->_query->fetchAll();
 			 return $this;
 		}
