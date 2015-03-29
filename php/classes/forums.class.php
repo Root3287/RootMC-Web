@@ -3,10 +3,8 @@
 		public $db;
 		private $_user;
 		public function __construct(){
-			require 'db.class.php';
-			require 'user.class.php';
-			$this->_user = new user();
-			$this->db = $this->db->getInstance();
+			include 'db.class.php';
+			$this->db = db::getInstance();
 		}
 		public function newTopic($catID, $title, $content, $author){
 			$this->db->query("INSERT INTO topics(CId, Title, Content, Author) VALUES ($catID , $title, $content, $author)");
@@ -21,7 +19,9 @@
 			while($row = $q->fetchAll()){
 				while($row2 = $q2->fetchAll()){
 					if($row['Parent']){
-						if($this->_user)
+						if($this->_user){
+							
+						}
 					}elseif(!$row['Parent']){
 						
 					}

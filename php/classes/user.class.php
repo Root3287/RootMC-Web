@@ -4,8 +4,8 @@
 		private $_cookie, $_data, $_logIn,$_rank;
 	
 		public function __construct(){
-			require 'db.class.php';
-			require 'cookie.class.php';
+			include 'db.class.php';
+			include 'cookies.class.php';
 			$this->db = db::getInstance();
 			$this->_cookie = new Cookies();
 		}

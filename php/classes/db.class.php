@@ -1,18 +1,16 @@
 <?php 
 	class db{
-		
 		private static $_instance;
 		private $_host, $_user, $_pass, $_port, $_db, $_connect, $_result, $_query;
-		public function __construct($host, $user, $pass, $port, $db){
+		public function __construct(){
 			try{
-				$this->_connect = new PDO('mysql:host='.$this->_host.';mysql:database='.$this->_db.';',$this->_user,$this->_pass);
+				$this->_connect = new PDO('mysql:host='.$GLOBALS['SQL']['HOST'].';mysql:database='.$GLOBALS['SQL']['DATABASE'].';',$GLOBALS['SQL']['USER'],$GLOBALS['SQL']['PASSWORD']);
 			}catch(PDOException $e){
 				echo $e->getMessage();
 			}
 		}
 		
-		public function getInstance($host, $user, $pass, $db, $port){
-			require '../config.php';
+		public function getInstance(){
 			if(!isset(self::$_instance)){
 				self::$_instance = new db($host, $user, $pass, $port, $db);
 			}

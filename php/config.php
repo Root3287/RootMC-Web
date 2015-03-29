@@ -15,11 +15,8 @@ if(file_exists($path.'install/index.php')&&(!($page==="install"))){
 if($page === 'install'){
 	return;
 }
-//require_once $path.'php/classes/db.class.php';
-//$db = new db($SQL['HOST'], $SQL['USER'], $SQL['PASSWORD'], $SQL['PORT'], $SQL['DATABASE']);
-
-require_once $path.'php/classes/user.class.php';
-$user = new user($db);
+include_once $path.'php/classes/db.class.php';
+$db = new db();
 
 //include $path.'php/functions.php';
 include $path.'php/infractionFunction.php';

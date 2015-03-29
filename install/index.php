@@ -145,6 +145,19 @@
 			'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
 			'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
 			');'.PHP_EOL.
+			'$GLOBALS[\'SQL\'] = array('.PHP_EOL.
+			'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
+			'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
+			'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
+			'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
+			'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
+			'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
+			');'.PHP_EOL.
+			'$GLOBALS[\'CONFIG\'] = array('.PHP_EOL.
+			'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
+			'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
+			'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
+			');'.PHP_EOL.
 			'?>';
 			
 			if(is_writable($path.'php/init.php')){
@@ -156,7 +169,11 @@
 				fclose($configfile);
 				die("<a href='index.php?step=finished'>CLICK ME!</a>");
 			}else{
-				echo $insert;
+				$Iconfig = file_get_contents('inc/init.php');
+				$Iconfig = substr($config, 5);
+				$Iconfig = nl2br(htmlspecialchars($insert . $config));
+				
+				echo $Iconfig;
 				die("you have to insert it manually into home/php/includes.php! <a href='?step=finished'>CLICK ME!</a>");
 			}
 		break;
