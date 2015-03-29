@@ -1,6 +1,6 @@
 <?php
-$page ="home";
-$path ="";
+$page ="license";
+$path ="../";
 require $path.'php/init.php';
 ?>
 <html>

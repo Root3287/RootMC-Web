@@ -15,9 +15,8 @@ if(file_exists($path.'install/index.php')&&(!($page==="install"))){
 if($page === 'install'){
 	return;
 }
-include_once $path.'php/classes/db.class.php';
-$db = new db();
-
-//include $path.'php/functions.php';
-include $path.'php/infractionFunction.php';
+spl_autoload_register(function($class){
+	require_once $path.'php/classes/'.$class.'.class.php';
+});
+$db = new db;
 ?>

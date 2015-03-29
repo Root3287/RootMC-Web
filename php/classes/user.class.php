@@ -4,15 +4,19 @@
 		private $_cookie, $_data, $_logIn,$_rank;
 	
 		public function __construct(){
-			include 'db.class.php';
-			include 'cookies.class.php';
 			$this->db = db::getInstance();
 			$this->_cookie = new Cookies();
 		}
-		
 		public function getRank(){
-			$this->db->query("SELECT * FROM Users");
-			return $this->_rank;
+			$q = $this->db->query("SELECT * FROM Users");
+			$this->_rank = $q->result();
+			return $this;
+		}
+		public function toID(){
+			$ranks = $this->getRank();
+			foreach ($ranks as $rank){
+				
+			}
 		}
 		public function login($user, $pass){
 			$q =$this->db->query("SELECT * FROM Users WHERE UserName =".$user."")->result();
