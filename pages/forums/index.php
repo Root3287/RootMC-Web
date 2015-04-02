@@ -52,7 +52,6 @@ $cats = $forums->getCat($user->getGroupID());
 								</div>
 							</div>
 						</div>
-						
 				</div>
 			</div>
 				<?php include $path.'asset/includes/footer.php';?>

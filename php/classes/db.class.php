@@ -12,7 +12,7 @@
 		
 		public function getInstance(){
 			if(!isset(self::$_instance)){
-				self::$_instance = new db($host, $user, $pass, $port, $db);
+				self::$_instance = new db();
 			}
 			return self::$_instance;
 		}

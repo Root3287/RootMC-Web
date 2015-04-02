@@ -45,7 +45,6 @@ require $path.'php/init.php';
 									</div>
 								</div>
 						</div>
-						
 				</div>
 			</div>
 				<?php include $path.'asset/includes/footer.php';?>

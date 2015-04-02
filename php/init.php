@@ -18,5 +18,5 @@ if($page === 'install'){
 spl_autoload_register(function($class){
 	require_once $path.'php/classes/'.$class.'.class.php';
 });
-$db = new db;
+$db = db::getInstance;
 ?>
