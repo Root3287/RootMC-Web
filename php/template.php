@@ -1,20 +1,55 @@
 <?php
-$path="../../"; //for each directory that it's in add another ../
-require 'php/config.php';
+$page ="";
+$path ="";
+require $path.'php/init.php';
 ?>
 <html>
 	<head>
 		<title>
-			<?php echo $CONFIG['SERVERNAME']." &bull; (NAME OF PAGE)"?>
+			<?php echo $CONFIG['SERVERNAME']." &bull; ". strtoupper($page); ?>
 		</title>
-		<?php include 'asset/includes/css.php';?>
+		<?php include $path.'asset/includes/css.php'; ?>
 	</head>
-	<body>
+	<body class="home">
+		
 		<div class="main">
-			<div class="container">
-				<h1>THIS IS A TEMPLATE</h1>
+			<div class="nav">
+				<?php include $path.'asset/includes/nav.php';?>
 			</div>
-		</div>
-		<?php include 'asset/includes/scripts.php';?>
+			<div class="container">
+					<div class="jumbotron">
+					<h1>Welcome to <?php echo $CONFIG['SERVERNAME'];?></h1>
+					<h4><?php echo $CONFIG['SERVERIP'];?></h4>
+				</div>
+				<div class="home_container">
+						<div class="news">
+							<h2>News</h2>
+							<div class="panel panel-bg">
+								<div class="panel-heading">
+									NEWS
+								</div>
+								<div class="panel-body">
+										TODO:This is where the news goes to 
+									</div>
+								</div>
+							</div>
+							
+						<div class="login">
+							<h2>Login</h2>
+							<div class="panel panel-bg">
+								<div class="panel-heading">
+										<?php if(isset($_COOKIE['user'])){echo $_COOKIE['user'];}else{?>REGISTER/LOGINS<?php } ?>
+								</div>
+								<div class="panel-body">
+										TODO:This is where the Login goes to 
+									</div>
+								</div>
+						</div>
+				</div>
+			</div>
+				<?php include $path.'asset/includes/footer.php';?>
+			</div>
+			
+		<?php include $path.'asset/includes/scripts.php';?>
 	</body>
 </html>
