@@ -13,14 +13,11 @@
 		$create_table_reply = "CREATE TABLE reply(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, TId int(20), Title varchar(255), Content LONGTEXT, Author int(11), Time datetime)";
 		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Title text(225), Author int(11), Content LONGTEXT, data datetime)";
 		$create_table_links = "CREATE TABLE links(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, name varchar(255), Link_Path varchar(255))";
-		
 		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))";
-		
 		$create_table_pm = "CREATE TABLE pm(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserId int(11), UserId2 int(11), Message LONGTEXT)";
-		
+		$create_table_forums_perm = "CREATE TABLE forums_perms(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, group_id int(11) NOT NULL, Cat_id int(11) NOT NULL, view int(11) NOT NULL, create_post int(11) NOT NULL, create_reply int(11) NOT NULL)";
 		// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
 		$create_table_ranks = "CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))";
-	
 		$admin_rank = "INSERT INTO ranks(name, Display_Name, Rank) VALUES ('Admin','ADMIN','a')";
 		
 ?>
