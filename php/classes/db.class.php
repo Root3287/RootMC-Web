@@ -19,7 +19,7 @@
 		
 		public function createTable($table, $tableVal){
 			 $this->_query = $this->query("CREATE TABLE $table($tableVal)");
-			 $this->_result = $this->_query->FetchAll();
+			 $this->_result = $this->_query->fetchAll();
 			 return $this;
 		}
 		
