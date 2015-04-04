@@ -1,35 +1,81 @@
 <?php
 	$page="install";
 	$path = "../";
-	require $path.'php/config.php';
+	require $path.'php/init.php';
+	require $path.'/php/classes/redirect.class.php';
+	$redirect = new Redirect();
 	
 	if(!(isset($_GET['step']))){
-		$step = "";
+		$step = "welcome";
 	}else{
 		$step = strtolower(htmlspecialchars($_GET['step']));
 	}
-		$create_table_user = "CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100), MCUser varchar(20), UUID varchar(100), Password varchar(255), Salt varchar(255), RankId int(20), PRIMARY KEY(id))";
-		$create_table_cat = "CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255), Parent int(11) DEFAULT '0', Parent_ID int(22) DEFAULT '0', Cat_Order int(11), Front_Page int(11) DEFAULT '0', view_access int(11) DEFAULT '0')";
-		$create_table_reply = "CREATE TABLE reply(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, TId int(20), Title varchar(255), Content LONGTEXT, Author int(11), Time datetime)";
-		$create_table_topic = "CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Title text(225), Author int(11), Content LONGTEXT, data datetime)";
-		$create_table_links = "CREATE TABLE links(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, name varchar(255), Link_Path varchar(255))";
-		$create_table_friends="CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))";
-		$create_table_pm = "CREATE TABLE pm(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserId int(11), UserId2 int(11), Message LONGTEXT)";
-		$create_table_forums_perm = "CREATE TABLE forums_perms(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, group_id int(11) NOT NULL, Cat_id int(11) NOT NULL, view int(11) NOT NULL, create_post int(11) NOT NULL, create_reply int(11) NOT NULL)";
-		// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
-		$create_table_ranks = "CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))";
-		$admin_rank = "INSERT INTO ranks(name, Display_Name, Rank) VALUES ('Admin','ADMIN','a')";
+	
+	if($step == "delete"){
+		unlink('index.php');
+		$redirect->to($path."index.php");
+	}
 		
+	if($step == "sql_setting"){
+		$insert=
+		'<?php'.PHP_EOL.
+		'$SQL = array('.PHP_EOL.
+		'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
+		'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
+		'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
+		'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
+		'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
+		'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
+		');'.PHP_EOL.
+		''.PHP_EOL.
+		'//The configuration for your server'.PHP_EOL.
+		'$CONFIG = array('.PHP_EOL.
+		'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
+		'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
+		'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
+		');'.PHP_EOL.
+		'$GLOBALS[\'SQL\'] = array('.PHP_EOL.
+		'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
+		'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
+		'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
+		'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
+		'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
+		'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
+		');'.PHP_EOL.
+		'$GLOBALS[\'CONFIG\'] = array('.PHP_EOL.
+		'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
+		'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
+		'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
+		');'.PHP_EOL.
+		'?>';
+			
+		if(is_writable($path.'php/config.php')){
+			$Iconfig = file_get_contents($path.'php/config.php');
+			$Iconfig = substr($Iconfig, 6);
+		
+			$configfile = fopen($path.'php/config.php', 'w');
+			fwrite($configfile, $insert.$Iconfig);
+			fclose($configfile);
+			$redirect->to("index.php?step=finish");
+			die();
+		}else{
+			$Iconfig = file_get_contents('inc/config.php');
+			$Iconfig = substr($config, 5);
+			$Iconfig = nl2br(htmlspecialchars($insert . $config));
+			
+			echo $Iconfig;
+			die("<br/>Woops! Something went wrong! The file is not readable! you have to insert it manually into home/php/config.php! <a href='?step=finished'>CLICK ME!</a>");
+		}
+	}
 ?>
 <html>
 	<head>
 		<title>
-			New website &bull; Setup
+			New website &bull; <?php echo $step;?>
 		</title>
 		<?php include $path.'asset/includes/css.php'?>
 	</head>
 	<body>
-	<?php //include $path.'asset/includes/nav.php';?>
 	<?php
 		switch($step){
 			case "setup":
@@ -62,6 +108,9 @@
 						<div class="form-group">
 							<input class="form-control" id="Database" type="text" name="mainDatabase" placeholder="Database" autocomplete="off"/>
 						</div>
+						<div class="form-group">
+							<input class="form-control" id="Prefix" type="text" name="mainPrefix" placeholder="mySql Prefix (Default: '')(WIP)" autocomplete="off" value=""/>
+						</div>
 						<br/>
 						<br/>
 						<h2>Website Configuation</h2>
@@ -72,7 +121,7 @@
 							<input class="form-control" id="ServerIP" type="text" name="ServerIP" placeholder="ServerIP" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" id="ServerDisplayIP" type="text" name="DisplayIP" placeholder="DisplayIP" autocomplete="off"/>
+							<input class="form-control" id="ServerDisplayIP" type="hidden" name="DisplayIP" placeholder="DisplayIP" autocomplete="off"/>
 						</div>
 
 						<h2>Administrator's Account</h2>
@@ -94,86 +143,6 @@
 		</div>
 		<?php 
 		break;
-		case "sql_setting";
-			if($_POST['DisplayIP'] ="" && $_POST['mainDatabase'] ="" && $_POST['mainHost'] ="" && $_POST['mainPass'] ="" && $_POST['mainPort'] ="" && $_POST['mainUser'] ="" && $_POST['ServerIP'] ="" && $_POST['ServerName'] ="" && $_POST['AU'] ="" && $_POST['AP'] =""){
-				die("Please Fill in all the forms! <a href='index.php?step=setup'>back</a>");
-			}
-			$test = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass']);
-			if($test->connect_error){
-				die("ERROR CONNECTING");
-			}
-			//TABLE SETUP
-			$test->query("CREATE DATABASE ".$_POST['mainDatabase']);
-			$test->close();
-			
-			$test2 = new mysqli($_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase']) or die("Cannot connect to the second mysqli");
-			
-			$admin_hashed_password = hash('sha256', $_POST['AP']);
-			$admin = "INSERT INTO users(FIRST_NAME, LAST_NAME, UNAME, EMAIL, MCUSER, UUID, PASSWORD, Rank_id) values ('Admin', 'Admin' ,'Admin', 'admin@admin.com', 'admin', '-----', '".$admin_hashed_password."','1')";
-			
-			
-			//$test2->query($create_table_forums);
-			$test2->query($create_table_ranks);
-			$test2->query($create_table_topic);
-			$test2->query($create_table_user);
-			$test2->query($create_table_cat);
-			$test2->query($create_table_friends);
-			$test2->query($create_table_links);
-			//ADMINISTRATOR SETUP
-			$test2->query($admin_rank);
-			$test2->query($admin);
-			$test2->query($create_table_pm);
-			$test2->close();
-			
-			$insert=
-			'<?php'.PHP_EOL.
-			'$SQL = array('.PHP_EOL.
-			'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
-			'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
-			'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
-			'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
-			'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
-			'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
-			');'.PHP_EOL.
-			''.PHP_EOL.
-			'//The configuration for your server'.PHP_EOL.
-			'$CONFIG = array('.PHP_EOL.
-			'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
-			'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
-			'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
-			');'.PHP_EOL.
-			'$GLOBALS[\'SQL\'] = array('.PHP_EOL.
-			'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
-			'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
-			'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
-			'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
-			'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
-			'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
-			');'.PHP_EOL.
-			'$GLOBALS[\'CONFIG\'] = array('.PHP_EOL.
-			'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
-			'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
-			'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
-			');'.PHP_EOL.
-			'?>';
-			
-			if(is_writable($path.'php/config.php')){
-				$Iconfig = file_get_contents($path.'php/config.php');
-				$Iconfig = substr($Iconfig, 6);
-				
-				$configfile = fopen($path.'php/config.php', 'w');
-				fwrite($configfile, $insert.$Iconfig);
-				fclose($configfile);
-				die("<a href='index.php?step=finished'>CLICK ME!</a>");
-			}else{
-				$Iconfig = file_get_contents('inc/config.php');
-				$Iconfig = substr($config, 5);
-				$Iconfig = nl2br(htmlspecialchars($insert . $config));
-				
-				echo $Iconfig;
-				die("<br/>you have to insert it manually into home/php/config.php! <a href='?step=finished'>CLICK ME!</a>");
-			}
-		break;
 		case "finished":
 		?>
 			<div class="main">
@@ -183,8 +152,10 @@
 					<div class="jumbotron">
 						<h1>Congrats!</h1>
 						<h2>Your setup have been complete!</h2>
+						<a href="?step=delete" class="btn btn-danger">Danger</a>
 					</div>
 				</div>
+				
 				<div class="main-Body">
 					<div class="panel panel-info">
 						<div class="panel-heading">
@@ -200,7 +171,7 @@
 		</div>
 		<?php
 		break;
-		case "":
+		case "welcome":
 		?>
 			<div class="main">
 			<div class="container">

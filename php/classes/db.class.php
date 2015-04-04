@@ -1,7 +1,7 @@
 <?php 
 	class db{
 		private static $_instance;
-		private $_host, $_user, $_pass, $_port, $_db, $_connect, $_result, $_query;
+		private $_host, $_user, $_pass, $_port, $_db, $_connect, $_result, $_query, $_error;
 		public function __construct(){
 			try{
 				$this->_connect = new PDO('mysql:host='.$GLOBALS['SQL']['HOST'].';mysql:database='.$GLOBALS['SQL']['DATABASE'].';',$GLOBALS['SQL']['USER'],$GLOBALS['SQL']['PASSWORD']);
@@ -42,12 +42,21 @@
 			$this->_result = $this->_query->fetchAll();
 			return $this;		}
 		public function query($query){
-			 $this->_query = $this->_connect->query($query);
-			 $this->_result = $this->_query->fetchAll();
-			 return $this;
+			$this->_error = false;	
+			$this->_query = $this->_connect->query($query);
+			$this->_result = $this->_query->fetchAll();
+			
+			$data= $this->_query;
+			if(!$data){
+				$this->_error = true;
+			}
+			return $this;
 		}
 		public function result(){
 			return $this->_result;
+		}
+		public function error(){
+			return $this->_error;
 		}
 	}
 ?>
