@@ -63,7 +63,18 @@
 				$return = array();
 				$n = 0;
 				foreach ($Topics as $list){
-					if()	
+					$topic_pref = $this->db->query("SELECT * FROM Topics WHERE Tid=\'$list->id\'");
+					foreach ($topic_pref as $pref){
+						/*
+						 * ASSIGN TOPICS TO $return[$n];
+						 * ADD TO LIST:
+						 * ID
+						 * TItle
+						 * Content
+						 * Perf
+						 */
+					}
+					$n++;		
 				}
 			}
 		}

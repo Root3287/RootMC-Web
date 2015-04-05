@@ -14,6 +14,7 @@
 	
 	if($step == "delete"){
 		unlink('index.php');
+		unlink('install.class.php');
 		$redirect->to($path."index.php");
 	}
 		
