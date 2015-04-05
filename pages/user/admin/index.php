@@ -62,8 +62,24 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 									Blog
 								</div>
 								<div class="panel-body">
-										TODO: BLOG
+										<?php 
+										$blog = new blog();
+										foreach ($blog->getPost() as $post){
+										?>
+										<div class="panel panel-danger">
+											<div class="panel-heading">
+											<?php echo $post->Title;?>
+											</div>
+											<div class="panel-body">
+											<?php echo $post->Content;?>
+											</div>
+											<div class="panel-footer"><a class="btn btn-danger" herf="Blog.php?p=delete&id=<?php echo $post->id;?>"><span class="glyphicon glyphicon-remove-sign"></span></a> <a class="btn btn-danger" herf="Blog.php?p=edit&id=<?php echo $post->id;?>"><span class="glyphicon glyphicon-pencil"></span></a></div>
+										</div>
+										<?php
+										}
+										?>
 								</div>
+								<div class="panel-footer"><a class="btn btn-danger" herf="Blog.php?p=add"><span class="glyphicon glyphicon-plus-sign"></span></a></div>
 							</div>
 							<?php 
 								break;

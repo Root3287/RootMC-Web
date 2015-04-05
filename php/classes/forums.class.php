@@ -73,10 +73,26 @@
 						 * Content
 						 * Perf
 						 */
+						if($pref->Locked ==1){
+							$return[$n]['Locked'] = true;
+							if($pref->Stickey ==1){
+								$return[$n]['Stickey'] = true;
+							}else{
+								$return[$n]['Sticky'] = false;
+							}
+						}else{
+							$return[$n]['Locked'] = false;
+						}
 					}
-					$n++;		
+					$return[$n]['Id'] = $list->id;
+					$return[$n]['Title'] = $list->Title;
+					$return[$n]['Author'] = $list->Author;
+					$return[$n]['Content'] = $list->Content;
+					$return[$n]['Date'] = $list->date; 
+					$n++;	
 				}
 			}
+			return $return;
 		}
 	}
 ?>
