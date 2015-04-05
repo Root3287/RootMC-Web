@@ -1,6 +1,7 @@
 <?php
 	$page="install";
 	$path = "../";
+	require $path.'install/install.class.php';
 	require $path.'php/init.php';
 	require $path.'/php/classes/redirect.class.php';
 	$redirect = new Redirect();
@@ -17,55 +18,7 @@
 	}
 		
 	if($step == "sql_setting"){
-		$insert=
-		'<?php'.PHP_EOL.
-		'$SQL = array('.PHP_EOL.
-		'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
-		'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
-		'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
-		'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
-		'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
-		'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
-		');'.PHP_EOL.
-		''.PHP_EOL.
-		'//The configuration for your server'.PHP_EOL.
-		'$CONFIG = array('.PHP_EOL.
-		'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
-		'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
-		'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
-		');'.PHP_EOL.
-		'$GLOBALS[\'SQL\'] = array('.PHP_EOL.
-		'	"HOST"=>"'.$_POST['mainHost'].'",'.PHP_EOL.
-		'	"PORT"=>"'.$_POST['mainPort'].'",'.PHP_EOL.
-		'	"USER"=>"'.$_POST['mainUser'].'",'.PHP_EOL.
-		'	"PASSWORD"=>"'.$_POST['mainPass'].'",'.PHP_EOL.
-		'	"DATABASE"=>"'.$_POST['mainDatabase'].'",'.PHP_EOL.
-		'	"PREFIX"=>"'.$_POST['PREFIX'].'",'.PHP_EOL.
-		');'.PHP_EOL.
-		'$GLOBALS[\'CONFIG\'] = array('.PHP_EOL.
-		'	"SERVERNAME"=>"'.$_POST['ServerName'].'",'.PHP_EOL.
-		'	"SERVERIP"=>"'.$_POST['ServerIP'].'",'.PHP_EOL.
-		'	"DISPLAYIP"=>"'.$_POST['DisplayIP'].'",'.PHP_EOL.
-		');'.PHP_EOL.
-		'?>';
-			
-		if(is_writable($path.'php/config.php')){
-			$Iconfig = file_get_contents($path.'php/config.php');
-			$Iconfig = substr($Iconfig, 6);
-		
-			$configfile = fopen($path.'php/config.php', 'w');
-			fwrite($configfile, $insert.$Iconfig);
-			fclose($configfile);
-			$redirect->to("index.php?step=finish");
-			die();
-		}else{
-			$Iconfig = file_get_contents('inc/config.php');
-			$Iconfig = substr($config, 5);
-			$Iconfig = nl2br(htmlspecialchars($insert . $config));
-			
-			echo $Iconfig;
-			die("<br/>Woops! Something went wrong! The file is not readable! you have to insert it manually into home/php/config.php! <a href='?step=finished'>CLICK ME!</a>");
-		}
+		$install = new install($path, $_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase'], $_POST['mainPort'], $_POST['mainPrefix'], $_POST['ServerName'], $_POST['ServerIP'], $_POST['DisplayIP'], $redirect);
 	}
 ?>
 <html>
