@@ -97,7 +97,7 @@
 		</div>
 		<?php 
 		break;
-		case "finished":
+		case "finish":
 		?>
 			<div class="main">
 			<div class="container">
