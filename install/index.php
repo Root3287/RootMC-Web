@@ -20,6 +20,8 @@
 		
 	if($step == "sql_setting"){
 		$install = new install($path, $_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase'], $_POST['mainPort'], $_POST['mainPrefix'], $_POST['ServerName'], $_POST['ServerIP'], $_POST['DisplayIP'], $redirect);
+	}else if($step == "config_setting"){
+		$install->newConfig(/*CONFIG SETUP HERE*/);
 	}
 ?>
 <html>
@@ -92,10 +94,29 @@
 					<!--Config Stuff-->
 				</div>
 			</div>
-			<script>
-			</script>
 		</div>
 		<?php 
+		break;
+		case "config":
+		?>
+		<div class="main">
+			<div class="container">
+			<div class='alert alert-danger' role='alert'>You <strong>must delete</strong> the install folder to have everything to work correctly!</div>
+				<div class="jumbo">
+					<div class="jumbotron">
+						<h1>Welcome!</h1>
+						<h2>To the Setup. Just scroll down and fill everything out to get started!</h2>
+					</div>
+				</div>
+				<div class="main-Body">
+					<!-- MYSQL STUFF-->
+					<form action="index.php?step=config_setting" method="post">
+					<!-- CONFIG -->
+					</form>
+				</div>
+			</div>
+		</div>
+		<?php
 		break;
 		case "finish":
 		?>
