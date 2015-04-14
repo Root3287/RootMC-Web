@@ -122,5 +122,8 @@ class install{
 		
 		$this->close_two();
 	}
+	public function newConfig(){
+		
+	}
 }
 ?>
