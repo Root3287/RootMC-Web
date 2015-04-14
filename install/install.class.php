@@ -59,14 +59,14 @@ class install{
 			$configfile = fopen($path.'php/config.php', 'w');
 			fwrite($configfile, $insert.$Iconfig);
 			fclose($configfile);
-			$this->_redirect->to("index.php?step=finish");
+			$this->_redirect->to("index.php?step=config");
 			die();
 		}else{
 			$Iconfig = file_get_contents('inc/config.php');
 			$Iconfig = substr($config, 5);
 			$Iconfig = nl2br(htmlspecialchars($insert . $config));
 				
-			return $Iconfig.'<br/>Woops! Something went wrong! The file is not readable! you have to insert it manually into home/php/config.php! <a href=\'?step=finished\'>CLICK ME!</a>';
+			return $Iconfig.'<br/>Woops! Something went wrong! The file is not readable! you have to insert it manually into home/php/config.php! <a href=\'index.php?step=config\'>CLICK ME!</a>';
 		}
 	}
 	public function createMysql_one(){
