@@ -111,6 +111,9 @@ class install{
 				// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
 				"CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))",
 				
+				//Create Blog or Front page.
+				"CREATE TABLE blog(id int NOT NULL AUTO_INCREMENT, Title text, Content Longtext, Author int(11))",
+				
 				//INSERT THE FIRST RANK
 				"INSERT INTO ranks(name, Display_Name, Rank) VALUES ('Admin','ADMIN','a')",
 		);
