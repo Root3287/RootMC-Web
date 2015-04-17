@@ -111,7 +111,7 @@ class install{
 				// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
 				"CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))",
 				//Create table Connections
-				"CREATE TABLE connections(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, User int(255) NOT NULL, Session_Id int(255) NOT NULL, Ip int(255) NOT NULL, Logged_off int(11), )"
+				"CREATE TABLE connections(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, User int(255) NOT NULL, Session_Id int(255) NOT NULL, Ip int(255) NOT NULL, Logged_off int(11), Expire time)"
 				//Create Blog or Front page.
 				"CREATE TABLE blog(id int NOT NULL AUTO_INCREMENT, Title text, Content Longtext, Author int(11))",
 				
