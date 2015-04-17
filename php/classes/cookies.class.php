@@ -27,6 +27,13 @@
 		public function cookieSeconds($name, $value, $seconds){
 			setcookie($name,$value,time()+$seconds);
 		}
+		public function cookieSet($cookieName){
+			if(isset($_COOKIE[$cookieName]) && $cookieName !=null){
+				return true;
+			}else{
+				return false;
+			}
+		}
 		public function expire($name){
 			setcookie($name, "" , 0000000000);
 		}
