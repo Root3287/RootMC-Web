@@ -2,6 +2,9 @@
 $path ="../../";
 require $path.'php/init.php';
 $user = new User;
+if($user->isLoggedIn()){
+	Redirect::to($path.'index.php');
+}
 if((!(isset($_GET['mode']))) && (!($_GET['mode']=="login")))){
 ?>
 <html>
