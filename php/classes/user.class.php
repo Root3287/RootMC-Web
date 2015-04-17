@@ -24,8 +24,7 @@
 				if($q->rowCount() <= 1){
 					$userinfo = $q->fetchAll();
 					if(password_verify($userinfo['password'], 'sha256')){
-						$this->_cookie->cookieDay("user", $user, '30');
-						return true;
+						//Redo login to prevent Mysql Injection
 					}else{
 						return false;
 					}
@@ -38,8 +37,26 @@
 			}
 		}
 		public function isLoggedIn(){
+			$return = false;
+			if(($this->_logIn)&&(isset($_COOKIES['session_id']))){
+				$connection = $this->_db->query('SELECT * FROM connections WHERE Ip='.$_SERVER['REMOTE_ADDR'])->result();
+				foreach($connection as $conn){
+					if($conn['Ip'] == $_SERVER['REMOTE_ADDR']){
+						if(time()<$conn['Exspire']){
+							$return = true;
+						}else{
+							$return = false;
+						}
+					}else{
+						$return = false;
+					}
+				}
+				
+			}else{
+				$return = false;
+			}
+			$this->_logIn = $return;
 			return $this->_logIn;
 		}
-		
 	}
 ?>
