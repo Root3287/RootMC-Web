@@ -110,7 +110,8 @@ class install{
 				//Create Table Ranks
 				// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
 				"CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))",
-				
+				//Create table Connections
+				"CREATE TABLE connections(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, User int(255) NOT NULL, Session_Id int(255) NOT NULL, Ip int(255) NOT NULL, Logged_off int(11), )"
 				//Create Blog or Front page.
 				"CREATE TABLE blog(id int NOT NULL AUTO_INCREMENT, Title text, Content Longtext, Author int(11))",
 				
@@ -119,7 +120,10 @@ class install{
 		);
 		
 		foreach ($queries as $query){
-			$this->createMysql_two()->query($query);
+			$data = $this->createMysql_two()->query($query);
+			if($data->error()){
+				return "<div class='alert alert-danger' role='alert'>There was a problem while adding the table</div>"
+			}
 		}
 		
 		
