@@ -16,8 +16,6 @@ class install{
 		$this->_ServName = $ServName;
 		$this->_ServIP =$ServIP;
 		$this->_ServDISP = $ServDISP;
-		$this->put();
-		
 	}
 	public function put(){	
 		$insert=

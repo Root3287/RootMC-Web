@@ -20,8 +20,8 @@
 	}
 
 	if($step == "sql_setting"){
-		
-		//$install->insert(path, $_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase'], $_POST['mainPort'], $_POST['mainPrefix'], $_POST['ServerName'], $_POST['ServerIP'], $_POST['DisplayIP']);
+		$install->insert(path, $_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase'], $_POST['mainPort'], $_POST['mainPrefix'], $_POST['ServerName'], $_POST['ServerIP'], $_POST['DisplayIP']);
+		$install->put();
 	}else if($step == "config_setting"){
 		$install->newConfig(/*CONFIG SETUP HERE*/);
 	}
