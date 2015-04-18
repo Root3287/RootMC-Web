@@ -1,16 +1,16 @@
 <?php 
-$path ="../../";
-require $path.'php/init.php';
+define('path', '../../');
+require path.'php/init.php';
 $user = new User;
 if($user->isLoggedIn()){
-	Redirect::to($path.'index.php');
+	Redirect::to(path.'index.php');
 }
-if((!(isset($_GET['mode']))) && (!($_GET['mode']=="login")))){
+if((!(isset($_GET['mode']))) && (!($_GET['mode']=="login"))){
 ?>
 <html>
 	<head>
 		<title><?php echo $CONFIG['SERVERNAME']." &bull; LOGIN";?></title>
-		<?php include $path.'asset/includes/css.php';?>
+		<?php include path.'asset/includes/css.php';?>
 	</head>
 	<body>
 		<div class="container">
@@ -28,7 +28,7 @@ if((!(isset($_GET['mode']))) && (!($_GET['mode']=="login")))){
 				</form>
 			</div>
 		</div>
-		<?php include $path.'asset/includes/scripts.php';?>
+		<?php include path.'asset/includes/scripts.php';?>
 	</body>
 </html>
 <?php

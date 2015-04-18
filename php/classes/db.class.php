@@ -4,7 +4,7 @@
 		private $_host, $_user, $_pass, $_port, $_db, $_connect, $_result, $_query, $_error;
 		public function __construct(){
 			try{
-				$this->_connect = new PDO('mysql:host='.$GLOBALS['SQL']['HOST'].';mysql:database='.$GLOBALS['SQL']['DATABASE'].';',$GLOBALS['SQL']['USER'],$GLOBALS['SQL']['PASSWORD']);
+				$this->_connect = new PDO('mysql:host='.config::getSql('HOST').';mysql:database='.config::getSql('DATABASE').';',config::getSql('USER'),config::getSql('PASSWORD'));
 			}catch(PDOException $e){
 				echo $e->getMessage();
 			}

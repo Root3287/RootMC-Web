@@ -1,6 +1,5 @@
 <?php
-$path = '../../';
-require $path.'php/init.php';
+require path.'php/init.php';
 $page = 'forums';
 
 if(!isset($_GET['cid']) && !isset($_GET['tid'])){
@@ -15,7 +14,7 @@ if(!isset($_GET['cid']) && !isset($_GET['tid'])){
 	</head>
 	<body>
 		<div class="main">
-			<?php include $path.'asset/includes/nav.php';?>
+			<?php include path.'asset/includes/nav.php';?>
 			<div class="container">
 				<div class="op">
 					<div class="panel panel-default">

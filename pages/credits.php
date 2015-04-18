@@ -1,7 +1,7 @@
 <?php
 $page ="Credits";
-$path ="../";
-require $path.'php/init.php';
+define('path', '../');
+require path.'php/init.php';
 if(!isset($_GET['u'])){
 	$credit = "";
 }
@@ -11,13 +11,13 @@ if(!isset($_GET['u'])){
 		<title>
 			<?php echo $CONFIG['SERVERNAME']." &bull; ". strtoupper($page); ?>
 		</title>
-		<?php include $path.'asset/includes/css.php'; ?>
+		<?php include path.'asset/includes/css.php'; ?>
 	</head>
 	<body class="home">
 		
 		<div class="main">
 			<div class="nav">
-				<?php include $path.'asset/includes/nav.php';?>
+				<?php include path.'asset/includes/nav.php';?>
 			</div>
 			<div class="container">
 					<div class="jumbotron">
@@ -86,9 +86,8 @@ if(!isset($_GET['u'])){
 						</div>
 				</div>
 			</div>
-				<?php include $path.'asset/includes/footer.php';?>
-			</div>
+				<?php include path.'asset/includes/footer.php';?>
 			
-		<?php include $path.'asset/includes/scripts.php';?>
+		<?php include path.'asset/includes/scripts.php';?>
 	</body>
 </html>

@@ -1,68 +1,72 @@
 <?php
 class install{
 	private $_path, $_host, $_user, $_pass, $_db, $_port,$_prefix, $_ServName,$_ServIP, $_ServPort, $_ServDISP,$_redirect;
-	public function __construct($path, $host, $user,$pass, $db, $port,$prefix, $ServName,$ServIP, $ServDISP, $redirect){
+	public function __construct($redirect){
+		$this->_redirect = $redirect;
+		
+	}
+	public function insert($path, $host, $user,$pass, $db, $port,$prefix, $ServName,$ServIP, $ServDISP){
 		$this->_path = $path;
 		$this->_host = $host;
 		$this->_user = $user;
-		$this->_pass = $password;
+		$this->_pass = $pass;
 		$this->_db = $db;
 		$this->_port = $port;
-		$this->_prefix = $prefix;   
+		$this->_prefix = $prefix;
 		$this->_ServName = $ServName;
 		$this->_ServIP =$ServIP;
 		$this->_ServDISP = $ServDISP;
-		$this->_redirect = $redirect;
-		$this->put($path, $host, $user, $password, $db, $port, $prefix, $ServName, $ServIP, $ServDISP);
-		$this->createMysql_one();
-		$this->queries_one();
-		$this->createMysql_two();
-		$this->queries_two();
+		$this->put();
+		
 	}
-	public function put($path, $host, $user, $password, $db, $port, $prefix, $ServName,$ServIP, $ServDISP ){
+	public function put(){	
 		$insert=
 		'<?php'.PHP_EOL.
 		'$SQL = array('.PHP_EOL.
-		'	"HOST"=>"'.$host.'",'.PHP_EOL.
-		'	"PORT"=>"'.$port.'",'.PHP_EOL.
-		'	"USER"=>"'.$user.'",'.PHP_EOL.
-		'	"PASSWORD"=>"'.$password.'",'.PHP_EOL.
-		'	"DATABASE"=>"'.$db.'",'.PHP_EOL.
-		'	"PREFIX"=>"'.$prefix.'",'.PHP_EOL.
+		'	"HOST"=>"'.$this->_host.'",'.PHP_EOL.
+		'	"PORT"=>"'.$this->_port.'",'.PHP_EOL.
+		'	"USER"=>"'.$this->_user.'",'.PHP_EOL.
+		'	"PASSWORD"=>"'.$this->_pass.'",'.PHP_EOL.
+		'	"DATABASE"=>"'.$this->_db.'",'.PHP_EOL.
+		'	"PREFIX"=>"'.$this->_prefix.'",'.PHP_EOL.
 		');'.PHP_EOL.
 		''.PHP_EOL.
 		'//The configuration for your server'.PHP_EOL.
 		'$CONFIG = array('.PHP_EOL.
-		'	"SERVERNAME"=>"'.$ServName.'",'.PHP_EOL.
-		'	"SERVERIP"=>"'.$ServIP.'",'.PHP_EOL.
-		'	"DISPLAYIP"=>"'.$ServDISP.'",'.PHP_EOL.
+		'	"SERVERNAME"=>"'.$this->_ServName.'",'.PHP_EOL.
+		'	"SERVERIP"=>"'.$this->_ServIP.'",'.PHP_EOL.
+		'	"DISPLAYIP"=>"'.$this->_ServDISP.'",'.PHP_EOL.
 		');'.PHP_EOL.
 		'$GLOBALS[\'SQL\'] = array('.PHP_EOL.
-		'	"HOST"=>"'.$host.'",'.PHP_EOL.
-		'	"PORT"=>"'.$port.'",'.PHP_EOL.
-		'	"USER"=>"'.$user.'",'.PHP_EOL.
-		'	"PASSWORD"=>"'.$password.'",'.PHP_EOL.
-		'	"DATABASE"=>"'.$db.'",'.PHP_EOL.
-		'	"PREFIX"=>"'.$prefix.'",'.PHP_EOL.
+		'	"HOST"=>"'.$this->_host.'",'.PHP_EOL.
+		'	"PORT"=>"'.$this->_port.'",'.PHP_EOL.
+		'	"USER"=>"'.$this->_user.'",'.PHP_EOL.
+		'	"PASSWORD"=>"'.$this->_pass.'",'.PHP_EOL.
+		'	"DATABASE"=>"'.$this->_db.'",'.PHP_EOL.
+		'	"PREFIX"=>"'.$this->_prefix.'",'.PHP_EOL.
 		');'.PHP_EOL.
 		'$GLOBALS[\'CONFIG\'] = array('.PHP_EOL.
-		'	"SERVERNAME"=>"'.$ServName.'",'.PHP_EOL.
-		'	"SERVERIP"=>"'.$ServIP.'",'.PHP_EOL.
-		'	"DISPLAYIP"=>"'.$ServDISP.'",'.PHP_EOL.
+		'	"SERVERNAME"=>"'.$this->_ServName.'",'.PHP_EOL.
+		'	"SERVERIP"=>"'.$this->_ServIP.'",'.PHP_EOL.
+		'	"DISPLAYIP"=>"'.$this->_ServDISP.'",'.PHP_EOL.
 		');'.PHP_EOL.
 		'?>';
+		$this->createMysql_one();
+		$this->queries_one();
+		$this->createMysql_two();
+		$this->queries_two();
 		
-		if(is_writable($path.'php/config.php')){
-			$Iconfig = file_get_contents($path.'php/config.php');
+		if(is_writable($this->_path.'php/config.php')){
+			$Iconfig = file_get_contents($this->_path.'php/config.php');
 			$Iconfig = substr($Iconfig, 6);
 		
-			$configfile = fopen($path.'php/config.php', 'w');
+			$configfile = fopen($this->_path.'php/config.php', 'w');
 			fwrite($configfile, $insert.$Iconfig);
 			fclose($configfile);
 			$this->_redirect->to("index.php?step=config");
 			die();
 		}else{
-			$Iconfig = file_get_contents('inc/config.php');
+			$Iconfig = file_get_contents($this->_path.'inc/config.php');
 			$Iconfig = substr($config, 5);
 			$Iconfig = nl2br(htmlspecialchars($insert . $config));
 				
@@ -76,8 +80,8 @@ class install{
 	public function close_one(){
 		$this->createMysql_one()->close();
 	}
-	public function queries_one($db){
-		$this->createMysql_one()->query("CREATE DATABASE ".$db);
+	public function queries_one(){
+		$this->createMysql_one()->query("CREATE DATABASE ".$this->_db);
 		$this->close_one();
 	}
 	public function createMysql_two(){
@@ -111,7 +115,7 @@ class install{
 				// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
 				"CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name text, Display_Name text, Rank Enum('a','d','s','m'), PRIMARY KEY(id))",
 				//Create table Connections
-				"CREATE TABLE connections(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, User int(255) NOT NULL, Session_Id int(255) NOT NULL, Ip int(255) NOT NULL, Logged_off int(11), Expire time)"
+				"CREATE TABLE connections(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, User int(255) NOT NULL, Session_Id int(255) NOT NULL, Ip int(255) NOT NULL, Logged_off int(11), Expire time)",
 				//Create Blog or Front page.
 				"CREATE TABLE blog(id int NOT NULL AUTO_INCREMENT, Title text, Content Longtext, Author int(11))",
 				
@@ -121,16 +125,13 @@ class install{
 		
 		foreach ($queries as $query){
 			$data = $this->createMysql_two()->query($query);
-			if($data->error()){
-				return "<div class='alert alert-danger' role='alert'>There was a problem while adding the table</div>"
-			}
 		}
 		
 		
 		$this->close_two();
 	}
 	public function newConfig(){
-		
+		return $this->_redirect->to('index.php?step=finish');
 	}
 }
 ?>

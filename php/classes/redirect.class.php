@@ -3,12 +3,12 @@
 		public function __construct($path=null){
 			if($path !=null)
 			{
-				$this->to($path);
+				$this->to(path);
 			}
 		}
-		public function to($path=null){
+		public static function to($path=null){
 			if($path !=null){
-				header('Location: '.$path);
+				header('Location: '.path);
 				die();
 			}
 		}

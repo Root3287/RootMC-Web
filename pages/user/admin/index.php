@@ -1,9 +1,9 @@
 <?php
 $page ="admincp";
-$path ="../../../";
-require $path.'php/init.php';
+define('path', '../../');
+require path.'php/init.php';
 
-$install = $path."install/index.php";
+$install = path."install/index.php";
 
 if(file_exists($install)){
 	$installExists = "true";
@@ -20,13 +20,13 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 		<title>
 			<?php echo $CONFIG['SERVERNAME']." &bull; ". strtoupper($page); ?>
 		</title>
-		<?php include $path.'asset/includes/css.php'; ?>
+		<?php include path.'asset/includes/css.php'; ?>
 	</head>
 	<body class="home">
 		
 		<div class="main">
 			<div class="nav">
-				<?php include $path.'asset/includes/nav.php';?>
+				<?php include path.'asset/includes/nav.php';?>
 			</div>
 			<div class="container">
 					<div class="jumbotron">
@@ -73,13 +73,13 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 											<div class="panel-body">
 											<?php echo $post->Content;?>
 											</div>
-											<div class="panel-footer"><a class="btn btn-danger" herf="Blog.php?p=delete&id=<?php echo $post->id;?>"><span class="glyphicon glyphicon-remove-sign"></span></a> <a class="btn btn-danger" herf="Blog.php?p=edit&id=<?php echo $post->id;?>"><span class="glyphicon glyphicon-pencil"></span></a></div>
+											<div class="panel-footer"><a class="btn btn-danger" href="Blog.php?p=delete&id=<?php echo $post->id;?>"><span class="glyphicon glyphicon-remove-sign"></span></a> <a class="btn btn-danger" href="Blog.php?p=edit&id=<?php echo $post->id;?>"><span class="glyphicon glyphicon-pencil"></span></a></div>
 										</div>
 										<?php
 										}
 										?>
 								</div>
-								<div class="panel-footer"><a class="btn btn-danger" herf="Blog.php?p=add"><span class="glyphicon glyphicon-plus-sign"></span></a></div>
+								<div class="panel-footer"><a class="btn btn-danger" href="Blog.php?p=add"><span class="glyphicon glyphicon-plus-sign"></span></a></div>
 							</div>
 							<?php 
 								break;
@@ -250,9 +250,9 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 								</div>
 						</div>
 			</div>
-				<?php include $path.'asset/includes/footer.php';?>
+				<?php include path.'asset/includes/footer.php';?>
 			</div>
 		</div>	
-		<?php include $path.'asset/includes/scripts.php';?>
+		<?php include path.'asset/includes/scripts.php';?>
 	</body>
 </html>

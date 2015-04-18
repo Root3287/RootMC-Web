@@ -1,11 +1,11 @@
 <?php 
-	$path = "../../";
-	require $path.'php/init.php';
+	define('path', '../../');
+require path.'php/init.php';
 ?>
 <html>
 	<head>
 		<title><?php echo $CONFIG['SERVERNAME']." &bull; Register"?></title>
-		<?php include $path.'asset/includes/css.php';?>
+		<?php include path.'asset/includes/css.php';?>
 	</head>
 	<body>
 		<!-- TODO: NAV -->
@@ -82,6 +82,6 @@
 				</form>
 			</div>
 		</div>
-		<?php include $path.'asset/includes/scripts.php';?>
+		<?php include path.'asset/includes/scripts.php';?>
 	</body>
 </html>

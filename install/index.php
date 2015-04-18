@@ -1,10 +1,11 @@
 <?php
 	$page="install";
-	$path = "../";
-	require $path.'install/install.class.php';
-	require $path.'php/init.php';
-	require $path.'/php/classes/redirect.class.php';
+	define('path', '../');
+	require path.'php/init.php';
+	require path.'install/install.class.php';
+	require path.'/php/classes/redirect.class.php';
 	$redirect = new Redirect();
+	$install = new install($redirect);
 	
 	if(!(isset($_GET['step']))){
 		$step = "welcome";
@@ -15,11 +16,12 @@
 	if($step == "delete"){
 		unlink('index.php');
 		unlink('install.class.php');
-		$redirect->to($path."index.php");
+		$redirect->to(path."index.php");
 	}
-		
+
 	if($step == "sql_setting"){
-		$install = new install($path, $_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase'], $_POST['mainPort'], $_POST['mainPrefix'], $_POST['ServerName'], $_POST['ServerIP'], $_POST['DisplayIP'], $redirect);
+		
+		//$install->insert(path, $_POST['mainHost'], $_POST['mainUser'], $_POST['mainPass'], $_POST['mainDatabase'], $_POST['mainPort'], $_POST['mainPrefix'], $_POST['ServerName'], $_POST['ServerIP'], $_POST['DisplayIP']);
 	}else if($step == "config_setting"){
 		$install->newConfig(/*CONFIG SETUP HERE*/);
 	}
@@ -29,7 +31,7 @@
 		<title>
 			New website &bull; <?php echo $step;?>
 		</title>
-		<?php include $path.'asset/includes/css.php'?>
+		<?php include path.'asset/includes/css.php'?>
 	</head>
 	<body>
 	<?php
@@ -77,7 +79,7 @@
 							<input class="form-control" id="ServerIP" type="text" name="ServerIP" placeholder="ServerIP" autocomplete="off"/>
 						</div>
 						<div class="form-group">
-							<input class="form-control" id="ServerDisplayIP" type="hidden" name="DisplayIP" placeholder="DisplayIP" autocomplete="off"/>
+							<input class="form-control" id="ServerDisplayIP" type="text" name="DisplayIP" placeholder="DisplayIP" autocomplete="off"/>
 						</div>
 
 						<h2>Administrator's Account</h2>
@@ -112,6 +114,9 @@
 					<!-- MYSQL STUFF-->
 					<form action="index.php?step=config_setting" method="post">
 					<!-- CONFIG -->
+						<div class="form-group">
+							<input class="form-control" id="Submit" type="submit" value="Submit"/>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -163,7 +168,7 @@
 		<?php
 		break;
 		}
-		include $path.'asset/includes/scripts.php' ;
+		include path.'asset/includes/scripts.php' ;
 		?>
 	</body>
 </html>

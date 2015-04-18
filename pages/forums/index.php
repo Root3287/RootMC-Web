@@ -1,8 +1,8 @@
 <?php
 $page ="forums";
-$path ="../../";
-require $path.'php/init.php';
-require $path.'php/classes/forums.class.php';
+define('path', '../../');
+require path.'php/init.php';
+require path.'php/classes/forums.class.php';
 $forums = new forums();
 $cats = $forums->getCat($user->getGroupID());
 ?>
@@ -11,13 +11,13 @@ $cats = $forums->getCat($user->getGroupID());
 		<title>
 			<?php echo $CONFIG['SERVERNAME']." &bull; ". strtoupper($page); ?>
 		</title>
-		<?php include $path.'asset/includes/css.php'; ?>
+		<?php include path.'asset/includes/css.php'; ?>
 	</head>
 	<body class="home">
 		
 		<div class="main">
 			<div class="nav">
-				<?php include $path.'asset/includes/nav.php';?>
+				<?php include path.'asset/includes/nav.php';?>
 			</div>
 			<div class="container">
 					<div class="jumbotron">
@@ -54,9 +54,9 @@ $cats = $forums->getCat($user->getGroupID());
 						</div>
 				</div>
 			</div>
-				<?php include $path.'asset/includes/footer.php';?>
+				<?php include path.'asset/includes/footer.php';?>
 			</div>
 			
-		<?php include $path.'asset/includes/scripts.php';?>
+		<?php include path.'asset/includes/scripts.php';?>
 	</body>
 </html>
