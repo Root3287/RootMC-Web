@@ -1,10 +1,11 @@
 <?php
 require path.'php/init.php';
 $page = 'forums';
-
+$forums = new forums();
 if(!isset($_GET['cid']) && !isset($_GET['tid'])){
-	header("Location: index.php");
+	Redirect::to('index.php');
 }
+$topics = $forums->getTopic();
 ?>
 <html>
 	<head>
