@@ -6,6 +6,11 @@ if(!isset($_GET['cid']) && !isset($_GET['tid'])){
 	Redirect::to('index.php');
 }
 $topics = $forums->getTopic();
+foreach($topics as $topic){
+	$title = $topic['Title'];
+	$content = $topic['Content'];
+	$author = $topic['Author'];
+}
 ?>
 <html>
 	<head>
