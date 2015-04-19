@@ -43,7 +43,7 @@ require path.'php/init.php';
 											<br>
 											The above copyright notice and this permission notice shall be included in all<br>
 											copies or substantial portions of the Software.<br>
-	
+											<br>
 											THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>
 											IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>
 											FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>

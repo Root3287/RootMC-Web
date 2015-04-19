@@ -1,4 +1,5 @@
 <?php
+//E15
 $page ="home";
 define('path', '');
 require path.'php/init.php';
@@ -17,6 +18,9 @@ require path.'php/init.php';
 				<?php include path.'asset/includes/nav.php';?>
 			</div>
 			<div class="container">
+				<!-- Some Alert -->
+				<?php if(Session::exsits('home')){echo Session::flash('home');}?>
+				<!-- SOme ending ALert -->
 					<div class="jumbotron">
 					<h1>Welcome to <?php echo $CONFIG['SERVERNAME'];?></h1>
 					<h4><?php echo $CONFIG['SERVERIP'];?></h4>

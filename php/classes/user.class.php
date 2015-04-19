@@ -8,37 +8,27 @@
 			$this->_cookie = new Cookies();
 		}
 		public function getRank(){
-			$q = $this->db->query("SELECT * FROM Users");
+			$q = $this->db->query("SELECT RankId FROM Users");
 			$this->_rank = $q->result();
+			$this->_data = $this->_rank;
 			return $this;
 		}
-		public function toID(){
-			$ranks = $this->getRank();
-			foreach ($ranks as $rank){
+		public function login($user = null , $pass = null, $remember = false){
+			if($user !=null && $pass !=null){
+				$prepare = $this->db->connect()->getConnection()->prepare("SELECT * FROM user WHERE UserName=?");
+				$prepare->bindParam(1, $user);
+				$prepare->execute();
 				
 			}
 		}
-		public function login($user, $pass){
-			$q =$this->db->query("SELECT * FROM Users WHERE UserName =".$user."")->result();
-			if(!isset($_COOKIE['user'])){
-				if($q->rowCount() <= 1){
-					$userinfo = $q->fetchAll();
-					if(password_verify($userinfo['password'], 'sha256')){
-						//Redo login to prevent Mysql Injection
-					}else{
-						return false;
-					}
-				}else{
-					return false;
-				}
-			}else{
-				$this->_logIn = true;
-				return false;
+		public function create($fields = array()){
+			if(!$this->db->insert('user', $fields)){
+				throw new Exception(''); //TODO: make error
 			}
 		}
 		public function isLoggedIn(){
 			$return = false;
-			if(($this->_logIn)&&(isset($_COOKIES['session_id']))){
+			if(($this->_logIn)&&(Cookies::isCookieSet('Session_Id'))){
 				$connection = $this->_db->query('SELECT * FROM connections WHERE Ip='.$_SERVER['REMOTE_ADDR'])->result();
 				foreach($connection as $conn){
 					if($conn['Ip'] == $_SERVER['REMOTE_ADDR']){
@@ -56,7 +46,19 @@
 				$return = false;
 			}
 			$this->_logIn = $return;
-			return $this->_logIn;
+			$this->_data = $this->_logIn;
+			return $this;
+		}
+		public function userExsit($username){
+			$q = $this->db->getConnection()->prepare("SELECT UserName FROM UserName WHERE UserName = ?");
+			$q->bindParam(1, $username);
+			$q->execute();
+		}
+		public function data(){
+			return $this->_data;
+		}
+		public function exsits(){
+			return (!empty($this->_data)) ? true : false;
 		}
 	}
 ?>

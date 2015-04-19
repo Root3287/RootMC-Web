@@ -1,6 +1,75 @@
 <?php 
 	define('path', '../../');
 require path.'php/init.php';
+$user = new user();
+if(Input::exists()){
+	if(Token::check(Input::get('token'))){
+		$validate = new Validate();
+		$validation = $validate->check($_POST, array(
+			"FirstName" => array(
+				'required' => true,
+				'min' => '2',
+				'max' => '20',	
+			),
+			"LastName" => array(
+				'required' => true,
+				'min' => '2',
+				'max' => '20',
+			),
+			"UName" => array(
+				'required' => true,
+				'min' => '2',
+				'max' => '20',
+				'unique' => 'users'
+			),
+			"EMAIL" => array(
+				'required' => true,
+				'min' => '2',
+				'max' => '20',
+			),
+			"CEmail" => array(
+					'required' => true,
+					'maches' => 'EMAIL'
+			),
+			"MCUSER" => array(
+					'required' => true,
+					'max' => '16',
+			),
+			"Password" => array(
+					'required' => true,
+					'min' => '8',
+					'max' => '50',
+			),
+			"CPass" => array(
+					'required' => true,
+					'maches' => 'Password',
+			),
+		));
+		if($validation->pass()){
+			
+			$salt = Hash::salt(32);
+			try{
+				//TODO: Fix database name
+				$user->create(array(
+				//		'First_name' => Input::get('FirstName'),
+				//		'Last_Name' => Input::get('LastName'),
+				//		'username' => Input::get('UName'),
+				//		'Email' => Input::get('Email'),
+				//		'Salt' => $salt,
+				//		'MCUser' => Input::get('MCUser'),
+				//		'Password' => Input::get('Password')
+				//		'Joined' => data('M-D-Y H:i:s'),
+				//		'Rank' => 1 
+				));
+			}catch (Exception $e){
+				$e->getMessage();
+			}
+			
+			Session::flash('home', 'You have registered Successfully!');
+			Redirect::to(path.'index.php');
+		}
+	}
+}
 ?>
 <html>
 	<head>
@@ -11,74 +80,46 @@ require path.'php/init.php';
 		<!-- TODO: NAV -->
 		<div class="container">
 			<div class="row">
+			<!-- SOME SORT OF ALERT -->
 			<?php 
-			$FNAME = $_POST['FirstName'];
-			$LNAME = $_POST['LastName'];
-			$UNAME = $_POST['UName'];
-			$EMAIL = $_POST['EMAIL'];
-			$CEMAIL = $_POST['CEmail'];
-			$MCUSER = $_POST['MCUSER'];
-			$PASS = $_POST['Password'];
-			$CPASS = $_POST['CPass'];
-			
-			$hash = hash('sha256',$PASS);
-			//TODO: Make a if(Cpass == Pass)
-			//TOTO: ReDO if State ments
-			/*
-			 * but, if the user doesn't enter an email and a password, for example
-				[6:30:23 AM] Sam: it'll only display the error for the email
-			 */
-			if(($FNAME !="") && ($LNAME !="") && ($UNAME !="") && ($EMAIL !="") && ($CEMAIL !="") && ($MCUSER !="") && ($PASS !="") && ($CPASS !=""))
-			{
-				if($PASS==$CPASS){
-					addUser($FNAME, $LNAME, $UNAME,$EMAIL, $MCUSER, $PASS);
+			if(!$validation->pass()){
+				foreach ($validation->errors() as $error){
+					echo $error.'<br/>';
 				}
-			}else if(($FNAME == "")){
-				echo "<div class='alert alert-danger'>You must enter a <strong>first</strong> name!</div>";
-			}else if($LNAME == ""){
-				echo "<div class='alert alert-danger'>You must enter a <strong>last</strong> name!</div>";
-			}else if($UNAME == ""){
-				echo "<div class='alert alert-danger'>You must enter a <strong>username</strong>!</div>";
-			}else if($EMAIL == ""){
-				echo "<div class='alert alert-danger'>You must enter a <strong>Email</strong>!</div>";
-			}else if($CMAIL == ""){
-				echo "<div class='alert alert-danger'>You must confirm your <strong>Email</strong>!</div>";
-			}else if($MCUSER == ""){
-				echo "<div class='alert alert-danger'>You must hava a <strong>Paied Minecraft User Account</strong>!</div>";
-			}else if($PASS == ""){
-				echo "<div class='alert alert-danger'>You must enter a <strong>Password</strong>!</div>";
-			}else if($CPASS == ""){
-				echo "<div class='alert alert-danger'>You must confirm your <strong>Password</strong>!</div>";
 			}
 			?>
+			<!-- SOME SORT OF ENDING ALERT -->
 			<form action="" method="post">
 					<div class="form-group">
-						<input type="text" name="FirstName" id="FirstName "placeholder="FirstName"/>
+						<input type="text" name="FirstName" id="FirstName" placeholder="FirstName" autocomplete="off" value="<?php echo escape(Input::get('FirstName'));?>" />
 					</div>
 					<div class="form-group">
-						<input type="text" name="LastName" id="LastName" placeholder="LastName"/>
+						<input type="text" name="LastName" id="LastName" placeholder="LastName" autocomplete="off" value="<?php echo escape(Input::get('LastName'));?>" />
 					</div>
 					<div class="form-group">
-						<input type="text" name="UName" id="UName" placeholder="User Name"/>
+						<input type="text" name="UName" id="UName" placeholder="User Name" autocomplete="off" value="<?php echo escape(Input::get('UName'));?>" />
 					</div>
 					<div class="form-group">
-						<input type="text" name="EMAIL" id="EMAIL" placeholder="Email">
+						<input type="text" name="EMAIL" id="EMAIL" placeholder="Email" autocomplete="off" value="<?php echo escape(Input::get('EMAIL'));?>" >
 					</div>
 					<div class="form-group">
-						<input type="text" name="CEmail" id="CEmail" placeholder="ConfirmEmail"/>
+						<input type="text" name="CEmail" id="CEmail" placeholder="ConfirmEmail" autocomplete="off" value="<?php echo escape(Input::get('CEmail'));?>" />
 					</div>
 					<div class="form-group">
-						<input type="text" name="MCUSER" id="MCUSER" placeholder="MINECRAFT USER"/>
+						<input type="text" name="MCUSER" id="MCUSER" placeholder="MINECRAFT USER" autocomplete="off" value="<?php echo escape(Input::get('MCUSER'));?>" />
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<input type="text" name="Password" id="Password" placeholder="Password"/>
+							<input type="text" name="Password" id="Password" placeholder="Password" autocomplete="off" value="<?php echo escape(Input::get('Password'));?>" />
 						</div>
 						<div class="form-group">
-							<input type="text" name="CPass" id="CPass" placeholder="CONFIRM PASSWORD"/>
+							<input type="text" name="CPass" id="CPass" placeholder="CONFIRM PASSWORD" autocomplete="off" value="<?php echo escape(Input::get('CPass'));?>" />
 						</div>
 					</div>
-					<input type="submit" value="Submit"/>
+					<input type="hidden" name="token" value"<?php Token::generate()?>">
+					<div class="form-group">
+						<input type="submit" value="Register"/>
+					</div>
 				</form>
 			</div>
 		</div>
