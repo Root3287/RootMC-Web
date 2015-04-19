@@ -1,5 +1,4 @@
 <?php
-//E15
 $page ="home";
 define('path', '');
 require path.'php/init.php';

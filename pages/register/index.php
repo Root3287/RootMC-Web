@@ -116,7 +116,7 @@ if(Input::exists()){
 							<input type="text" name="CPass" id="CPass" placeholder="CONFIRM PASSWORD" autocomplete="off" value="<?php echo escape(Input::get('CPass'));?>" />
 						</div>
 					</div>
-					<input type="hidden" name="token" value"<?php Token::generate()?>">
+					<input type="hidden" name="token" value="<?php echo Token::generate();?>" />
 					<div class="form-group">
 						<input type="submit" value="Register"/>
 					</div>

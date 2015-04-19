@@ -1,56 +1,88 @@
 <?php
 	class user{
-		public $db;
-		private $_cookie, $_data, $_logIn,$_rank;
-	
+		private $_db,$_cookie, $_data,$_rank, $_SessionName, $_logIn;
 		public function __construct(){
-			$this->db = db::getInstance();
+			$this->_db = db::getInstance();
 			$this->_cookie = new Cookies();
+			$this->_SessionName = config::get('session/Name');
+			if(!$user){
+				if(session::exsits($this->_SessionName)){
+					$user = Session::get($this->_SessionName);
+					if($this->find($user)){
+						$this->_logIn = true;
+					}else{
+						//Log out
+					}
+				}
+			}else{
+				$this->find($user);
+			}
 		}
 		public function getRank(){
-			$q = $this->db->query("SELECT RankId FROM Users");
+			$q = $this->_db->query("SELECT RankId FROM Users");
 			$this->_rank = $q->result();
 			$this->_data = $this->_rank;
 			return $this;
 		}
-		public function login($user = null , $pass = null, $remember = false){
-			if($user !=null && $pass !=null){
-				$prepare = $this->db->connect()->getConnection()->prepare("SELECT * FROM user WHERE UserName=?");
-				$prepare->bindParam(1, $user);
-				$prepare->execute();
-				
+		public function login($username = null , $pass = null, $remember = false){
+			if(!$username && !$pass && $this->exsits()){
+				Session::put($this->_SessionName, $this->data()->id);
+			}else{
+				$user = $this->find();
+				if($user){
+					if($this->data()->Password === Hash::make($pass, $this->data()->salt)){
+						Session::put($this->_SessionName, $this->data()->id);
+						if($remember){
+							$hash =  Hash::unique();
+							$hashcheck = $this->_db->get('sessions', array('User_Id', '=', $this->data()->id));
+							
+							if(!$hashcheck->count()){
+								$this->_db->insert('sessions', array(
+										'User_Id' => $this->data()->id,
+										'hash' => $hash,
+								));
+							}else{
+								$hash = $hashcheck->first()->hash;
+							}
+							
+							Cookies::put(config::get('cookie/type'), config::get('cookie/name').'_session', $hash, config::get('cookie/expire'));
+							
+						}
+						return true;
+					}
+				}
 			}
+			return false;
 		}
+		
+		public function logout(){
+			session::delete($this->_SessionName);
+			Cookies::cookieExpire($this->_cookieName);
+		}
+		
+		public function find($user= null){
+			if ($user){
+				$field = (is_numeric($user)) ? 'id' : 'username';
+				$data = $this->_db->get('users', array($field, '=', $user));
+				
+				if($data->count()){
+					$this->_data = $data->first();
+					return true;
+				}
+			}
+			return false;
+		}
+		
 		public function create($fields = array()){
-			if(!$this->db->insert('user', $fields)){
+			if(!$this->_db->insert('user', $fields)){
 				throw new Exception(''); //TODO: make error
 			}
 		}
 		public function isLoggedIn(){
-			$return = false;
-			if(($this->_logIn)&&(Cookies::isCookieSet('Session_Id'))){
-				$connection = $this->_db->query('SELECT * FROM connections WHERE Ip='.$_SERVER['REMOTE_ADDR'])->result();
-				foreach($connection as $conn){
-					if($conn['Ip'] == $_SERVER['REMOTE_ADDR']){
-						if(time()<$conn['Exspire']){
-							$return = true;
-						}else{
-							$return = false;
-						}
-					}else{
-						$return = false;
-					}
-				}
-				
-			}else{
-				$return = false;
-			}
-			$this->_logIn = $return;
-			$this->_data = $this->_logIn;
-			return $this;
+			return $this->_logIn;
 		}
 		public function userExsit($username){
-			$q = $this->db->getConnection()->prepare("SELECT UserName FROM UserName WHERE UserName = ?");
+			$q = $this->_db->getConnection()->prepare("SELECT UserName FROM UserName WHERE UserName = ?");
 			$q->bindParam(1, $username);
 			$q->execute();
 		}

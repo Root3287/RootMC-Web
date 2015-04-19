@@ -21,15 +21,6 @@ class install{
 		//TODO: SESSION Name, COOKIES NAME, Token Name, Remember me on both ends
 		$insert=
 		'<?php'.PHP_EOL.
-		'$SQL = array('.PHP_EOL.
-		'	"HOST"=>"'.$this->_host.'",'.PHP_EOL.
-		'	"PORT"=>"'.$this->_port.'",'.PHP_EOL.
-		'	"USER"=>"'.$this->_user.'",'.PHP_EOL.
-		'	"PASSWORD"=>"'.$this->_pass.'",'.PHP_EOL.
-		'	"DATABASE"=>"'.$this->_db.'",'.PHP_EOL.
-		'	"PREFIX"=>"'.$this->_prefix.'",'.PHP_EOL.
-		');'.PHP_EOL.
-		''.PHP_EOL.
 		'//The configuration for your server'.PHP_EOL.
 		'$CONFIG = array('.PHP_EOL.
 		'	"SERVERNAME"=>"'.$this->_ServName.'",'.PHP_EOL.
@@ -48,6 +39,10 @@ class install{
 		'	"SERVERNAME"=>"'.$this->_ServName.'",'.PHP_EOL.
 		'	"SERVERIP"=>"'.$this->_ServIP.'",'.PHP_EOL.
 		'	"DISPLAYIP"=>"'.$this->_ServDISP.'",'.PHP_EOL.
+		'	"Cookies"=> array('.PHP_EOL.
+		'		"Remember"=>array("Name"=>"Cookies", "Type" => "day", "Expire" =>"30"),'.PHP_EOL.
+		'	),'.PHP_EOL.
+		'	"Session"=> array("Name" => "Session")",'.PHP_EOL.
 		');'.PHP_EOL.
 		'?>';
 		$this->createMysql_one();
