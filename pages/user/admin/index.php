@@ -5,7 +5,7 @@ require path.'php/init.php';
 
 $install = path."install/index.php";
 
-if(file_exists($install)){
+if(file_exists(path.'install/index.php')){
 	$installExists = "true";
 } 
 
@@ -13,6 +13,11 @@ if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
 	$pagenum = '0';
 }else{
 	$pagenum = $_GET['p'];
+}
+
+$user = new user();
+if(!$user->hasPermission('admin')){
+	Redirect::to(path.'index.php');
 }
 ?>
 <html>
