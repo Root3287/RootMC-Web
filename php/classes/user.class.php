@@ -81,6 +81,29 @@
 		public function isLoggedIn(){
 			return $this->_logIn;
 		}
+		public function update($fields = array(), $id = NULL){
+			
+			if(!$id && $this->_logIn){
+				$id = $this->data()->id;
+			}
+			
+			if(!$this->_db->update('users', $id, $fields)){
+				throw new Exception('There was a problem updating');
+			}else{
+				
+			}
+		}
+		public function hasPermission($perms){
+			$group = $this->_db->get('Rank', array("id",'=',"$this->data()->group"));
+			if($group->count()){
+				$permission = json_decode($group->first()->permissions);
+				
+				if($permission[$key] == true){
+					return true;
+				}
+			}
+			return false;
+		}
 		public function userExsit($username){
 			$q = $this->_db->getConnection()->prepare("SELECT UserName FROM UserName WHERE UserName = ?");
 			$q->bindParam(1, $username);
