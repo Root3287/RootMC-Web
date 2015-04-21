@@ -18,12 +18,6 @@
 				$this->find($user);
 			}
 		}
-		public function getRank(){
-			$q = $this->_db->query("SELECT RankId FROM Users");
-			$this->_rank = $q->result();
-			$this->_data = $this->_rank;
-			return $this;
-		}
 		public function login($username = null , $pass = null, $remember = false){
 			if(!$username && !$pass && $this->exsits()){
 				Session::put($this->_SessionName, $this->data()->id);
