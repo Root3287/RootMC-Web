@@ -5,7 +5,7 @@ require path.'php/init.php';
 require path.'php/classes/forums.class.php';
 $user = new user();
 $forums = new forums();
-$cats = $forums->getCat($user->getGroupID());
+$cats = $forums->getCat($user->getRank());
 ?>
 <html>
 	<head>
