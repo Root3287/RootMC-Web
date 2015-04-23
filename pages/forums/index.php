@@ -46,17 +46,40 @@ $cats = $forums->getCat($user->data()->Rank);
 								</div>
 								<div class="panel-body">
 									<table>
-									<?php 
-									foreach($cats as $cat){
-									?>
-									<tr>
-										<td>
-											
-										</td>
-									</tr>
-									<?php
-									}
-									?>
+										<thead>
+											<tr>
+												<th>
+													#
+												</th>
+												<th>
+													Name
+												</th>
+												<th>
+													Description
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											$n = 0;
+											foreach($cats as $cat){
+											?>
+											<tr>
+												<td>
+													<?php echo $cat[$n]; ?>
+												</td>
+												<td>
+													<?php echo $cat[$n]['Title'];?>
+												</td>
+												<td>
+													<?php echo $cat[$n]['DESC'];?>
+												</td>
+											</tr>
+											<?php
+											$n++;
+											}
+											?>
+										</tbody>
 									</table>
 								</div>
 							</div>

@@ -22,18 +22,6 @@
 			return self::$_instance;
 		}
 		
-		public function createTable($table, $tableVal){
-			 $this->_query = $this->query("CREATE TABLE $table($tableVal)");
-			 $this->_result = $this->_query->fetchAll();
-			 return $this;
-		}
-		
-		public function asc($table, $row){
-			$this->_query = $this->query("SELECT * FROM $table ORDER BY $row ASC");
-			$this->_result = $this->_query->fetchAll();
-			return $this;
-		}
-		
 		public function limit($table, $limit){
 			if($limit >= 1){
 				$this->_query = $this->query("SELECT * FROM $table LIMIT $limit");
@@ -42,12 +30,6 @@
 			}else{ 
 				return null;
 			}
-		}
-		
-		public function asc_Where($table, $where, $row){
-			$this->_query = $this->query("SELECT * FROM $table WHERE $where ORDER BY $row ASC");
-			$this->_result = $this->_query->fetchAll();
-			return $this;
 		}
 		
 		public function query($query, $params = array()){
@@ -122,7 +104,7 @@
 				$i++;
 			}
 			
-			$sql = "UPDATE $table SET $set WHREE id = $id";
+			$sql = "UPDATE $table SET $set WHERE id = $id";
 			if(!$this->query($sql, $fields)->error()){
 				return true;
 			}
