@@ -43,6 +43,14 @@
 			$return = array();
 			$n = 0;
 			foreach($topics as $topic){
+				$return[$n]['Title'] = $topic->Title;
+				$return[$n]['Content'] = $topic->Content;
+				$return[$n]['Author'] = $topic->Author;
+				if($topic->locked == 0){
+					$return[$n]['Locked'] = true;
+				}else{
+					$return[$n]['Locked'] = false;
+				}
 				$n++;	
 			}
 		}
