@@ -37,8 +37,14 @@
 			return $return;
 		}
 		
-		public function getTopics($group_id, $cat_id){
-
+		public function getTopics($group_id, $topic_id){
+			$topics = $this->_db->get('topic', array('id','=',$topic_id));
+			
+			$return = array();
+			$n = 0;
+			foreach($topics as $topic){
+				$n++;	
+			}
 		}
 	}
 ?>
