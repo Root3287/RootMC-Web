@@ -98,10 +98,15 @@
 			}
 			return false;
 		}
-		public function userExsit($username){
-			$q = $this->_db->getConnection()->prepare("SELECT UserName FROM UserName WHERE UserName = ?");
-			$q->bindParam(1, $username);
-			$q->execute();
+		public function addFriend($user2){
+			if($this->_logIn){
+				if($this->find($user2)){
+				$this->_db->insert('friends', array(
+					'UserID' => $this->data->id,
+					'FriendID' => $user2,
+				));
+				}
+			}
 		}
 		public function data(){
 			return $this->_data;
