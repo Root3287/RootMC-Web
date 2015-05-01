@@ -42,7 +42,7 @@ class install{
 		'	"Cookies"=> array('.PHP_EOL.
 		'		"Remember"=>array("Name"=>"Cookies", "Type" => "day", "Expire" =>"30"),'.PHP_EOL.
 		'	),'.PHP_EOL.
-		'	"Session"=> array("Name" => "Session")",'.PHP_EOL.
+		'	"Session"=> array("Name" => "Session"),'.PHP_EOL.
 		');'.PHP_EOL.
 		'?>';
 		$this->createMysql_one();
