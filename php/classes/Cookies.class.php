@@ -87,5 +87,12 @@
 				break;
 			}
 		}
+		public static function isCookieSet($cookie){
+			if(isset($cookie)){
+				return true;
+			}else{
+				return false;
+			}
+		}
 	}	
 ?>
