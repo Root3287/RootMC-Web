@@ -15,6 +15,7 @@ class blog{
 			$return[$n]['Author'] = $post['Author'];
 			$n++;
 		}
+		return $return;
 	}
 	public function createNew($title, $content, $author){
 		
