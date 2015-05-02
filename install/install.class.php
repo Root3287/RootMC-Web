@@ -88,7 +88,7 @@ class install{
 	public function queries_two(){
 		$queries = array(
 				//Create Table user
-				"CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100), MCUser varchar(20), UUID varchar(100), Password varchar(255), Salt varchar(255), Rank int(20), Joined DATETIME,PRIMARY KEY(id))",
+				"CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100),MCUser varchar(20), UUID varchar(100), Password varchar(255), Salt varchar(255), Rank int(20), Joined DATETIME,PRIMARY KEY(id))",
 				//Create Table Cat
 				"CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255), Parent int(11) DEFAULT '0', Parent_ID int(22) DEFAULT '0', Cat_Order int(11), Front_Page int(11) DEFAULT '0', view_access int(11) DEFAULT '0')",
 				//Create Table Reply

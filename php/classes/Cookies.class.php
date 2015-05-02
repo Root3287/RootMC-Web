@@ -88,7 +88,7 @@
 			}
 		}
 		public static function isCookieSet($cookie){
-			if(isset($cookie)){
+			if(isset($_COOKE[$cookie])){
 				return true;
 			}else{
 				return false;

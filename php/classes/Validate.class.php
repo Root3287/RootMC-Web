@@ -18,29 +18,30 @@ class Validate{
 					switch ($rule){
 						case 'min':
 							if(strlen($value) < $rule_value){
-								$this->addError(""); //TODO: add error useing $item and $rule_value
+								$this->addError("{$item} has the min length of {$rule_value}"); //TODO: add error useing $item and $rule_value
 							}
 						break;
 						case 'max':
 							if(strlen($value)> $rule_value){
-								$this->addError(""); //TODO: add error
+								$this->addError("{$item} has the max length of {$rule_value}"); //TODO: add error
 							}
 						break;
 						case 'maches':
 							if($value != $source[$rule_value]){
-								$this->addError(""); //TODO: add error
+								$this->addError("{$item} must match {$rule_value}"); //TODO: add error
 							}
 						break;
 						case 'unique':
 							$check = $this->_db->get($rule_value, array($item, '=', $value));
 							
 							if($check->count()){
-								$this->addError(""); //TODO: add error
+								$this->addError("{$item} already exsits!"); //TODO: add error
 							}
 						break;
 					}
 				}
 			}
+			return $this;
 		}
 		
 		if(empty($this->_errors)){

@@ -12,7 +12,7 @@
 		}
 		public function getCat($rank=null){
 			if($rank == null){
-				$group = 0;
+				$group = 0; //Guest
 			}
 			$return = array();
 			$n = 0;

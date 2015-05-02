@@ -1,7 +1,7 @@
 <?php
 	class user{
 		private $_db,$_cookie, $_data,$_rank, $_SessionName, $_logIn;
-		public function __construct(){
+		public function __construct($user = null){
 			$this->_db = db::getInstance();
 			$this->_cookie = new Cookies();
 			$this->_SessionName = config::get('session/Name');
@@ -68,7 +68,7 @@
 		}
 		
 		public function create($fields = array()){
-			if(!$this->_db->insert('user', $fields)){
+			if(!$this->_db->insert('users', $fields)){
 				throw new Exception(''); //TODO: make error
 			}
 		}
@@ -113,6 +113,9 @@
 		}
 		public function exsits(){
 			return (!empty($this->_data)) ? true : false;
+		}
+		public function getRank(){
+			return $this->_data->Rank;
 		}
 	}
 ?>

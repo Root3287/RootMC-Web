@@ -51,15 +51,15 @@ if(Input::exists()){
 			try{
 				//TODO: Fix database name
 				$user->create(array(
-				//		'First_name' => Input::get('FirstName'),
-				//		'Last_Name' => Input::get('LastName'),
-				//		'username' => Input::get('UName'),
-				//		'Email' => Input::get('Email'),
-				//		'Salt' => $salt,
-				//		'MCUser' => Input::get('MCUser'),
-				//		'Password' => Input::get('Password')
-				//		'Joined' => data('M-D-Y H:i:s'),
-				//		'Rank' => 1 
+						'First_name' => Input::get('FirstName'),
+						'Last_Name' => Input::get('LastName'),
+						'UserName' => Input::get('UName'),
+						'Email' => Input::get('Email'),
+						'Salt' => $salt,
+						'MCUser' => Input::get('MCUser'),
+						'Password' => Input::get('Password'),
+						'Joined' => data('M-D-Y H:i:s'),
+						'Rank' => 1 
 				));
 			}catch (Exception $e){
 				$e->getMessage();
@@ -81,6 +81,7 @@ if(Input::exists()){
 		<div class="container">
 			<div class="row">
 			<!-- SOME SORT OF ALERT -->
+			<div class="alert alert-danger">
 			<?php 
 			if(!$validation->pass()){
 				foreach ($validation->errors() as $error){
@@ -88,6 +89,7 @@ if(Input::exists()){
 				}
 			}
 			?>
+			</div>
 			<!-- SOME SORT OF ENDING ALERT -->
 			<form action="" method="post">
 					<div class="form-group">

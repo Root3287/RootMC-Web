@@ -22,10 +22,6 @@ if(Input::exists()){
 				Session::flash('home', 'Logged in');
 				Redirect::to(path.'index.php');
 			}
-		}else{
-			foreach ($validation->errors() as $error){
-				//TODO: ERROR
-			}
 		}
 	}
 }
@@ -37,6 +33,11 @@ if(Input::exists()){
 	</head>
 	<body>
 		<div class="container">
+			<?php if(!$validation->pass()){?>
+			<div class="alert alert-danger">
+			<?php foreach ($validation->errors() as $error){echo $error.'<br/>';}?>
+			</div>
+			<?php }?>
 			<div class="row">
 				<form action="" method="post">
 					<div class="form-group">
