@@ -22,6 +22,9 @@ if(Input::exists()){
 				Session::flash('home', 'Logged in');
 				Redirect::to(path.'index.php');
 			}
+			$pass = true;
+		}else{
+			$pass = false;
 		}
 	}
 }
@@ -33,7 +36,9 @@ if(Input::exists()){
 	</head>
 	<body>
 		<div class="container">
-			<?php if(!$validation->pass()){?>
+			<?php 
+				if(!$pass){
+			?>
 			<div class="alert alert-danger">
 			<?php foreach ($validation->errors() as $error){echo $error.'<br/>';}?>
 			</div>
