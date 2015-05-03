@@ -32,7 +32,7 @@
 			}
 		}
 		
-		public function query($query, $params = array()){
+		public function query($query, $prams = array()){
 			$this->_error = false;	
 			if($this->_query = $this->_connect->prepare($query)){
 				if(count($prams)){

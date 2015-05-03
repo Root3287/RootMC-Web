@@ -16,9 +16,9 @@
 			}
 			$return = array();
 			$n = 0;
-			$cataccess= $this->_db->query('SELECT * FROM cat_perms')->results();
+			$cataccess= $this->_db->query('SELECT * FROM cat_perms');
 			foreach($cataccess as $perm){
-				$cats = $this->_db->get('category')->results();
+				$cats = $this->_db->get('category');
 				foreach ($cats as $cat){
 					if($perm->Cat_id == $cat->id){// MATCHES THE CAT WITH THE PERM
 						if($perm->view_access == 1){// EVERONE CAN VIEW
