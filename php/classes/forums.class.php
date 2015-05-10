@@ -5,7 +5,15 @@
 			$this->_db = db::getInstance(); 
 		}
 		public function newTopic($catID, $title, $content, $author){
-			$this->_db->query("INSERT INTO topics(CId, Title, Content, Author) VALUES (\"$catID\" , \"$title\", \"$content\", \"$author\")");
+			$stitle = escape($title);
+			$scontent = escape($content);
+			$this->_db->insert('topics', array(
+					'Cid' => $catID,
+					'Title' => $stitle,
+					'Content' => $scontent,
+					'Author' => $author,
+					'date' => Date(),
+ 			));
 		}
 		public function newReply($tid, $title, $content, $author){
 			$data = $this->_db->query("INSERT INTO reply(TId, Title, Content, Author, Time) VALUES (\"$tid\",\"$title\",\"$content\",\"$author\")")->result();

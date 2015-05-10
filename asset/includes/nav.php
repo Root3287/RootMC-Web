@@ -33,7 +33,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php
-          if(Cookies::isCookieSet('Session_Id')){
+          if(Cookies::exists('Session_Id')){
           ?>
             <li><a href="#">Mail Box</a></li>
               <li class="dropdown">

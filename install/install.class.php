@@ -42,11 +42,9 @@ class install{
 		'	"Cookies"=> array('.PHP_EOL.
 		'		"Remember"=>array("Name"=>"Cookies", "Type" => "day", "Expire" =>"30"),'.PHP_EOL.
 		'	),'.PHP_EOL.
-		'	"Session"=> array("Name" => "Session"),'.PHP_EOL.
+		'	"Session"=> array("Name" => "Session","token_name" => "token"),'.PHP_EOL.
 		');'.PHP_EOL.
 		'?>';
-		$this->createMysql_one();
-		$this->queries_one();
 		$this->createMysql_two();
 		$this->queries_two();
 		
@@ -67,19 +65,8 @@ class install{
 			return $Iconfig.'<br/>Woops! Something went wrong! The file is not readable! you have to insert it manually into home/php/config.php! <a href=\'index.php?step=config\'>CLICK ME!</a>';
 		}
 	}
-	public function createMysql_one(){
-		$conn = new mysqli($this->_host, $this->_user, $this->_pass,null,$this->_port);
-		return $conn;
-	}
-	public function close_one(){
-		$this->createMysql_one()->close();
-	}
-	public function queries_one(){
-		$this->createMysql_one()->query("CREATE DATABASE ".$this->_db);
-		$this->close_one();
-	}
 	public function createMysql_two(){
-		$conn = new mysqli($this->_host, $this->_user, $this->_pass,null,$this->_port);
+		$conn = new mysqli($this->_host, $this->_user, $this->_pass,$this->_db,$this->_port);
 		return $conn;
 	}
 	public function close_two(){
@@ -111,7 +98,11 @@ class install{
 				//Create table Connections
 				"CREATE TABLE sessions(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, User_Id int(255) NOT NULL, Hash TEXT)",
 				//Create Blog or Front page.
-				"CREATE TABLE blog(id int NOT NULL AUTO_INCREMENT, Title text, Content Longtext, Author int(11))"
+				"CREATE TABLE blog(id int NOT NULL AUTO_INCREMENT, Title text, Content Longtext, Author int(11))",
+				
+				"INSERT INTO categories(Cat_Title, Cat_Desc, Parent, Cat_Order) VALUES (`First`, `This is the first cat`, `1`, `1`)",
+		
+				"INSERT INTO categories(Cat_Title, Cat_Desc, Parent_ID, Cat_Order) VALUES (`Second`, `This is the child of the first cat`, `1`, `1`)"
 		);
 		
 		foreach ($queries as $query){

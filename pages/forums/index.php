@@ -5,7 +5,8 @@ require path.'php/init.php';
 require path.'php/classes/forums.class.php';
 $user = new user();
 $forums = new forums();
-$cats = $forums->getCat($user->getRank());
+
+//$cats = $forums->getCat($user->data()->Rank);
 ?>
 <html>
 	<head>
@@ -42,45 +43,34 @@ $cats = $forums->getCat($user->getRank());
 							<h2>Login</h2>
 							<div class="panel panel-bg">
 								<div class="panel-heading">
-										Categoies
+										Categories
 								</div>
 								<div class="panel-body">
-									<table>
-										<thead>
-											<tr>
-												<th>
-													#
-												</th>
-												<th>
-													Name
-												</th>
-												<th>
-													Description
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php
+									<ul class="nav nav-list">
+										<?php
+										if($user->isLoggedIn()){
+											$cats = $forums->getCat($user->data()->Rank);
 											$n = 0;
 											foreach($cats as $cat){
-											?>
-											<tr>
-												<td>
-													<?php echo $cat[$n]; ?>
-												</td>
-												<td>
-													<?php echo $cat[$n]['Title'];?>
-												</td>
-												<td>
-													<?php echo $cat[$n]['DESC'];?>
-												</td>
-											</tr>
-											<?php
-											$n++;
+												if($cat['Parent']){
+													echo "<li class='nav-header'>".$cat['Title']."</li>";
+												}else{
+													echo "<li><a href='view_category.php?cid=".$cat['id']."'>".$cat['Title']."</a></li>";
+												}
 											}
-											?>
-										</tbody>
-									</table>
+										}else{
+											$cats = $forums->getCat(0);
+											$n = 0;
+											foreach($cats as $cat){
+												if($cat['Parent']){
+													echo "<li class='nav-header'>".$cat['Title']."</li>";
+												}else{
+													echo "<li><a href='view_category.php?cid=".$cat['id']."'>".$cat['Title']."</a></li>";
+												}
+											}
+										}
+										?>
+									</ul>
 								</div>
 							</div>
 						</div>
