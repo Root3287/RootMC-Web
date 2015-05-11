@@ -6,7 +6,7 @@ $user = new User;
 if(Input::exists()){
 	if(Token::check(Input::get('token'))){
 		$validate = new Validate();
-		$validation = $validate->check($_POST, array(
+		$val = $validate->check($_POST, array(
 				'USER'=> array(
 					'required' => true,
 				),
@@ -15,7 +15,7 @@ if(Input::exists()){
 				),
 		));
 		
-		if($validation->pass()){
+		if($val->pass()){
 			$remember = (Input::get('remember') === 'on') ? true : false;
 			$login = $user->login(Input::get('USER'), input::get('PASS'), $remember);
 			if($login){

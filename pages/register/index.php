@@ -23,50 +23,43 @@ if($user->isLoggedIn()){
 				if(Token::check(Input::get('token'))){
 					$validate = new Validate();
 					$validation = $validate->check($_POST, array(
-							"FirstName" => array(
-									'required' => true,
-									'min' => '2',
-									'max' => '20',
+							'FirstName' => array(
+								'required' => true,
+								'min' => '2',		
 							),
-							"LastName" => array(
-									'required' => true,
-									'min' => '2',
-									'max' => '20',
+							'LastName' => array(
+								'requried' => true,	
 							),
-							"UName" => array(
-									'required' => true,
-									'min' => '2',
-									'max' => '20',
-									'unique' => 'users'
+							'UName' => array(
+								'required' => true,
+								'unique' => 'users',		
 							),
-							"EMAIL" => array(
-									'required' => true,
-									'min' => '2',
-									'max' => '20',
+							'Email' => array(
+								'required' => true,		
 							),
-							"CEmail" => array(
-									'required' => true,
-									'matches' => 'EMAIL'
+							'CEmail' => array(
+								'required' => true,
+								'matches' => 'Email'
 							),
-							"MCUSER" => array(
-									'required' => true,
-									'max' => '16',
+							'MCUser' => array(
+								'required' => true,
+								'min' => '2',
+								'max' => '16',
+								'unique' => 'users'		
 							),
-							"Password" => array(
-									'required' => true,
-									'min' => '8',
-									'max' => '50',
+							'Password' => array(
+								'required' => true,
+								'min' => '8'		
 							),
-							"CPass" => array(
-									'required' => true,
-									'matches' => 'Password',
+							'CPass' => array(
+								'required' => true,
+								'matches' => 'Password'		
 							),
 					));
 					if($validation->pass()){
-							
+						//TODO: REGISTER USER
 						$salt = Hash::salt(32);
 						try{
-							//TODO: Fix database name
 							$user->create(array(
 									'First_name' => Input::get('FirstName'),
 									'Last_Name' => Input::get('LastName'),
@@ -96,9 +89,9 @@ if($user->isLoggedIn()){
 			?>
 			</div>
 			<!-- SOME SORT OF ENDING ALERT -->
-			<form action="index.php" method="post">
+			<form action="" method="post">
 					<div class="form-group">
-						<input class="form-control" type="text" name="FirstName" id="FirstName" placeholder="FirstName" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('FirstName'));}?>" />
+						<input class="form-control" type="text" name="FirstName" id="FirstName" placeholder="First Name" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('FirstName'));}?>" />
 					</div>
 					<div class="form-group">
 						<input class="form-control" type="text" name="LastName" id="LastName" placeholder="LastName" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('LastName'));}?>" />
@@ -107,13 +100,13 @@ if($user->isLoggedIn()){
 						<input class="form-control" type="text" name="UName" id="UName" placeholder="User Name" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('UName'));}?>" />
 					</div>
 					<div class="form-group">
-						<input class="form-control" type="text" name="EMAIL" id="EMAIL" placeholder="Email" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('EMAIL'));}?>" >
+						<input class="form-control" type="text" name="Email" id="Email" placeholder="Email" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('EMAIL'));}?>" >
 					</div>
 					<div class="form-group">
-						<input class="form-control" type="text" name="CEmail" id="CEmail" placeholder="ConfirmEmail" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('CEmail'));}?>" />
+						<input class="form-control" type="text" name="CEmail" id="CEmail" placeholder="Confirm Email" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('CEmail'));}?>" />
 					</div>
 					<div class="form-group">
-						<input class="form-control" type="text" name="MCUSER" id="MCUSER" placeholder="MINECRAFT USER" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('MCUSER'));}?>" />
+						<input class="form-control" type="text" name="MCUser" id="MCUser" placeholder="MINECRAFT USER" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('MCUSER'));}?>" />
 					</div>
 					<div class="row">
 						<div class="form-group">
