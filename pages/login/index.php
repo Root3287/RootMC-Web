@@ -1,66 +1,68 @@
 <?php 
-$page = "Login";
 define('path', '../../');
+$page = "Login";
 require path.'php/init.php';
-$user = new User;
-if(Input::exists()){
-	if(Token::check(Input::get('token'))){
-		$validate = new Validate();
-		$val = $validate->check($_POST, array(
-				'USER'=> array(
-					'required' => true,
-				),
-				'PASS' => array(
-					'required' => true,
-				),
-		));
-		
-		if($val->pass()){
-			$remember = (Input::get('remember') === 'on') ? true : false;
-			$login = $user->login(Input::get('USER'), input::get('PASS'), $remember);
-			if($login){
-				Session::flash('home', 'Logged in');
-				Redirect::to(path.'index.php');
-			}
-			$pass = true;
-		}else{
-			$pass = false;
-		}
-	}
+$user = new user();
+if($user->isLoggedIn()){
+	Session::flash('Home', 'Your already logged in silly');
+	Redirect::to(path.'index.php');
 }
 ?>
 <html>
 	<head>
-		<title><?php echo $CONFIG['SERVERNAME']." &bull; LOGIN";?></title>
+		<title><?php echo $CONFIG['SERVERNAME']." &bull; Register"?></title>
 		<?php include path.'asset/includes/css.php';?>
 	</head>
 	<body>
+		<?php include path.'asset/includes/nav.php';?>
 		<div class="container">
-			<?php 
-				if(!$pass){
-			?>
-			<div class="alert alert-danger">
-			<?php foreach ($validation->errors() as $error){echo $error.'<br/>';}?>
-			</div>
-			<?php }?>
 			<div class="row">
-				<form action="" method="post">
+			<!-- SOME SORT OF ALERT -->
+			<?php 
+			if(Input::exists()){
+				if(Token::check(Input::get('token'))){
+					$validate = new Validate();
+					$validation = $validate->check($_POST, array(
+							'UName' => array(
+								'required' => true,
+								'unique' => 'users',		
+							),
+							'Password' => array(
+								'required' => true,
+								'min' => '8'		
+							),
+					));
+					if($validation->pass()){
+						//TODO: Login USER
+						echo 'The login is still in beta';
+						// $user->login(Input::get('Uname', Input::get('Password'), Input::get('Remember')))
+						//Session::flash('home', 'You have registered Successfully!');
+						//Redirect::to(path.'index.php');
+					}else{
+						echo '<div class="alert alert-danger">';
+						foreach ($validation->errors() as $error){
+							echo $error.'<br/>';
+						}
+						echo '</div>';
+					}
+				}
+			}
+			?>
+			</div>
+			<!-- SOME SORT OF ENDING ALERT -->
+			<form action="" method="post">
 					<div class="form-group">
-						<input type="text" id="USER" name="USER" placeholder="Username" autocomplete="off">
+						<input class="form-control" type="text" name="UName" id="UName" placeholder="User Name" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('UName'));}?>" />
 					</div>
 					<div class="form-group">
-						<input type="text" id="PASS" name="PASS" placeholder="Password" autocomplete="off"/>
+						<input class="form-control" type="password" name="Password" id="Password" placeholder="Password" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('Password'));}?>" />
 					</div>
+					<input type="hidden" name="token" value="<?php echo Token::generate();?>" />
 					<div class="form-group">
-						<input type="checkbox" id="Remember" name="Remeber"/> Remember Me!
-					</div>
-					<input type="hidden" value="<?php echo token::generate();?>" />
-					<div class="row">
-						<input type="submit" value="Submit"/>
+						<input class="btn btn-primary" type="submit" value="Register"/>
 					</div>
 				</form>
 			</div>
-		</div>
 		<?php include path.'asset/includes/scripts.php';?>
 	</body>
 </html>
