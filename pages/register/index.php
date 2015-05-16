@@ -7,6 +7,48 @@ if($user->isLoggedIn()){
 	Session::flash('Home', 'Your already logged in silly');
 	Redirect::to(path.'index.php');
 }
+if(Input::exists()){
+	if(Token::check(Input::get('token'))){
+	$validate = new Validate();
+	$validation = $validate->check($_POST, array(
+			'FirstName' => array(
+					'required' => true,
+					'min' => '2'
+			),
+			'LastName' => array(
+					'required' => true,
+					'min' => '2'
+			),
+			'UserName' => array(
+					'required' => true,
+					'min'=> '2',
+					'max'=>'16',
+					'unique' => 'users'
+			),
+			'Email' => array(
+					'required' => true,
+			),
+			'CEmail' => array(
+					'required' => true,
+					'matches' => 'Email'
+			),
+			'MCUser' => array(
+					'required' => true,
+					'max' => '16',
+					'unique' => 'users'
+			),
+			'Password' => array(
+					'required' => true,
+					'min' => '6'
+			),
+			'CPass' => array(
+					'required' => true,
+					'matches' => 'Password',
+			),
+	));
+	
+	}
+}
 ?>
 <html>
 	<head>
@@ -17,76 +59,16 @@ if($user->isLoggedIn()){
 		<?php include path.'asset/includes/nav.php';?>
 		<div class="container">
 			<div class="row">
-			<!-- SOME SORT OF ALERT -->
 			<?php 
-			if(Input::exists()){
-				if(Token::check(Input::get('token'))){
-					$validate = new Validate();
-					$validation = $validate->check($_POST, array(
-							'FirstName' => array(
-								'required' => true,
-								'min' => '2',		
-							),
-							'LastName' => array(
-								'requried' => true,	
-							),
-							'UName' => array(
-								'required' => true,
-								'unique' => 'users',		
-							),
-							'Email' => array(
-								'required' => true,		
-							),
-							'CEmail' => array(
-								'required' => true,
-								'matches' => 'Email'
-							),
-							'MCUser' => array(
-								'required' => true,
-								'min' => '2',
-								'max' => '16',
-								'unique' => 'users'		
-							),
-							'Password' => array(
-								'required' => true,
-								'min' => '8'		
-							),
-							'CPass' => array(
-								'required' => true,
-								'matches' => 'Password'		
-							),
-					));
-					if($validation->pass()){
-						//TODO: REGISTER USER
-						$salt = Hash::salt(32);
-						try{
-							$user->create(array(
-									'First_name' => Input::get('FirstName'),
-									'Last_Name' => Input::get('LastName'),
-									'UserName' => Input::get('UName'),
-									'Email' => Input::get('Email'),
-									'Salt' => $salt,
-									'MCUser' => Input::get('MCUser'),
-									'Password' => Input::get('Password'),
-									'Joined' => data('M-D-Y H:i:s'),
-									'Rank' => "1"
-							));
-						}catch (Exception $e){
-							$e->getMessage();
-						}
-							
-						Session::flash('home', 'You have registered Successfully!');
-						Redirect::to(path.'index.php');
-					}else{
-						echo '<div class="alert alert-danger">';
-						foreach ($validation->errors() as $error){
-							echo $error.'<br/>';
-						}
-						echo '</div>';
-					}
+			if(!$validation->passed()){
+				echo '<div class="alert alert-danger">';
+				foreach ($validation->errors() as $errors){
+					echo $errors.'<br/>';
 				}
+				echo '</div>';
 			}
 			?>
+			<!-- SOME SORT OF ALERT -->
 			</div>
 			<!-- SOME SORT OF ENDING ALERT -->
 			<form action="" method="post">
@@ -97,7 +79,7 @@ if($user->isLoggedIn()){
 						<input class="form-control" type="text" name="LastName" id="LastName" placeholder="LastName" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('LastName'));}?>" />
 					</div>
 					<div class="form-group">
-						<input class="form-control" type="text" name="UName" id="UName" placeholder="User Name" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('UName'));}?>" />
+						<input class="form-control" type="text" name="UserName" id="UName" placeholder="User Name" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('UName'));}?>" />
 					</div>
 					<div class="form-group">
 						<input class="form-control" type="text" name="Email" id="Email" placeholder="Email" autocomplete="off" value="<?php if(Input::exists()){echo escape(Input::get('EMAIL'));}?>" >

@@ -10,7 +10,7 @@ class User {
 		$this->_sessionName = Config::get('session/Name');
 		$this->_cookieName = Config::get('Cookies/Name');
 		if (!$user) {
-			if (Session::exsits($this->_sessionName)) {
+			if (Session::exists($this->_sessionName)) {
 				$user = Session::get($this->_sessionName);
 				if ($this->find($user)) {
 					$this->_isLoggedIn = true;

@@ -12,6 +12,7 @@ class config{
 			}
 			return $config;
 		}
+		return false;
 	}
 	public static function getSql($path = null){
 		if($path){
@@ -25,5 +26,6 @@ class config{
 			}
 			return $config;
 		}
+		return false;
 	}
 }

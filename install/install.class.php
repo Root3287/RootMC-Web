@@ -40,9 +40,9 @@ class install{
 		'	"SERVERIP"=>"'.$this->_ServIP.'",'.PHP_EOL.
 		'	"DISPLAYIP"=>"'.$this->_ServDISP.'",'.PHP_EOL.
 		'	"Cookies"=> array('.PHP_EOL.
-		'		"Remember"=>array("Name"=>"Cookies", "Type" => "day", "Expire" =>"30"),'.PHP_EOL.
+		'		"Remember"=>array("cookie_name"=>"hash", "expire" =>"30"),'.PHP_EOL.
 		'	),'.PHP_EOL.
-		'	"Session"=> array("Name" => "Session","token_name" => "token"),'.PHP_EOL.
+		'	"Session"=> array("session_name" => "user","token_name" => "token"),'.PHP_EOL.
 		');'.PHP_EOL.
 		'?>';
 		$this->createMysql_two();

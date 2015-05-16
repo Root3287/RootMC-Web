@@ -1,6 +1,6 @@
 <?php
 	class Cookies{
-		public static function exists($name) {
+		public static function exsits($name) {
 			return (isset($_COOKIE[$name])) ? true : false;
 		}
 		public static function get($name) {
