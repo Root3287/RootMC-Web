@@ -125,7 +125,7 @@ class MinecraftPing
 
 		if( JSON_Last_Error( ) !== JSON_ERROR_NONE )
 		{
-			if( Function_Exists( 'json_last_error_msg' ) )
+			if( Function_exists( 'json_last_error_msg' ) )
 			{
 				throw new MinecraftPingException( JSON_Last_Error_Msg( ) );
 			}

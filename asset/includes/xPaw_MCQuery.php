@@ -91,7 +91,7 @@ foreach( $Data as $Key => $Value )
 {
 if( ~$Key & 1 )
 {
-if( !Array_Key_Exists( $Value, $Keys ) )
+if( !Array_Key_exists( $Value, $Keys ) )
 {
 $Last = false;
 continue;

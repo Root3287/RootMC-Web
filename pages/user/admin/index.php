@@ -6,7 +6,7 @@ require path.'php/init.php';
 $install = path."install/index.php";
 
 if(file_exists(path.'install/index.php')){
-	$installExists = "true";
+	$installexists = "true";
 } 
 
 if( !(isset($_GET['p'])) && $_GET['p'] !=int ){
@@ -247,7 +247,7 @@ if(!$user->hasPermission('admin')){
 											<?php if($pagenum =="5"){?><li>Databases</li><?php }else{?><li><a href="?p=5">Databases</a></li><?php }?>
 											<?php if($pagenum =="6"){?><li>Servers</li><?php }else{?><li><a href="?p=6">Servers</a></li><?php }?>
 											<?php if($pagenum =="7"){?><li>Links</li><?php }else{?><li><a href="?p=7">Links</a></li><?php }?>
-											<?php if($pagenum =="8" && $installExists == "true"){?><li>DELETE INSTALL</li><?php }else{?><li><a href="?p=8">DELETE INSTALL</a></li><?php }?>
+											<?php if($pagenum =="8" && $installexists == "true"){?><li>DELETE INSTALL</li><?php }else{?><li><a href="?p=8">DELETE INSTALL</a></li><?php }?>
 											<?php if($pagenum =="9"){?><li>Panels</li><?php }else{?><li><a href="?p=9">Panels</a></li><?php }?>
 											<?php if($pagenum =="10"){?><li>Password hashes</li><?php }else{?><li><a href="?p=10">Password hashes</a></li><?php }?>
 										</ul> 

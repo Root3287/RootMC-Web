@@ -1,7 +1,7 @@
 <?php
 class Hash{
 	public static function make($string, $salt =''){
-		 return password_hash($salt.$string, 'sha256');
+		 return password_hash($salt.$string, PASSWORD_BCRYPT);
 	}
 	
 	public static function salt($length){

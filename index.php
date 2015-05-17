@@ -18,7 +18,7 @@ require path.'php/init.php';
 			</div>
 			<div class="container">
 				<!-- Some Alert -->
-				<?php if(Session::exsits('home')){echo Session::flash('home');}?>
+				<?php if(Session::exists('home')){echo Session::get('home');}?>
 				<!-- SOme ending ALert -->
 					<div class="jumbotron">
 					<h1>Welcome to <?php echo $CONFIG['SERVERNAME'];?></h1>

@@ -46,7 +46,33 @@ if(Input::exists()){
 					'matches' => 'Password',
 			),
 	));
-	
+		if($validation->passed()){
+			try{
+				$salt = Hash::salt(32);
+				$user->create(array(
+					'First_Name' => Input::get('FirstName'),
+					'Last_Name' => Input::get('LastName'),
+					'UserName' => Input::get('UserName'),
+					'Email' => Input::get('Email'),
+					'MCUser' => Input::get('MCUser'),
+					'Salt' => $salt,
+					'Password' => Hash::make(Input::get('Password'), $salt),
+					'Rank' => 1,
+					'Joined' => date("d-m-y H:i:s")
+				));
+				
+				Session::flash('home', 'You have completely registered!');
+				Redirect::to(path.'index.php');
+			}catch (Exception $e){
+				die( $e->getMessage());
+			}
+		}else{
+			echo '<div class="alert alert-danger">';
+			foreach ($validation->errors() as $errors){
+				echo $errors.'<br/>';
+			}
+			echo '</div>';
+		}
 	}
 }
 ?>
@@ -59,14 +85,7 @@ if(Input::exists()){
 		<?php include path.'asset/includes/nav.php';?>
 		<div class="container">
 			<div class="row">
-			<?php 
-			if(!$validation->passed()){
-				echo '<div class="alert alert-danger">';
-				foreach ($validation->errors() as $errors){
-					echo $errors.'<br/>';
-				}
-				echo '</div>';
-			}
+			<?php
 			?>
 			<!-- SOME SORT OF ALERT -->
 			</div>

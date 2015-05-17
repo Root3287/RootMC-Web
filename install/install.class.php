@@ -75,11 +75,11 @@ class install{
 	public function queries_two(){
 		$queries = array(
 				//Create Table user
-				"CREATE TABLE users(Id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100),MCUser varchar(20), UUID varchar(100), Password varchar(255), Salt varchar(255), Rank int(20), Joined DATETIME,PRIMARY KEY(id))",
+				"CREATE TABLE users(id int NOT NULL AUTO_INCREMENT, First_Name text(30), Last_Name text(30), UserName varchar(100), Email varchar(100),MCUser varchar(20), UUID varchar(100), Password varchar(255), Salt varchar(255), Rank int(20), Joined DATETIME,PRIMARY KEY(id))",
 				//Create Table Cat
 				"CREATE TABLE categories(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cat_Title varchar(255), Cat_Desc varchar(255), Parent int(11) DEFAULT '0', Parent_ID int(22) DEFAULT '0', Cat_Order int(11), Front_Page int(11) DEFAULT '0', view_access int(11) DEFAULT '0')",
 				//Create Table Reply
-				"CREATE TABLE reply(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, TId int(20), Title varchar(255), Content LONGTEXT, Author int(11), Time datetime)",
+				"CREATE TABLE reply(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, TId int(20), Title varchar(255), Content LONGTEXT, Author int(11), Time datetime)",
 				//Create Table Topic
 				"CREATE TABLE topics(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, Cid int(20), Title text(225), Author int(11), Content LONGTEXT, data datetime)",
 				//Create Table Topic Pref
@@ -87,7 +87,7 @@ class install{
 				//Create Table Links 
 				"CREATE TABLE links(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, name varchar(255), Link_Path varchar(255))",
 				// Create Table Friends
-				"CREATE TABLE friends(Id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))",
+				"CREATE TABLE friends(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserID int(255), FriendID int(255))",
 				//Create Table PM
 				"CREATE TABLE pm(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, UserId int(11), UserId2 int(11), Message LONGTEXT)",
 				//Create Table Forums Perm
@@ -96,7 +96,7 @@ class install{
 				// a= ADMINISTRATOR D= DONOR S=Special m=DEFAULT
 				"CREATE TABLE ranks(id int NOT NULL AUTO_INCREMENT, name TEXT, Display_Name TEXT, Permission TEXT, PRIMARY KEY(id))",
 				//Create table Connections
-				"CREATE TABLE sessions(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, User_Id int(255) NOT NULL, Hash TEXT)",
+				"CREATE TABLE sessions(id int PRIMARY KEY NOT NULL AUTO_INCREMENT, user_id int(255) NOT NULL, hash TEXT)",
 				//Create Blog or Front page.
 				"CREATE TABLE blog(id int NOT NULL AUTO_INCREMENT, Title text, Content Longtext, Author int(11))",
 				

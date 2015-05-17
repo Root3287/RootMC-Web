@@ -62,26 +62,20 @@ class db{
 		return false;
 	}
 	
-	public function insert($table, $fields= array()){
-			$keys = array_keys($fields);
-			$values= null;
-			$i =1;
-			
-			foreach ($fields as $field){
-				$values.= "?";
-				if($i < count($fields)){
-					$values .= ', ';
-				}
-				$i++;
-			}
-			
-			$sql = "INSERT INTO {$table}(`".impload(' `,` ',$keys)."`) VALUES ({$values})";
-			
-			if(!$this->query($sql, $fields)->error()){
-				return true;
-			}
+	public function insert($table, $fields = array()) {
+		$keys = array_keys($fields);
+		$values = '';
+		$i = 1;
+		foreach ($fields as $field) {
+			$values .= "?";
+			if ($i < count($fields)) {$values .= ", ";}
+			$i++;
+		}
+		$sql = "INSERT INTO {$table} (`".implode('`, `', $keys)."`) VALUES ({$values}) ";
+		if (!$this->query($sql, $fields)->error()) {return true;}
+	
 		return false;
-	}
+	}	
 	
 	public function update($table, $id ,$fields= array()){
 		$set = '';

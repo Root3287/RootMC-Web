@@ -44,3 +44,6 @@ div.page{
 .home{
 	background: url(/asset/img/Home-BG.png) no-repeat fixed 100%;
 }
+p.white{
+	color: white;
+}
