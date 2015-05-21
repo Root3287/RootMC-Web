@@ -34,3 +34,4 @@ This is the TODO list that I want to complete for the new website and then once.
 	- Delete Friends
 4. RootMC-Plugin
 	- On RootMC-Plugin GIT
+5. Fix bugs
